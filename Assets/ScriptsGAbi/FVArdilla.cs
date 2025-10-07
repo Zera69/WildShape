@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArdillaSimple : MonoBehaviour
+public class FVArdilla : MonoBehaviour
 {
     public float velocidad = 40f;
     public float fuerzaSalto = 25f;
