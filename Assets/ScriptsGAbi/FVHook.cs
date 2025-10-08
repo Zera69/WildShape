@@ -17,6 +17,7 @@ public class FVHook : MonoBehaviour
     public GameObject spawnRope;
     public Camera cam;
     public FVArdilla ScriptArdilla;
+    private bool PresingClick;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class FVHook : MonoBehaviour
         MoveOnHook();
         HandleInput();
         DisableScript();
+        DetectPresing();
     }
 
     void Hook()
@@ -55,22 +57,22 @@ public class FVHook : MonoBehaviour
 
 
         //Si hacmeos click izquierda, no estamos cogidos y detectamos donde cogernos entramos en el if
-        if (Input.GetMouseButtonDown(0) && !isHooked && hit.collider != null)
+        if (PresingClick && !isHooked && hit.collider != null)
         {
             //activamos la conexion
             dj.enabled = true;
             dj.connectedBody = hit.collider.GetComponent<Rigidbody2D>();
             isHooked = true;
-            forceImpulseOnHook = 30f;
+            forceImpulseOnHook = 5f;
             ImpulseOnHook();
         }
-        else if (Input.GetMouseButtonDown(0) && isHooked)
+        else if (!PresingClick && isHooked)
         {
             //descactivamos la conexion
             dj.enabled = false;
             dj.connectedBody = null;
             isHooked = false;
-            forceImpulseOnHook = 30f;
+            forceImpulseOnHook = 5f;
             ImpulseOnHook();
         }
 
@@ -85,7 +87,16 @@ public class FVHook : MonoBehaviour
             Vector2 force = new Vector2(inputHorizontal * forceInHook, 0);
             rb.AddForce(force);
 
-            dj.distance -= inputVertical * 2f * Time.deltaTime;
+            if(dj.distance <3f)
+            {             
+                dj.distance -= inputVertical * 2f * Time.deltaTime;
+            }
+
+            if (dj.distance >= 3f)
+            {
+                dj.distance = 2.9f;
+            }
+
         }
     }
 
@@ -113,4 +124,15 @@ public class FVHook : MonoBehaviour
         }
     }
 
+    void DetectPresing()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            PresingClick = true;
+        }
+        else
+        {
+            PresingClick = false;
+        }
+    }
 }
