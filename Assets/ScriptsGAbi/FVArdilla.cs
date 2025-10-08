@@ -75,6 +75,7 @@ public class FVArdilla : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             enSuelo = false;
+            anim.SetBool("IsJumping", true);
         }
     }
 }
