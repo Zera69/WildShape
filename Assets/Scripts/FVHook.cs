@@ -5,19 +5,19 @@ using UnityEngine;
 public class FVHook : MonoBehaviour
 {
 
-    private float forceInHook = 7f;
+    private float forceInHook = 20f;
+    private float impulseHook = 15f;
 
     public float inputHorizontal;
     public float inputVertical;
 
     public Rigidbody2D rb;
 
-    private bool isHooked = false;
+    public bool isHooked = false;
     private bool isPulling = false;
     private bool PresingClick;
 
     public DistanceJoint2D dj;
-    private DistanceJoint2D djPull;
 
     public LayerMask hookableLayer;
     public LayerMask pullableLayer;
@@ -27,7 +27,7 @@ public class FVHook : MonoBehaviour
     public GameObject spawnRope;
 
     public Camera cam;
-    public FVArdilla ScriptArdilla;
+    public FVSapo ScriptSapo;
     
 
     // Start is called before the first frame update
@@ -41,8 +41,11 @@ public class FVHook : MonoBehaviour
     {
         HookAndPull();
         HandleInput();
-        DisableScript();
         DetectPresing();
+        ChangeMassPulling();
+        ChangeMassHooked();
+
+
     }
 
     void FixedUpdate()
@@ -61,11 +64,12 @@ public class FVHook : MonoBehaviour
         Vector2 direction = (mouseWorldPos - transform.position).normalized;
 
         //Lanzmaos un raycast desde nosotros hacia el raton
-        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3f, hookableLayer);
-        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 3f, pullableLayer);
+        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.5f, hookableLayer);
+        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 5f, pullableLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 3f, Color.blue);
+        Debug.DrawRay(origin, direction * 3.5f, Color.blue);
+        Debug.DrawRay(origin, direction * 5f, Color.red);
 
         //Detectamos si hay algo que hookear a nuestro alcance
         if (hitHook.collider != null)
@@ -94,33 +98,30 @@ public class FVHook : MonoBehaviour
             //descactivamos la conexion
             dj.enabled = false;
             dj.connectedBody = null;
+            ImpulseOnExitHook();
             isHooked = false;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.E) && hitPull.collider != null && !isPulling)
         {
-
-            if (djPull == null)
-            {
-                djPull = pullPoint.AddComponent<DistanceJoint2D>();
-            }
-            djPull.enabled = true;
-            djPull.connectedBody = rb;
+            //activamos la conexion
+            dj.enabled = true;
+            dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
             isPulling = true;
 
         }
         else if (Input.GetKeyDown(KeyCode.E) && isPulling)
         {
-            Destroy(djPull);
+            dj.enabled = false;
+            dj.connectedBody = null;
             isPulling = false;
-            djPull.enabled = false;
-            djPull.connectedBody = null;
         }
 
         if (isPulling && PresingClick)
         {
-            djPull.distance -= 2f * Time.deltaTime;
-            djPull.distance = Mathf.Clamp(djPull.distance, 0.8f, 3f);
+            dj.distance -= 2f * Time.deltaTime;
+            dj.distance = Mathf.Clamp(dj.distance, 0.8f, 5f);
             
         }
 
@@ -138,45 +139,50 @@ public class FVHook : MonoBehaviour
             //Acercar y alejar el gancho con las teclas verticales
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
-            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 2.7f);
+            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 3.2f);
             
             
 
         }
     }
 
-    void PullObject()
+    void ImpulseOnExitHook()
+    {
+        rb.AddForce(rb.velocity.normalized * impulseHook,ForceMode2D.Impulse);
+    }
+
+    void ChangeMassPulling()
     {
         if (isPulling)
         {
-            //pass
+            rb.mass = 20;
+            ScriptSapo.velocidad = 1f;
+            ScriptSapo.fuerzaSalto = 5f;
+        }
+        else
+        {
+            rb.mass = 5f;
+            ScriptSapo.velocidad = 5f;
+            ScriptSapo.fuerzaSalto = 15f;
         }
     }
 
-    
-    /*No creo que se use por ahora
-    void ImpulseOnHook()
+    void ChangeMassHooked()
     {
-        Vector2 force = new Vector2(forceImpulseOnHook, 0);
-        rb.AddForce(force, ForceMode2D.Impulse);
+        if(isHooked)
+        {
+            rb.mass = 2;
+        }
+        else
+        {
+            rb.mass = 5;
+        }
     }
-    */
+
     void HandleInput()
     {
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
-    }
-
-    void DisableScript()
-    {
-        if (isHooked)
-        {
-            ScriptArdilla.enabled = false;
-        }
-        else if (!isHooked)
-        {
-            ScriptArdilla.enabled = true;
-        }
     }
 
     void DetectPresing()
@@ -184,11 +190,12 @@ public class FVHook : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             PresingClick = true;
-            rb.gravityScale = 4f;
+            
         }
         else
         {
             PresingClick = false;
+            
         }
     }
 }
