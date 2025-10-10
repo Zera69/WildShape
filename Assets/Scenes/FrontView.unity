@@ -677,14 +677,13 @@ GameObject:
   - component: {fileID: 1007242606}
   - component: {fileID: 1007242604}
   - component: {fileID: 1007242611}
-  - component: {fileID: 1007242612}
   m_Layer: 0
-  m_Name: Ardilla
+  m_Name: Squirrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!232 &1007242604
 DistanceJoint2D:
   m_ObjectHideFlags: 0
@@ -854,7 +853,7 @@ Transform:
   m_GameObject: {fileID: 1007242603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.502, y: -3.251, z: 0}
+  m_LocalPosition: {x: -3.31, y: -3.464, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -881,18 +880,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1007242612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007242603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76ef7e659e67d6944b6b37316bb8dbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1106581387
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +897,7 @@ GameObject:
   - component: {fileID: 1106581392}
   - component: {fileID: 1106581391}
   m_Layer: 0
-  m_Name: Frog_7
+  m_Name: Frog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,7 +985,7 @@ Transform:
   m_GameObject: {fileID: 1106581387}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3202167, y: -3.061067, z: 0}
+  m_LocalPosition: {x: -5.3202167, y: -3.171, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1476,7 +1463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2112810707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,9 +1830,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1772200672}
+  - {fileID: 2112810713}
   - {fileID: 1272013142}
-  - {fileID: 1007242610}
   - {fileID: 1633708038}
   - {fileID: 1446678284}
-  - {fileID: 2112810713}
   - {fileID: 1106581390}
+  - {fileID: 1007242610}

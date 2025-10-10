@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FVSapo : MonoBehaviour
 {
-    public float velocidad = 4f;
+    public float velocidad = 3f;
     public float fuerzaSalto = 15f;
    
 

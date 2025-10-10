@@ -64,12 +64,11 @@ public class FVHook : MonoBehaviour
         Vector2 direction = (mouseWorldPos - transform.position).normalized;
 
         //Lanzmaos un raycast desde nosotros hacia el raton
-        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.5f, hookableLayer);
-        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 5f, pullableLayer);
+        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 4f, hookableLayer);
+        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 4f, pullableLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 3.5f, Color.blue);
-        Debug.DrawRay(origin, direction * 5f, Color.red);
+        Debug.DrawRay(origin, direction * 4f, Color.red);
 
         //Detectamos si hay algo que hookear a nuestro alcance
         if (hitHook.collider != null)
@@ -121,7 +120,7 @@ public class FVHook : MonoBehaviour
         if (isPulling && PresingClick)
         {
             dj.distance -= 2f * Time.deltaTime;
-            dj.distance = Mathf.Clamp(dj.distance, 0.8f, 5f);
+            dj.distance = Mathf.Clamp(dj.distance, 0.8f, 4.3f);
             
         }
 
@@ -139,7 +138,7 @@ public class FVHook : MonoBehaviour
             //Acercar y alejar el gancho con las teclas verticales
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
-            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 3.2f);
+            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 3.8f);
             
             
 
@@ -157,12 +156,12 @@ public class FVHook : MonoBehaviour
         {
             rb.mass = 20;
             ScriptSapo.velocidad = 1f;
-            ScriptSapo.fuerzaSalto = 5f;
+            ScriptSapo.fuerzaSalto = 8f;
         }
         else
         {
             rb.mass = 5f;
-            ScriptSapo.velocidad = 5f;
+            ScriptSapo.velocidad = 3f;
             ScriptSapo.fuerzaSalto = 15f;
         }
     }
