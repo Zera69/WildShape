@@ -9,6 +9,7 @@ public class FVSapo : MonoBehaviour
    
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool enSuelo;
     public FVHook ScriptHook;
 
@@ -16,6 +17,7 @@ public class FVSapo : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -32,6 +34,7 @@ public class FVSapo : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             enSuelo = true;
+            anim.SetBool("IsJumping", false);
         }
     }
 
@@ -40,6 +43,7 @@ public class FVSapo : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             enSuelo = false;
+            anim.SetBool("IsJumping", true);
         }
     }
 
@@ -47,6 +51,23 @@ public class FVSapo : MonoBehaviour
     {
         float movX = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(movX * velocidad, rb.velocity.y);
+
+        if(movX == 0)
+        {
+            anim.SetBool("IsMoving", false);
+        } else
+        {
+            anim.SetBool("IsMoving", true);
+        }
+
+        if (movX > 0)
+        {
+            anim.SetFloat("LastX", 1);
+        }
+        else if (movX < 0)
+        {
+            anim.SetFloat("LastX", 0);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
