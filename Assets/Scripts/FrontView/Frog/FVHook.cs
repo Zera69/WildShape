@@ -28,12 +28,14 @@ public class FVHook : MonoBehaviour
 
     public Camera cam;
     public FVSapo ScriptSapo;
+
+    private Animator anim;
     
 
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -63,6 +65,14 @@ public class FVHook : MonoBehaviour
         Vector2 origin = transform.position;
         Vector2 direction = (mouseWorldPos - transform.position).normalized;
 
+        if(direction.x > 0)
+        {
+            anim.SetFloat("PullX", 1);
+        } else if(direction.x < 0)
+        {
+            anim.SetFloat("PullX", -1);
+        }
+
         //Lanzmaos un raycast desde nosotros hacia el raton
         RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 4f, hookableLayer);
         RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 4f, pullableLayer);
@@ -90,6 +100,7 @@ public class FVHook : MonoBehaviour
             dj.enabled = true;
             dj.connectedBody = hitHook.collider.GetComponent<Rigidbody2D>();
             isHooked = true;
+            anim.SetBool("TongueOut", true);
 
         }
         else if (!PresingClick && isHooked)
@@ -99,7 +110,8 @@ public class FVHook : MonoBehaviour
             dj.connectedBody = null;
             ImpulseOnExitHook();
             isHooked = false;
-            
+            anim.SetBool("TongueOut", false);
+
         }
 
         if (Input.GetKeyDown(KeyCode.E) && hitPull.collider != null && !isPulling)
@@ -108,6 +120,7 @@ public class FVHook : MonoBehaviour
             dj.enabled = true;
             dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
             isPulling = true;
+            anim.SetBool("TonguePull", true);
 
         }
         else if (Input.GetKeyDown(KeyCode.E) && isPulling)
@@ -115,6 +128,7 @@ public class FVHook : MonoBehaviour
             dj.enabled = false;
             dj.connectedBody = null;
             isPulling = false;
+            anim.SetBool("TonguePull", false);
         }
 
         if (isPulling && PresingClick)
