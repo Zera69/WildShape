@@ -28,7 +28,7 @@ public class FVHook : MonoBehaviour
     private GameObject drawTonguePullPoint;
     public GameObject spawnRope;
 
-    public Camera cam;
+    private Camera cam;
     public FVSapo ScriptSapo;
 
     private Animator anim;
@@ -39,6 +39,7 @@ public class FVHook : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
