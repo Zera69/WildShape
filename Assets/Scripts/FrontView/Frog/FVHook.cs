@@ -122,7 +122,7 @@ public class FVHook : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && hitPull.collider != null && !isPulling)
+        if (Input.GetMouseButtonDown(0) && hitPull.collider != null && !isPulling)
         {
 
             //activamos la conexion
@@ -134,7 +134,7 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = pullPoint;
 
         }
-        else if (Input.GetKeyDown(KeyCode.E) && isPulling)
+        else if (Input.GetMouseButtonDown(0) && isPulling)
         {
             dj.enabled = false;
             dj.connectedBody = null;
@@ -144,7 +144,7 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = null;
         }
 
-        if (isPulling && PresingClick)
+        if (isPulling && Input.GetKey(KeyCode.E))
         {
             dj.distance -= 2f * Time.deltaTime;
             dj.distance = Mathf.Clamp(dj.distance, 1.4f, 4.3f);
@@ -165,7 +165,7 @@ public class FVHook : MonoBehaviour
             //Acercar y alejar el gancho con las teclas verticales
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
-            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 3.5f);
+            dj.distance = Mathf.Clamp(dj.distance, 1.2f, 3.5f);
             
             
 

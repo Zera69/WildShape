@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 2134629561}
   m_Layer: 3
   m_Name: Hookable
-  m_TagString: Untagged
+  m_TagString: Suelo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1713,12 +1713,12 @@ PrefabInstance:
     - target: {fileID: 4296717846501725367, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.3681126
+      value: -4.96
       objectReference: {fileID: 0}
     - target: {fileID: 4296717846501725367, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1328301
+      value: -2.81
       objectReference: {fileID: 0}
     - target: {fileID: 4296717846501725367, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
@@ -1764,6 +1764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FV_Druida
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180221049043115683, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

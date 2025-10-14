@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 5753892791068614694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3202167, y: -3.171, z: 0}
+  m_LocalPosition: {x: -4.3681126, y: -3.1328301, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -307,7 +307,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   spawnRope: {fileID: 6199672076955423045}
-  cam: {fileID: 0}
   ScriptSapo: {fileID: 8331979732878825427}
   canDrawTongue: 0
 --- !u!232 &4139236325332438259
