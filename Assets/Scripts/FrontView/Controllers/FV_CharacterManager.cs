@@ -8,11 +8,13 @@ public class CharacterManager : MonoBehaviour
     private Vector2 pos;
     private GameObject player;
     private int n = 0;
+    private FVHook scriptSapo;
 
     // Start is called before the first frame update
     void Start()
     {
         player = lista[n];
+        scriptSapo = lista[2].GetComponent<FVHook>();
     }
 
     // Update is called once per frame
@@ -33,7 +35,9 @@ public class CharacterManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             n = 2;
+            scriptSapo.DesactiveHookAndPull();
             UpdatePlayer();
+            
         }
 
         

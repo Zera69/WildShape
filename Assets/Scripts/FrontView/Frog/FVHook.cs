@@ -154,6 +154,14 @@ public class FVHook : MonoBehaviour
 
     }
 
+    public void DesactiveHookAndPull()
+    {
+        dj.enabled = false;
+        dj.connectedBody = null;
+        isPulling = false;
+        isHooked = false;
+    }
+
     void MoveOnHook()
     {
         // Añadir fuerza horizontal al player  
