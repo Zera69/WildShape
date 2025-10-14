@@ -7,11 +7,12 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] lista;
     private Vector2 pos;
     private GameObject player;
+    private int n = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("FV_Druida");
+        player = lista[n];
     }
 
     // Update is called once per frame
@@ -21,21 +22,38 @@ public class CharacterManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Destroy(player);
-            Instantiate(lista[0], pos, lista[0].transform.rotation);
-            player = GameObject.Find("FV_Druida(Clone)");
+            n = 0;
+            UpdatePlayer();
         } 
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Destroy(player);
-            Instantiate(lista[1], pos, lista[1].transform.rotation);
-            player = GameObject.Find("FV_Ardilla(Clone)");
+            n = 1;
+            UpdatePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Destroy(player);
-            Instantiate(lista[2], pos, lista[2].transform.rotation);
-            player = GameObject.Find("FV_Sapo(Clone)");
+            n = 2;
+            UpdatePlayer();
+        }
+
+        
+    }
+
+    void UpdatePlayer()
+    {
+        for (int i = 0; i < lista.Length; i++)
+        {
+            if (i == n)
+            {
+                player = lista[n];
+                player.transform.position = pos;
+                lista[i].SetActive(true);
+            }
+            else
+            {
+                lista[i].SetActive(false);
+            }
         }
     }
+
 }
