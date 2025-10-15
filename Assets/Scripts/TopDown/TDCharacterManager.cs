@@ -30,6 +30,11 @@ public class TDCharacterManager : MonoBehaviour
             n = 1;
             UpdatePlayer();
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            n = 2;
+            UpdatePlayer();
+        }
     }
 
     void UpdatePlayer()

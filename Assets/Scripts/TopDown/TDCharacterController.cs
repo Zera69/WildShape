@@ -27,6 +27,11 @@ namespace Cainos.PixelArtTopDown_Basic
                 MoveToTarget();
                 return;
             }
+            else
+            {
+                //actualización recurrente de la posicion para que al cambiar de personaje no quede una posicion antigua guardada
+                targetPosition = transform.position;
+            }
             
             HandleInput();
             MoveToTarget();
