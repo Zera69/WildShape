@@ -33,7 +33,11 @@ public class FVHook : MonoBehaviour
 
     private Animator anim;
     public bool canDrawTongue = false;
-    
+
+    private Vector2 origin;
+    private Vector2 direction;
+
+    private bool ThrowingTongue = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +54,7 @@ public class FVHook : MonoBehaviour
         DetectPresing();
         ChangeMassPulling();
         ChangeMassHooked();
+        ThrowTongue();
 
 
     }
@@ -67,8 +72,8 @@ public class FVHook : MonoBehaviour
         mouseWorldPos.z = 0f;
 
         //Miramos neustra posicion y calculamos la direccion hacia el raton
-        Vector2 origin = transform.position;
-        Vector2 direction = (mouseWorldPos - transform.position).normalized;
+        origin = transform.position;
+        direction = (mouseWorldPos - transform.position).normalized;
 
         if(direction.x > 0)
         {
@@ -161,6 +166,8 @@ public class FVHook : MonoBehaviour
         isPulling = false;
         isHooked = false;
     }
+
+
 
     void MoveOnHook()
     {
@@ -293,9 +300,71 @@ public class FVHook : MonoBehaviour
             // El final lo ponemos justo en el extremo de la lengua
             final.localPosition = new Vector3(dist, 0, 0);
         }
-        else
+        else if(!ThrowingTongue)
         {
             spawnRope.SetActive(false); // si no hay hook ni pull, ocultamos la lengua
         }
+    }
+
+    void ThrowTongue()
+    {
+        //Lanzmaos un raycast desde nosotros hacia el raton
+        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.6f, hookableLayer);
+        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 3.6f, pullableLayer);
+
+        if (Input.GetMouseButtonDown(0) && hitHook.collider==null && hitPull.collider==null && ThrowingTongue == false)
+        {
+            ThrowingTongue = true;
+            Debug.Log("lengua lanzada");
+            spawnRope.SetActive(true); // activamos el objeto visual de la lengua
+
+            Vector3 end = Vector3.zero; // posición del extremo final de la lengua
+            Vector3 start = transform.position; // posición de inicio (boca del sapo)
+
+            //Miramos donde esta la posicion del raton
+            Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
+
+            //Asignamos el final
+            end = mouseWorldPos;
+
+            // Calcular dirección
+            Vector3 dir = (end - start).normalized;
+
+            //OffSet Start para que salga de la boca
+            float offSet = 0.5f;
+
+            //Asignamos el start
+            start += dir * offSet;
+
+            end -= dir; // desplazamos el extremo final para que no esté dentro del collider
+            float dist = Vector3.Distance(start, end); // distancia entre inicio y final
+
+            //Colocar y rotar el spawnRope
+            spawnRope.transform.position = start;
+            spawnRope.transform.right = dir;
+
+            // Referencias a las partes de la lengua
+            Transform inicio = spawnRope.transform.GetChild(0);
+            Transform medio = spawnRope.transform.GetChild(1);
+            Transform final = spawnRope.transform.GetChild(2);
+
+            //Movida de ejes locales para que se ajuste bien
+            inicio.localPosition = Vector3.zero;
+
+            // Colocamos el medio a la mitad de la distancia y lo escalamos en X según la distancia
+            medio.localPosition = new Vector3(dist / 2f, 0, 0);
+            medio.localScale = new Vector3(1, dist, 1); // escalado en Y según distancia
+
+            // El final lo ponemos justo en el extremo de la lengua
+            final.localPosition = new Vector3(dist, 0, 0);
+            StartCoroutine(ThrowingTongueToFalse());
+        }
+    }
+
+    private IEnumerator ThrowingTongueToFalse()
+    {
+        yield return new WaitForSeconds(0.2f);
+        ThrowingTongue = false;
     }
 }
