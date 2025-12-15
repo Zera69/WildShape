@@ -10,7 +10,7 @@ public class FVSapo : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
-    private bool enSuelo;
+    public bool onFloor;
     public FVHook ScriptHook;
 
 
@@ -33,7 +33,7 @@ public class FVSapo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Suelo"))
         {
-            enSuelo = true;
+            onFloor = true;
             anim.SetBool("IsJumping", false);
         }
     }
@@ -42,7 +42,7 @@ public class FVSapo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Suelo"))
         {
-            enSuelo = false;
+            onFloor = false;
             anim.SetBool("IsJumping", true);
         }
     }
@@ -69,7 +69,7 @@ public class FVSapo : MonoBehaviour
             anim.SetFloat("LastX", 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
+        if (Input.GetKeyDown(KeyCode.Space) && onFloor)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
         }

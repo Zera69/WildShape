@@ -54,7 +54,6 @@ public class FVHook : MonoBehaviour
         DetectPresing();
         ChangeMassPulling();
         ChangeMassHooked();
-        ThrowTongue();
 
 
     }
@@ -71,7 +70,7 @@ public class FVHook : MonoBehaviour
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
 
-        //Miramos neustra posicion y calculamos la direccion hacia el raton
+        //Miramos nuestra posicion y calculamos la direccion hacia el raton
         origin = transform.position;
         direction = (mouseWorldPos - transform.position).normalized;
 
@@ -103,7 +102,7 @@ public class FVHook : MonoBehaviour
         }
 
 
-        //Si hacmeos click izquierda, no estamos cogidos y detectamos donde cogernos entramos en el if
+        //Si hacmeos click izquierdo, no estamos cogidos y detectamos donde cogernos entramos en el if
         if (PresingClick && !isHooked && hitHook.collider != null)
         {
             //activamos la conexion
@@ -115,6 +114,7 @@ public class FVHook : MonoBehaviour
             drawTongueHookPoint = hookPoint;
 
         }
+        //Si no esta presionando el click y estamos cogidos, soltamos el gancho
         else if (!PresingClick && isHooked)
         {
             drawTongueHookPoint = null;
@@ -127,7 +127,8 @@ public class FVHook : MonoBehaviour
 
         }
 
-        if (Input.GetMouseButtonDown(0) && hitPull.collider != null && !isPulling)
+        //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire y detectamos donde cogernos entramos en el if
+        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true)
         {
 
             //activamos la conexion
@@ -139,7 +140,8 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = pullPoint;
 
         }
-        else if (Input.GetMouseButtonDown(0) && isPulling)
+        //Si dejamos de presioanr click y estamos pulleando, soltamos el objeto
+        else if (!PresingClick && isPulling)
         {
             dj.enabled = false;
             dj.connectedBody = null;
@@ -149,6 +151,7 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = null;
         }
 
+        //Si estamso pulleando y presionamos la E, acercamos el objeto
         if (isPulling && Input.GetKey(KeyCode.E))
         {
             dj.distance -= 2f * Time.deltaTime;
@@ -171,13 +174,14 @@ public class FVHook : MonoBehaviour
 
     void MoveOnHook()
     {
-        // Añadir fuerza horizontal al player  
+        //Si estamos cogidos al gancho
         if (isHooked)
         {
+            // Añadir fuerza horizontal al player con las teclas A y D
             Vector2 force = new Vector2(inputHorizontal * forceInHook, 0);
             rb.AddForce(force);
 
-            //Acercar y alejar el gancho con las teclas verticales
+            //Acercar y alejar el gancho con las teclas W y S
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
             dj.distance = Mathf.Clamp(dj.distance, 1.2f, 3.5f);
@@ -187,27 +191,30 @@ public class FVHook : MonoBehaviour
         }
     }
 
+    //Fuerza añadida al salir del gancho para simular inercia
     void ImpulseOnExitHook()
     {
         rb.AddForce(rb.velocity.normalized * impulseHook,ForceMode2D.Impulse);
     }
 
+    //Cambiamos la masa y las propiedades del sapo al estar pulleando
     void ChangeMassPulling()
     {
         if (isPulling)
         {
-            rb.mass = 20;
-            ScriptSapo.velocidad = 1f;
-            ScriptSapo.fuerzaSalto = 8f;
+            //Si estamos pulleando, no podremos movernos y solo saltar un poco
+            ScriptSapo.velocidad = 0f;
+            ScriptSapo.fuerzaSalto = 4f;
         }
         else
-        {
-            rb.mass = 5f;
+        { 
+            //Si no estamos pulleando, volvemos a la normalidad
             ScriptSapo.velocidad = 3f;
             ScriptSapo.fuerzaSalto = 15f;
         }
     }
 
+    //Cambiamos la masa del sapo al estar enganchado para no balancearse tanto
     void ChangeMassHooked()
     {
         if(isHooked)
@@ -220,12 +227,14 @@ public class FVHook : MonoBehaviour
         }
     }
 
+    //Detectamos la entrada del jugador
     void HandleInput()
     {
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
     }
 
+    //Detectamos si se esta presionando el click izquierdo
     void DetectPresing()
     {
         if (Input.GetMouseButton(0))
@@ -240,6 +249,7 @@ public class FVHook : MonoBehaviour
         }
     }
     
+    //Actualizamos la visual de la lengua segun si estamos enganchados o pulleando
     void UpdateTongueVisual()
     {
         // Comprobamos si el sapo está enganchado o tirando de un objeto
@@ -306,7 +316,8 @@ public class FVHook : MonoBehaviour
         }
     }
 
-    void ThrowTongue()
+
+    /*void ThrowTongue()
     {
         //Lanzmaos un raycast desde nosotros hacia el raton
         RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.6f, hookableLayer);
@@ -367,4 +378,7 @@ public class FVHook : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         ThrowingTongue = false;
     }
+    */
+    
+
 }
