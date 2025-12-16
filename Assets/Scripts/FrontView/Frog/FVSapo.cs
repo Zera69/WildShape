@@ -8,7 +8,7 @@ public class FVSapo : MonoBehaviour
     public float fuerzaSalto = 15f;
    
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Animator anim;
     public bool onFloor;
     public FVHook ScriptHook;

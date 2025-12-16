@@ -11,7 +11,7 @@ public class FVHook : MonoBehaviour
     public float inputHorizontal;
     public float inputVertical;
 
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     public bool isHooked = false;
     private bool isPulling = false;
@@ -54,6 +54,7 @@ public class FVHook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
@@ -97,10 +98,10 @@ public class FVHook : MonoBehaviour
 
         //Lanzmaos un raycast desde nosotros hacia el raton
         RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.6f, hookableLayer);
-        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 3.6f, pullableLayer);
+        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 5f, pullableLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 4f, Color.red);
+        Debug.DrawRay(origin, direction * 5f, Color.red);
 
         //Detectamos si hay algo que hookear a nuestro alcance
         if (hitHook.collider != null)
@@ -168,7 +169,7 @@ public class FVHook : MonoBehaviour
         if (isPulling && Input.GetKey(KeyCode.E))
         {
             dj.distance -= 2f * Time.deltaTime;
-            dj.distance = Mathf.Clamp(dj.distance, 1.4f, 4.3f);
+            dj.distance = Mathf.Clamp(dj.distance, 1.4f, 5f);
             
         }
 
@@ -224,6 +225,7 @@ public class FVHook : MonoBehaviour
             //Si no estamos pulleando, volvemos a la normalidad
             ScriptSapo.velocidad = 3f;
             ScriptSapo.fuerzaSalto = 15f;
+
         }
     }
 
@@ -352,7 +354,7 @@ public class FVHook : MonoBehaviour
         RaycastHit2D hitButton = Physics2D.Raycast(origin, direction, 6f, buttonLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 6f, Color.blue);
+        // Debug.DrawRay(origin, direction * 6f, Color.blue);
 
         //Detectamos si hay algo que Buttonear a nuestro alcance
         if (hitButton.collider != null)
@@ -366,14 +368,15 @@ public class FVHook : MonoBehaviour
             //si no estamos ya tirando de la lengua inciamos animacion
             if(!ThrowingTongue)
             {
-               StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position)); 
+                FVButtonSapo buttonSapo = buttonPoint.GetComponent<FVButtonSapo>();
+                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
             }
             
 
         }
     } 
 
-    IEnumerator TongueButtonRoutineStart(Vector3 hitPoint)
+    IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,FVButtonSapo buttonSapo)
     {
         // Mostramos la animación de lanzar la lengua
         anim.SetBool("TonguePull", true);
@@ -432,7 +435,8 @@ public class FVHook : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if(!isPulling)
         {
-            StartCoroutine(TongueButtonRoutineFinish(targetLength)); 
+            StartCoroutine(TongueButtonRoutineFinish(targetLength));
+            buttonSapo.Activate(); 
         }
         
     }
