@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 3499298035474343930}
   - component: {fileID: 5212581274773456824}
   - component: {fileID: 9012053752378020620}
-  - component: {fileID: 3595916772603233923}
+  - component: {fileID: 698667085464038880}
   m_Layer: 0
   m_Name: TD_Ardilla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3499298035474343930
 Transform:
   m_ObjectHideFlags: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4423457520118532884}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3595916772603233923
+--- !u!114 &698667085464038880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,8 +116,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4423457520118532884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9915c799d1abdb4488bb003140f5c35, type: 3}
+  m_Script: {fileID: 11500000, guid: 2500f4337753e514fbf26cfadbf2dd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
   gridSize: 1
+  limit: 0.1
+  movePoint: {fileID: 0}
+  stopColliders:
+    serializedVersion: 2
+    m_Bits: 128
