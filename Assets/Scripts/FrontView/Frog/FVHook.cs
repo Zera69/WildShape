@@ -11,7 +11,7 @@ public class FVHook : MonoBehaviour
     public float inputHorizontal;
     public float inputVertical;
 
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     public bool isHooked = false;
     private bool isPulling = false;
@@ -24,6 +24,7 @@ public class FVHook : MonoBehaviour
 
     private GameObject hookPoint;
     private GameObject pullPoint;
+    private GameObject buttonPoint;
     private GameObject drawTongueHookPoint;
     private GameObject drawTonguePullPoint;
     public GameObject spawnRope;
@@ -33,11 +34,27 @@ public class FVHook : MonoBehaviour
 
     private Animator anim;
     public bool canDrawTongue = false;
-    
+
+    private Vector2 origin;
+    private Vector2 direction;
+
+    private bool ThrowingTongue = false;
+
+    //Tongue button
+    public LayerMask buttonLayer;          // Nueva layer "boton"
+    private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
+
+    private float currentTongueLength = 0f;
+    private float targetTongueLength = 0f;
+
+    private Vector3 tongueStart;
+    private Vector3 tongueEnd;
+    private Vector3 tongueDir;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
@@ -50,6 +67,7 @@ public class FVHook : MonoBehaviour
         DetectPresing();
         ChangeMassPulling();
         ChangeMassHooked();
+        DetectButtonClick();
 
 
     }
@@ -66,9 +84,9 @@ public class FVHook : MonoBehaviour
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
 
-        //Miramos neustra posicion y calculamos la direccion hacia el raton
-        Vector2 origin = transform.position;
-        Vector2 direction = (mouseWorldPos - transform.position).normalized;
+        //Miramos nuestra posicion y calculamos la direccion hacia el raton
+        origin = transform.position;
+        direction = (mouseWorldPos - transform.position).normalized;
 
         if(direction.x > 0)
         {
@@ -80,10 +98,10 @@ public class FVHook : MonoBehaviour
 
         //Lanzmaos un raycast desde nosotros hacia el raton
         RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.6f, hookableLayer);
-        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 3.6f, pullableLayer);
+        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 5f, pullableLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 4f, Color.red);
+        Debug.DrawRay(origin, direction * 5f, Color.red);
 
         //Detectamos si hay algo que hookear a nuestro alcance
         if (hitHook.collider != null)
@@ -98,7 +116,7 @@ public class FVHook : MonoBehaviour
         }
 
 
-        //Si hacmeos click izquierda, no estamos cogidos y detectamos donde cogernos entramos en el if
+        //Si hacmeos click izquierdo, no estamos cogidos y detectamos donde cogernos entramos en el if
         if (PresingClick && !isHooked && hitHook.collider != null)
         {
             //activamos la conexion
@@ -110,6 +128,7 @@ public class FVHook : MonoBehaviour
             drawTongueHookPoint = hookPoint;
 
         }
+        //Si no esta presionando el click y estamos cogidos, soltamos el gancho
         else if (!PresingClick && isHooked)
         {
             drawTongueHookPoint = null;
@@ -122,7 +141,8 @@ public class FVHook : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && hitPull.collider != null && !isPulling)
+        //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire y detectamos donde cogernos entramos en el if
+        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true)
         {
 
             //activamos la conexion
@@ -134,7 +154,8 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = pullPoint;
 
         }
-        else if (Input.GetKeyDown(KeyCode.E) && isPulling)
+        //Si dejamos de presioanr click y estamos pulleando, soltamos el objeto
+        else if (!PresingClick && isPulling)
         {
             dj.enabled = false;
             dj.connectedBody = null;
@@ -144,55 +165,71 @@ public class FVHook : MonoBehaviour
             drawTonguePullPoint = null;
         }
 
-        if (isPulling && PresingClick)
+        //Si estamso pulleando y presionamos la E, acercamos el objeto
+        if (isPulling && Input.GetKey(KeyCode.E))
         {
             dj.distance -= 2f * Time.deltaTime;
-            dj.distance = Mathf.Clamp(dj.distance, 1.4f, 4.3f);
+            dj.distance = Mathf.Clamp(dj.distance, 1.4f, 5f);
             
         }
 
 
     }
+
+    public void DesactiveHookAndPull()
+    {
+        dj.enabled = false;
+        dj.connectedBody = null;
+        isPulling = false;
+        isHooked = false;
+    }
+
+
 
     void MoveOnHook()
     {
-        // Añadir fuerza horizontal al player  
+        //Si estamos cogidos al gancho
         if (isHooked)
         {
+            // Añadir fuerza horizontal al player con las teclas A y D
             Vector2 force = new Vector2(inputHorizontal * forceInHook, 0);
             rb.AddForce(force);
 
-            //Acercar y alejar el gancho con las teclas verticales
+            //Acercar y alejar el gancho con las teclas W y S
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
-            dj.distance = Mathf.Clamp(dj.distance, 0.2f, 3.5f);
+            dj.distance = Mathf.Clamp(dj.distance, 1.2f, 3.5f);
             
             
 
         }
     }
 
+    //Fuerza añadida al salir del gancho para simular inercia
     void ImpulseOnExitHook()
     {
         rb.AddForce(rb.velocity.normalized * impulseHook,ForceMode2D.Impulse);
     }
 
+    //Cambiamos la masa y las propiedades del sapo al estar pulleando
     void ChangeMassPulling()
     {
         if (isPulling)
         {
-            rb.mass = 20;
-            ScriptSapo.velocidad = 1f;
-            ScriptSapo.fuerzaSalto = 8f;
+            //Si estamos pulleando, no podremos movernos y solo saltar un poco
+            ScriptSapo.velocidad = 0f;
+            ScriptSapo.fuerzaSalto = 4f;
         }
         else
-        {
-            rb.mass = 5f;
+        { 
+            //Si no estamos pulleando, volvemos a la normalidad
             ScriptSapo.velocidad = 3f;
             ScriptSapo.fuerzaSalto = 15f;
+
         }
     }
 
+    //Cambiamos la masa del sapo al estar enganchado para no balancearse tanto
     void ChangeMassHooked()
     {
         if(isHooked)
@@ -205,12 +242,14 @@ public class FVHook : MonoBehaviour
         }
     }
 
+    //Detectamos la entrada del jugador
     void HandleInput()
     {
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
     }
 
+    //Detectamos si se esta presionando el click izquierdo
     void DetectPresing()
     {
         if (Input.GetMouseButton(0))
@@ -225,6 +264,7 @@ public class FVHook : MonoBehaviour
         }
     }
     
+    //Actualizamos la visual de la lengua segun si estamos enganchados o pulleando
     void UpdateTongueVisual()
     {
         // Comprobamos si el sapo está enganchado o tirando de un objeto
@@ -285,9 +325,166 @@ public class FVHook : MonoBehaviour
             // El final lo ponemos justo en el extremo de la lengua
             final.localPosition = new Vector3(dist, 0, 0);
         }
-        else
+        else if(!ThrowingTongue)
         {
             spawnRope.SetActive(false); // si no hay hook ni pull, ocultamos la lengua
         }
     }
+
+    void DetectButtonClick()
+    {
+        //Miramos donde esta la posicion del raton
+        Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0f;
+
+        //Miramos nuestra posicion y calculamos la direccion hacia el raton
+        origin = transform.position;
+        direction = (mouseWorldPos - transform.position).normalized;
+
+        //Detectamos la direccion para la animacion
+        if(direction.x > 0)
+        {
+            anim.SetFloat("PullX", 1);
+        } else if(direction.x < 0)
+        {
+            anim.SetFloat("PullX", -1);
+        }
+
+        //Lanzmaos un raycast desde nosotros hacia el raton
+        RaycastHit2D hitButton = Physics2D.Raycast(origin, direction, 6f, buttonLayer);
+
+        //Lo dibujamos en pantalla
+        // Debug.DrawRay(origin, direction * 6f, Color.blue);
+
+        //Detectamos si hay algo que Buttonear a nuestro alcance
+        if (hitButton.collider != null)
+        {
+            buttonPoint = hitButton.collider.gameObject;
+        }
+
+        //Si hacmeos click izquierdo y detectamos un boton entramos en el if
+        if (Input.GetMouseButtonDown(0) && hitButton.collider != null)
+        {
+            //si no estamos ya tirando de la lengua inciamos animacion
+            if(!ThrowingTongue)
+            {
+                FVButtonSapo buttonSapo = buttonPoint.GetComponent<FVButtonSapo>();
+                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
+            }
+            
+
+        }
+    } 
+
+    IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,FVButtonSapo buttonSapo)
+    {
+        // Mostramos la animación de lanzar la lengua
+        anim.SetBool("TonguePull", true);
+        yield return new WaitForSeconds(0.05f);
+        // Indicamos que estamos lanzando la lengua
+        ThrowingTongue = true;
+        // Mostramos la lengua
+        spawnRope.SetActive(true);
+
+        // Posiciones
+        Vector3 start = transform.position;
+        Vector3 end = hitPoint;
+
+        // Dirección
+        Vector3 dir = (end - start).normalized;
+
+        // Offsets para que la lengua no salga exactamente de la posición central del sapo
+        float offsetStart = 0.4f;
+        start += dir * offsetStart;
+
+        // Distancia total a recorrer
+        float targetLength = Vector3.Distance(start, end);
+
+        // Longitud actual de la lengua o Distancia recorrida
+        float currentLength = 0f;
+
+        // Colocación base
+        spawnRope.transform.position = start;
+        spawnRope.transform.right = dir;
+
+        // Referencias a las partes de la lengua
+        Transform inicio = spawnRope.transform.GetChild(0);
+        Transform medio = spawnRope.transform.GetChild(1);
+        Transform final = spawnRope.transform.GetChild(2);
+
+        // Posición inicial del inicio de la lengua
+        inicio.localPosition = Vector3.zero;
+
+        // "Animacion" hasta que llegue a su objetivo
+        while (currentLength < targetLength)
+        {
+            // Incrementamos la longitud actual
+            currentLength += tongueSpeed;
+            // Esperamos un frame
+            yield return new WaitForSeconds(0.003f);
+            // Aseguramos que no sobrepasa la longitud objetivo
+            currentLength = Mathf.Min(currentLength, targetLength);
+
+            // Actualizamos la posición y escala de las partes de la lengua
+            medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
+            medio.localScale = new Vector3(1, currentLength, 1);
+            final.localPosition = new Vector3(currentLength, 0, 0);
+        }
+
+        // Pequeña pausa tocando el botón
+        yield return new WaitForSeconds(0.2f);
+        if(!isPulling)
+        {
+            StartCoroutine(TongueButtonRoutineFinish(targetLength));
+            buttonSapo.Activate(); 
+        }
+        
+    }
+
+    IEnumerator TongueButtonRoutineFinish(float startLenght)
+    {
+        // CurrentLength empieza en la longitud máxima
+        float currentLength = startLenght;
+
+        // Referencias a las partes de la lengua
+        Transform inicio = spawnRope.transform.GetChild(0);
+        Transform medio = spawnRope.transform.GetChild(1);
+        Transform final = spawnRope.transform.GetChild(2);
+
+        // Posición inicial del inicio de la lengua
+        inicio.localPosition = Vector3.zero;
+
+        // "Animacion" hasta que llegue a su objetivo
+        while (currentLength > 0f)
+        {
+            // Deincrementamos la longitud actual
+            currentLength -= tongueSpeed;
+            // Esperamos un frame
+            yield return new WaitForSeconds(0.003f);
+            // Aseguramos que no sobrepasa la longitud objetivo
+            currentLength = Mathf.Max(currentLength, 0f);
+
+            // Actualizamos la posición y escala de las partes de la lengua
+            medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
+            medio.localScale = new Vector3(1, currentLength, 1);
+            final.localPosition = new Vector3(currentLength, 0, 0);
+        }
+
+        anim.SetBool("TonguePull", false);
+
+        // Ocultamos lengua
+        spawnRope.SetActive(false);
+        ThrowingTongue = false;
+    }
+
+
+
+
+
+
+
+
+
+    
+
 }
