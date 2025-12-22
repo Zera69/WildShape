@@ -1,9 +1,45 @@
 # WildShape
+------------------------------------------------
+ESTADO ACTUAL
+
+2 escenas demo con mecánicas para sapo y ardilla
+
+
+CONTROLES
+
+Movimiento básico - WASD
+
+Salto (Side view) - Barra espaciadora
+
+Forma Druida - 1
+
+Forma Ardilla - 2
+
+  - Planear (Side view) - Mantener barra espaciadora en el aire
+  
+Forma Sapo - 3
+
+  - Apuntar con la lengua - Ratón
+  
+  - Sacar la lengua (Apretar un botón) - Click izquierdo
+  
+  - Sacar la lengua (Coger una caja) - Mantener click izquierdo
+  
+    - Arrastrar una caja - E mientras cogemos la caja con click izqierdo
+    
+  - Sacar la lengua (Colgarse del techo) - Mantener click izquierdo
+  
+    - Balancearse - A y D (moverse), W y S (subir y bajar)
+    
+    
+------------------------------------------------
+PROPUESTA INICIAL
+
 Objetivo: Desconectar la fábrica Evil Corp 😈
 
 Coleccionables: Salvar animalitos
 
-Vista: Top down
+Vista: Top down + Side view
 
 Totems:
 Oso - empujar objetos
