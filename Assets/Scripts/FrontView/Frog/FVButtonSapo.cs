@@ -18,6 +18,11 @@ public class FVButtonSapo : MonoBehaviour
               FVDoor DoorScript = linkedObject.GetComponent<FVDoor>();
               DoorScript.Action();  
             }
+            if(linkedObject.GetComponent<SceneLoadManager>() != null)
+            {
+              SceneLoadManager NextScene = linkedObject.GetComponent<SceneLoadManager>();
+              NextScene.Active();  
+            }
         }
 
     }
