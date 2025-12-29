@@ -13,6 +13,11 @@ public class TDFrog : MonoBehaviour
     private bool ThrowingTongue = false;
     private GameObject buttonPoint;
     public GameObject spawnRope;
+
+    private float maxYDifferenceButton = 0.5f;
+    private bool OverMaxYDifferenceButton = false;
+    private float yDifferenceButton;
+    private RaycastHit2D hitButton;
     
 
     // Start is called before the first frame update
@@ -25,16 +30,10 @@ public class TDFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            anim.SetBool("TongueOut", true);
-        } else if(Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            anim.SetBool("TongueOut", false);
-        }
         DetectButtonClick();
     }
 
+  
     void DetectButtonClick()
     {
         //Miramos donde esta la posicion del raton
@@ -55,10 +54,10 @@ public class TDFrog : MonoBehaviour
         }
 
         //Lanzmaos un raycast desde nosotros hacia el raton
-        RaycastHit2D hitButton = Physics2D.Raycast(origin, direction, 6f, buttonLayer);
+        hitButton = Physics2D.Raycast(origin, direction, 3f, buttonLayer);
 
         //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 6f, Color.blue);
+        Debug.DrawRay(origin, direction * 3f, Color.blue);
 
         //Detectamos si hay algo que Buttonear a nuestro alcance
         if (hitButton.collider != null)
@@ -66,24 +65,88 @@ public class TDFrog : MonoBehaviour
             buttonPoint = hitButton.collider.gameObject;
         }
 
-        //Si hacmeos click izquierdo y detectamos un boton entramos en el if
-        if (Input.GetMouseButtonDown(0) && hitButton.collider != null)
+        if(buttonPoint != null)
         {
+            //Calculamos la diferencia en Y entre el boton y el sapo
+            yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
+
+            //Si la diferencia es mayor a la permitida no dejamos tirar de la lengua
+            if(yDifferenceButton > maxYDifferenceButton)
+            {
+                OverMaxYDifferenceButton = true;
+            } else
+            {
+                OverMaxYDifferenceButton = false;
+            }
+        }
+        
+        //Si hacmeos click izquierdo y detectamos un boton entramos en el if
+        if (Input.GetMouseButtonDown(0) && hitButton.collider != null && !OverMaxYDifferenceButton)
+        {
+            
             //si no estamos ya tirando de la lengua inciamos animacion
             if(!ThrowingTongue)
             {
                 TDButton buttonSapo = buttonPoint.GetComponent<TDButton>();
                 StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
             }
-            
-
+        }
+        else if(Input.GetMouseButtonDown(0) && hitButton.collider == null)
+        {
+            StartCoroutine(TongueOut()); 
         }
     } 
+
+    IEnumerator TongueOut()
+    {
+        // Mostramos la animación de lanzar la lengua
+        anim.SetBool("TongueOut", true);
+        yield return new WaitForSeconds(0.2f);
+
+        //Mostramos la lengua
+        spawnRope.SetActive(true);
+
+        // Posiciones
+        Vector3 start = transform.position;
+
+        // Referencias a las partes de la lengua
+        Transform inicio = spawnRope.transform.GetChild(0);
+        Transform medio = spawnRope.transform.GetChild(1);
+        Transform final = spawnRope.transform.GetChild(2);
+
+        // Solo mostramos la punta
+        inicio.gameObject.SetActive(false);
+        medio.gameObject.SetActive(false);
+        final.gameObject.SetActive(true);
+
+        spawnRope.transform.position = start;
+        // Posición inicial del inicio de la lengua
+        float offsetEnd = 0.6f;
+        spawnRope.transform.right = transform.right;
+
+        final.localPosition = new Vector3(offsetEnd, 0, 0);
+
+        yield return new WaitForSeconds(0.4f);
+        StartCoroutine(TongueOutFinish());
+    }
+
+    IEnumerator TongueOutFinish()
+    {
+        
+        anim.SetBool("TongueOut", false);
+        yield return new WaitForSeconds(0.2f);
+        // Ocultamos lengua
+        spawnRope.SetActive(false);
+        
+        yield return null;
+    }
+
 
     IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,TDButton buttonSapo)
     {
         // Mostramos la animación de lanzar la lengua
         anim.SetBool("TonguePull", true);
+        anim.SetBool("TongueOut", true);
         yield return new WaitForSeconds(0.05f);
         // Indicamos que estamos lanzando la lengua
         ThrowingTongue = true;
@@ -115,6 +178,11 @@ public class TDFrog : MonoBehaviour
         Transform inicio = spawnRope.transform.GetChild(0);
         Transform medio = spawnRope.transform.GetChild(1);
         Transform final = spawnRope.transform.GetChild(2);
+
+        // mostrmaos todos las partes de la lengua
+        inicio.gameObject.SetActive(true);
+        medio.gameObject.SetActive(true);
+        final.gameObject.SetActive(true);
 
         // Posición inicial del inicio de la lengua
         inicio.localPosition = Vector3.zero;
@@ -173,6 +241,7 @@ public class TDFrog : MonoBehaviour
         }
 
         anim.SetBool("TonguePull", false);
+        anim.SetBool("TongueOut", false);
 
         // Ocultamos lengua
         spawnRope.SetActive(false);
