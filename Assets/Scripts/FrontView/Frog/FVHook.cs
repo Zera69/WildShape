@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class FVHook : MonoBehaviour
@@ -28,6 +29,7 @@ public class FVHook : MonoBehaviour
     private GameObject drawTongueHookPoint;
     private GameObject drawTonguePullPoint;
     public GameObject spawnRope;
+   
 
     private Camera cam;
     public FVSapo ScriptSapo;
@@ -39,6 +41,14 @@ public class FVHook : MonoBehaviour
     private Vector2 direction;
 
     private bool ThrowingTongue = false;
+
+    private float maxYDifferencePull = 0.5f;
+    private bool OverMaxYDifferencePull = false;
+    private float yDifferencePull;
+
+    private float maxYDiferenceButton = 0.5f;
+    private bool OverMaxYDifferenceButton = false;
+    float yDifferenceButton;
 
     //Tongue button
     public LayerMask buttonLayer;          // Nueva layer "boton"
@@ -68,6 +78,7 @@ public class FVHook : MonoBehaviour
         ChangeMassPulling();
         ChangeMassHooked();
         DetectButtonClick();
+        ChechPullDistanceY();
 
 
     }
@@ -76,6 +87,33 @@ public class FVHook : MonoBehaviour
     {
         MoveOnHook();
         UpdateTongueVisual();
+    }
+
+    
+    void ChechPullDistanceY()
+    {
+        //Comprobamos continuamente si nos hemos pasado del maximo en Y al pullear
+        if(isPulling && pullPoint != null)
+        {
+            //Comprobamos la diferencia en Y entre el sapo y el punto de pull
+            yDifferencePull = Mathf.Abs(pullPoint.transform.position.y - transform.position.y);
+            //Si la diferencia es mayor al maximo permitido soltamos el pull
+            if(yDifferencePull > maxYDifferencePull)
+            {
+                ReleasePull();
+            }
+           
+        }
+    }
+
+    //Soltamos el pull
+    void ReleasePull()
+    {
+        dj.enabled = false;
+        dj.connectedBody = null;
+        isPulling = false;
+        anim.SetBool("TonguePull", false);
+        drawTonguePullPoint = null; 
     }
 
     void HookAndPull()
@@ -115,6 +153,7 @@ public class FVHook : MonoBehaviour
             pullPoint = hitPull.collider.gameObject;
         }
 
+        
 
         //Si hacmeos click izquierdo, no estamos cogidos y detectamos donde cogernos entramos en el if
         if (PresingClick && !isHooked && hitHook.collider != null)
@@ -141,8 +180,24 @@ public class FVHook : MonoBehaviour
 
         }
 
+        if(pullPoint != null)
+        {
+            //Comprobamos la diferencia en Y entre el sapo y el punto de pull
+            yDifferencePull = Mathf.Abs(pullPoint.transform.position.y - transform.position.y);
+        }
+
+        //Si la diferencia es mayor al maximo permitido activamos la variable
+        if (yDifferencePull > maxYDifferencePull)
+        {
+            OverMaxYDifferencePull = true;
+        }
+        else
+        {
+            OverMaxYDifferencePull = false;
+        }
+
         //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire y detectamos donde cogernos entramos en el if
-        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true)
+        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull)
         {
 
             //activamos la conexion
@@ -361,9 +416,24 @@ public class FVHook : MonoBehaviour
         {
             buttonPoint = hitButton.collider.gameObject;
         }
+        
+        if(buttonPoint!= null)
+        {
+            //Comprobamos la diferencia en Y entre el sapo y el button
+            yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
+        }
 
+        //Si la diferencia es mayor al maximo permitido activamos la variable
+        if (yDifferenceButton > maxYDiferenceButton)
+        {
+            OverMaxYDifferenceButton = true;
+        }
+        else
+        {
+            OverMaxYDifferenceButton = false;
+        }
         //Si hacmeos click izquierdo y detectamos un boton entramos en el if
-        if (Input.GetMouseButtonDown(0) && hitButton.collider != null)
+        if (Input.GetMouseButtonDown(0) && hitButton.collider != null && !OverMaxYDifferenceButton)
         {
             //si no estamos ya tirando de la lengua inciamos animacion
             if(!ThrowingTongue)
