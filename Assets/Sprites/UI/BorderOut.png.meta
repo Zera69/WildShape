@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1986ef116ed362d4291fe48be844a231
+guid: 52472989a92ca9a4499cf4bb7e29a6ae
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,133 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sign_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 20e61bad74f900c4aae619876ed17ba1
-      internalID: -334115311
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d77acd6c13a58ff4393792a67779eb60
-      internalID: -1433916312
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 512fc4e4f3a55f04bbcf2ce3c801c4f9
-      internalID: -1127504251
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe5cd25c716462c4d979dcef93c01155
-      internalID: 1035369948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_4
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7929290e4552f4d48b1619577105700f
-      internalID: 431162456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4a2df5b492e63b4d916986dae8cc55b
-      internalID: -1722982259
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sign_6
+      name: BorderOut_0
       rect:
         serializedVersion: 2
         x: 0
@@ -237,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56d1742bcdea96549bbe6e7db37ee824
-      internalID: -828234533
+      spriteID: b146061f7f9c6b8469a17da1668a87ce
+      internalID: 1262151008
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sign_7
+      name: BorderOut_1
       rect:
         serializedVersion: 2
         x: 16
@@ -258,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eef2231f1b6c2ba4da79f57b4cdf9ced
-      internalID: 481442202
+      spriteID: ad03b60fe671c3d4e9cf63144fdc78fd
+      internalID: -950795426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sign_8
+      name: BorderOut_2
       rect:
         serializedVersion: 2
         x: 32
@@ -279,14 +153,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9583e0a3e9d52f14487e0207e9a34491
-      internalID: 1965030657
+      spriteID: e67ad596356eb1743a70c9e1ff14bf2b
+      internalID: -139262395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sign_9
+      name: BorderOut_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e097bcca9adcd40808ae8201f0931b
+      internalID: 508980685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BorderOut_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c45dc82ec2a2641a546a36ddcf97b8
+      internalID: 546754475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BorderOut_5
       rect:
         serializedVersion: 2
         x: 0
@@ -300,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18f302b7c15259b4191624a1dd661fba
-      internalID: -1285673087
+      spriteID: 5316fa92772cacb46a242a58c318d05b
+      internalID: -54028236
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sign_10
+      name: BorderOut_6
       rect:
         serializedVersion: 2
         x: 16
@@ -321,8 +237,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b2226b415c411246ae88df600dc9059
-      internalID: 1869486862
+      spriteID: 1b2b2861cae95e245856273a5bc1064b
+      internalID: 2104030733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BorderOut_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d999c6e3c2e17343af8e5697fff4ba8
+      internalID: 533624022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BorderOut_8
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a721b0fcc846999469de5b7d16685e2d
+      internalID: -866866159
       vertices: []
       indices: 
       edges: []
@@ -338,17 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sign_0: -334115311
-      Sign_1: -1433916312
-      Sign_10: 1869486862
-      Sign_2: -1127504251
-      Sign_3: 1035369948
-      Sign_4: 431162456
-      Sign_5: -1722982259
-      Sign_6: -828234533
-      Sign_7: 481442202
-      Sign_8: 1965030657
-      Sign_9: -1285673087
+      BorderOut_0: 1262151008
+      BorderOut_1: -950795426
+      BorderOut_2: -139262395
+      BorderOut_3: 508980685
+      BorderOut_4: 546754475
+      BorderOut_5: -54028236
+      BorderOut_6: 2104030733
+      BorderOut_7: 533624022
+      BorderOut_8: -866866159
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
