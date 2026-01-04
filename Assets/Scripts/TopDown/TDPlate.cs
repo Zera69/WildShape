@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FVPlate : MonoBehaviour
+public class TDPlate : MonoBehaviour
 {
-    //private bool activated = false;
     public FVDoor[] doors;
     public Sprite plateUp;
     public Sprite plateDown;
