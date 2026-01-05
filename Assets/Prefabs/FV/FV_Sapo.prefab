@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8568614931161338630
 Transform:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.022350073}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -266,7 +266,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.8531275}
   m_EdgeRadius: 0
 --- !u!114 &8331979732878825427
 MonoBehaviour:
@@ -282,6 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 10
   fuerzaSalto: 15
+  rb: {fileID: 0}
+  onFloor: 0
   ScriptHook: {fileID: 5880409909873439960}
 --- !u!114 &5880409909873439960
 MonoBehaviour:
@@ -297,7 +299,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHorizontal: 0
   inputVertical: 0
-  rb: {fileID: 187801861823529665}
   isHooked: 0
   dj: {fileID: 4139236325332438259}
   hookableLayer:
@@ -309,6 +310,9 @@ MonoBehaviour:
   spawnRope: {fileID: 6199672076955423045}
   ScriptSapo: {fileID: 8331979732878825427}
   canDrawTongue: 0
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!232 &4139236325332438259
 DistanceJoint2D:
   m_ObjectHideFlags: 0

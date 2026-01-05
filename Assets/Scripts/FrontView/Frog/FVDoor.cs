@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class FVDoor : MonoBehaviour
 {
-    float distance = 4f; 
-    float speed = 1f;
+    private Collider2D collider;
+    private Animator anim;
+
     // Start is called before the first frame update
-    public IEnumerator MoveUp()
+    void Start()
     {
-        float moved = 0f;
-        while (moved < distance)
-        {
-            float step = speed * Time.deltaTime;
-            transform.Translate(Vector3.up * step);
-            moved += step;
-            yield return null;
-        }
+        anim = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
     }
 
-    public void Action()
+    // Update is called once per frame
+    void Update()
     {
-        StartCoroutine(MoveUp());
+
     }
 
+    public void turnOn()
+    {
+        anim.SetBool("Active", true);
+        collider.enabled = true;
+    }
+
+    public void turnOff()
+    {
+        anim.SetBool("Active", false);
+        collider.enabled = false;
+    }
 }

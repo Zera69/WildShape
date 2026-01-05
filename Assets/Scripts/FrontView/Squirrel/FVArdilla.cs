@@ -44,7 +44,7 @@ public class FVArdilla : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
-            anim.SetBool("IsJumping", true);
+            //anim.SetBool("IsJumping", true);
         }
         
         if (!enSuelo && Input.GetKey(KeyCode.Space) && rb.velocity.y < 0) //si no estoy en el suelo, 
@@ -66,6 +66,8 @@ public class FVArdilla : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             enSuelo = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0;
             anim.SetBool("IsJumping", false);
         }
     }

@@ -438,7 +438,7 @@ public class FVHook : MonoBehaviour
             //si no estamos ya tirando de la lengua inciamos animacion
             if(!ThrowingTongue)
             {
-                FVButtonSapo buttonSapo = buttonPoint.GetComponent<FVButtonSapo>();
+                FVButton buttonSapo = buttonPoint.GetComponent<FVButton>();
                 StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
             }
             
@@ -446,7 +446,7 @@ public class FVHook : MonoBehaviour
         }
     } 
 
-    IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,FVButtonSapo buttonSapo)
+    IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,FVButton buttonSapo)
     {
         // Mostramos la animación de lanzar la lengua
         anim.SetBool("TonguePull", true);
