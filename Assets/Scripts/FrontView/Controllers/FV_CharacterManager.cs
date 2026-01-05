@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -10,13 +11,31 @@ public class CharacterManager : MonoBehaviour
     private int n = 0;
     private FVHook scriptSapo;
     private SaveData data;
+    private GameObject StartPoint;
+    private GameObject EndPoint;
 
+   
+
+    
     // Start is called before the first frame update
     void Start()
     {
+        StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
+        EndPoint = GameObject.FindGameObjectWithTag("EndPoint");
         player = lista[n];
         scriptSapo = lista[2].GetComponent<FVHook>();
         data = SaveManager.instance.GetData();
+        string currentLevelName = SceneManager.GetActiveScene().name;
+        if(data.completedLevels.Contains(currentLevelName))
+        {
+            //Si el nivel está completado, empezar desde el EndPoint
+            player.transform.position = EndPoint.transform.position;
+        }else
+        {
+            //Si no, empezar desde el StartPoint
+            player.transform.position = StartPoint.transform.position;
+        }
+
 
     }
 

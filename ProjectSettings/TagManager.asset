@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Suelo
   - box
+  - StartPoint
+  - EndPoint
   layers:
   - Default
   - TransparentFX

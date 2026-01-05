@@ -32,20 +32,7 @@ public class FVUnlockManager : MonoBehaviour
         }
     }
 
-    //Metodo para desbloquear un nivel (misma logica que el de animales)
-    public void UnlockLevel(string levelName)
-    {
-        if (!data.unlockedLevels.Contains(levelName))
-        {
-            data.unlockedLevels.Add(levelName);
-            SaveManager.instance.SaveGame();
-            Debug.Log("Nivel desbloqueado: " + levelName);
-        }
-        else
-        {
-            Debug.Log("El nivel ya estaba desbloqueado: " + levelName);
-        }
-    }
+
 
     //Metodo para comprobar si un animal esta desbloqueado  
     public bool IsAnimalUnlocked(string animalName)
@@ -53,9 +40,5 @@ public class FVUnlockManager : MonoBehaviour
         return data.unlockedCharacters.Contains(animalName);
     }
 
-    //Metodo para comprobar si un nivel esta desbloqueado
-    public bool IsLevelUnlocked(string levelName)
-    {
-        return data.unlockedLevels.Contains(levelName);
-    }
+   
 }
