@@ -32,10 +32,15 @@ public class CharacterManager : MonoBehaviour
         } 
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            n = 1;
+            UpdatePlayer();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             //Comprobar si el personaje esta desbloqueado
             if(data.unlockedCharacters.Contains("Squirrel"))
             {
-               n = 1;
+               n = 2;
                 UpdatePlayer(); 
             }else
             {
@@ -43,9 +48,9 @@ public class CharacterManager : MonoBehaviour
             }
             
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            n = 2;
+            n = 3;
             scriptSapo.DesactiveHookAndPull();
             UpdatePlayer();
             

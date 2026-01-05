@@ -6,6 +6,7 @@ public class TDCharacterMovement : MonoBehaviour
 {
 
     public float moveSpeed = 5f;
+    public float checkDistance = 1f;
     public float gridSize = 1f;
     public float limit = .05f;
     public Transform movePoint;
@@ -31,6 +32,8 @@ public class TDCharacterMovement : MonoBehaviour
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == gridSize)
             {
+                anim.SetBool("IsMoving", true);
+
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     anim.SetFloat("LastX", 1);
@@ -41,16 +44,18 @@ public class TDCharacterMovement : MonoBehaviour
                     anim.SetFloat("LastY", 0);
                 }
                 
-                RaycastHit2D hit = Physics2D.Raycast(movePoint.position, new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), 1f, stopColliders);
+                RaycastHit2D hit = Physics2D.Raycast(movePoint.position, new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), checkDistance, stopColliders);
                 if (hit.collider==null)
                 {
-                    anim.SetBool("IsMoving", true);
+                    
                     movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
                 }
                 
             }
             else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == gridSize)
             {
+                anim.SetBool("IsMoving", true);
+
                 if (Input.GetAxisRaw("Vertical") > 0)
                 {
                     anim.SetFloat("LastX", 0);
@@ -62,17 +67,18 @@ public class TDCharacterMovement : MonoBehaviour
                     anim.SetFloat("LastY", -1);
                 }
 
-                RaycastHit2D hit = Physics2D.Raycast(movePoint.position, new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), 1f, stopColliders);
+                RaycastHit2D hit = Physics2D.Raycast(movePoint.position, new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), checkDistance, stopColliders);
                 if (hit.collider==null)
                 {
-                    anim.SetBool("IsMoving", true);
+                    
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
                 }
             }
-        } else
-        {
-            anim.SetBool("IsMoving", false);
-        }
+            else
+            {
+                anim.SetBool("IsMoving", false);
+            }
+        } 
 
     }
 }
