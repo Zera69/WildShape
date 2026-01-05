@@ -23,6 +23,11 @@ public class FVButtonSapo : MonoBehaviour
               SceneLoadManager NextScene = linkedObject.GetComponent<SceneLoadManager>();
               NextScene.Active();  
             }
+            if(linkedObject.GetComponent<UnlockAnimalButton>() != null)
+            {
+              UnlockAnimalButton UnlockScript = linkedObject.GetComponent<UnlockAnimalButton>();
+              UnlockScript.Activate();
+            }
         }
 
     }
