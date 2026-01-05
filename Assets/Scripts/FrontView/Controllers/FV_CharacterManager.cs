@@ -9,12 +9,15 @@ public class CharacterManager : MonoBehaviour
     private GameObject player;
     private int n = 0;
     private FVHook scriptSapo;
+    private SaveData data;
 
     // Start is called before the first frame update
     void Start()
     {
         player = lista[n];
         scriptSapo = lista[2].GetComponent<FVHook>();
+        data = SaveManager.instance.GetData();
+
     }
 
     // Update is called once per frame
@@ -29,8 +32,16 @@ public class CharacterManager : MonoBehaviour
         } 
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            n = 1;
-            UpdatePlayer();
+            //Comprobar si el personaje esta desbloqueado
+            if(data.unlockedCharacters.Contains("Squirrel"))
+            {
+               n = 1;
+                UpdatePlayer(); 
+            }else
+            {
+                Debug.Log("Personaje no desbloqueado");
+            }
+            
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3))
         {
