@@ -1185,6 +1185,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be764b0d2b2b154793cb721a84f4828, type: 3}
+--- !u!114 &1013972877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4806711281316796112, guid: 6be764b0d2b2b154793cb721a84f4828,
+    type: 3}
+  m_PrefabInstance: {fileID: 1013972876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e3e70111bb83a4897eb8ec55219109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1099250634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,6 +2372,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6513357444310315315, guid: 059f23cf417bc0d48920775937001ed8,
+        type: 3}
+      propertyPath: characterManager
+      value: 
+      objectReference: {fileID: 1013972877}
     - target: {fileID: 6513357444310315315, guid: 059f23cf417bc0d48920775937001ed8,
         type: 3}
       propertyPath: sceneLoadManager

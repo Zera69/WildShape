@@ -20,11 +20,24 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        //puntos de spawn
         StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
         EndPoint = GameObject.FindGameObjectWithTag("EndPoint");
-        player = lista[n];
-        scriptSapo = lista[2].GetComponent<FVHook>();
+
+        //empezar con druida 
+        player = lista[0];
+
+        //Coger la data de guardado
         data = SaveManager.instance.GetData();
+
+        //Configurar el personaje actual segun el guardado
+        n = data.CurrentCharacterIndex;
+
+        scriptSapo = lista[2].GetComponent<FVHook>();
+        StartCoroutine(FixBug());
+
+        //Depende si el nivel esta completo, empezar en un punto u otro
         string currentLevelName = SceneManager.GetActiveScene().name;
         if(data.completedLevels.Contains(currentLevelName))
         {
@@ -38,6 +51,18 @@ public class CharacterManager : MonoBehaviour
 
 
     }
+
+    IEnumerator FixBug()
+    {
+        yield return new WaitForSeconds(0.03f);
+        n = 2;
+        UpdatePlayer();
+        scriptSapo.DesactiveHookAndPull();
+        n = data.CurrentCharacterIndex;
+        UpdatePlayer();
+    }
+        
+    
 
     // Update is called once per frame
     void Update()
@@ -55,7 +80,7 @@ public class CharacterManager : MonoBehaviour
             if(data.unlockedCharacters.Contains("Squirrel"))
             {
                n = 1;
-                UpdatePlayer(); 
+               UpdatePlayer(); 
             }else
             {
                 Debug.Log("Personaje no desbloqueado");
@@ -65,12 +90,19 @@ public class CharacterManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Alpha3))
         {
             n = 2;
-            scriptSapo.DesactiveHookAndPull();
             UpdatePlayer();
+            //Desactivar el hookSapo
+            scriptSapo.DesactiveHookAndPull();
+            
             
         }
 
         
+    }
+
+    public int GetCurrentCharacterIndex()
+    {
+        return n;
     }
 
     void UpdatePlayer()

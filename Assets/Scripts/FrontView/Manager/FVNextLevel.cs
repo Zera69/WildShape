@@ -7,6 +7,7 @@ public class FVNextLevel : MonoBehaviour
 {
     public SceneLoadManager sceneLoadManager;
     private SaveData data;
+    public CharacterManager characterManager;
 
 
     private void Start()
@@ -21,6 +22,8 @@ public class FVNextLevel : MonoBehaviour
         {
             //Añadir el nivel completado a la lista
             string currentLevelName = SceneManager.GetActiveScene().name;
+            int currentCharacterIndex = characterManager.GetCurrentCharacterIndex();
+            data.CurrentCharacterIndex = currentCharacterIndex;
             if(!data.completedLevels.Contains(currentLevelName))
             {
                 data.completedLevels.Add(currentLevelName);

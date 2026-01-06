@@ -8,6 +8,7 @@ public class FVPreviusLevel : MonoBehaviour
 
     public SceneLoadManager sceneLoadManager;
     private SaveData data;
+    public CharacterManager characterManager;
 
     private void Start()
     {
@@ -21,6 +22,8 @@ public class FVPreviusLevel : MonoBehaviour
         {
             //Quitar el nivel completado a la lista
             string currentLevelName = SceneManager.GetActiveScene().name;
+            int currentCharacterIndex = characterManager.GetCurrentCharacterIndex();
+            data.CurrentCharacterIndex = currentCharacterIndex;
             if(data.completedLevels.Contains(currentLevelName))
             {
                 data.completedLevels.Remove(currentLevelName);
