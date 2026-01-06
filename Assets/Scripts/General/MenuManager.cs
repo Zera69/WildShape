@@ -7,8 +7,6 @@ public class MenuManager : MonoBehaviour
 
     public static MenuManager instance;
     public GameObject pauseMenu;
-    public GameObject charactersUI;
-    public CharactersUI charactersUIScript;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
     // Start is called before the first frame update
@@ -33,11 +31,6 @@ public class MenuManager : MonoBehaviour
         {
             if(isPaused)
             {
-                if(isInCharactersUI)
-                {
-                    charactersUIScript.BackToMenu();
-                    isInCharactersUI = false;
-                }else
                 ResumeGame();
             }
             else
@@ -65,12 +58,5 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit Game (aunque en editor no se vea)");
-    }
-
-    public void GoToCharactersUI()
-    {
-        isInCharactersUI = true;
-        pauseMenu.SetActive(false);
-        charactersUI.SetActive(true);
     }
 }
