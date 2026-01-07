@@ -23,61 +23,57 @@ public class TDCharacterManager : MonoBehaviour
     {
         pos = player.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (n == 1)
         {
-            //Druida
-            if (n == 1)
-            {
-                pos.x += 0.5f;
-                pos.y -= 0.5f;
-            }
+            //Si el oso se transforma, adaprtamos la posición
+            pos.x += 0.5f;
+            pos.y -= 0.5f;
+        }
 
-            n = 0;
-            UpdatePlayer();
-        } 
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //Si la ardilla está en un arbusto donde solo entra ella, no se puede transformar
+
+        RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
+        if (n != 2 || (n == 2 && notBush.collider == null))
         {
-            //Oso
-
-            RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
-            RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
-            RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
-
-            if (n!=1 && free1.collider == null && free2.collider == null && free3.collider == null)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                pos.x -= 0.5f;
-                pos.y += 0.5f;
+                //Druida
 
-                n = 1;
+                n = 0;
                 UpdatePlayer();
             }
-            
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //Ardilla
-
-            if (n == 1)
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                pos.x += 0.5f;
-                pos.y -= 0.5f;
+                //Oso
+
+                RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
+                RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
+                RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
+
+                if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
+                {
+                    pos.x -= 0.5f;
+                    pos.y += 0.5f;
+
+                    n = 1;
+                    UpdatePlayer();
+                }
+
             }
-
-            n = 2;
-            UpdatePlayer();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            //Sapo
-
-            if (n == 1)
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                pos.x += 0.5f;
-                pos.y -= 0.5f;
-            }
+                //Ardilla
 
-            n = 3;
-            UpdatePlayer();
+                n = 2;
+                UpdatePlayer();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                //Sapo
+
+                n = 3;
+                UpdatePlayer();
+            }
         }
     }
 
