@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3449663788951273698}
   - component: {fileID: 8439717154787501736}
   - component: {fileID: 3871838448857543115}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FV_ButtonRed
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_Offset: {x: 0.012438983, y: 0.33366385}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.7}
     oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doors:
   - {fileID: 0}
+  sceneLoadManager: {fileID: 0}
   buttonOn: {fileID: -232195422, guid: 1d8deae6933ef504188b34c5340dd12d, type: 3}
   buttonOff: {fileID: 1686281118, guid: 1d8deae6933ef504188b34c5340dd12d, type: 3}
   isOn: 1

@@ -20,8 +20,7 @@ public class FVHook : MonoBehaviour
 
     public DistanceJoint2D dj;
 
-    public LayerMask hookableLayer;
-    public LayerMask pullableLayer;
+    public LayerMask interactionLayer;
 
     private GameObject hookPoint;
     private GameObject pullPoint;
@@ -35,7 +34,7 @@ public class FVHook : MonoBehaviour
     public FVSapo ScriptSapo;
 
     private Animator anim;
-    public bool canDrawTongue = false;
+
 
     private Vector2 origin;
     private Vector2 direction;
@@ -51,15 +50,8 @@ public class FVHook : MonoBehaviour
     float yDifferenceButton;
 
     //Tongue button
-    public LayerMask buttonLayer;          // Nueva layer "boton"
     private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
-
-    private float currentTongueLength = 0f;
-    private float targetTongueLength = 0f;
-
-    private Vector3 tongueStart;
-    private Vector3 tongueEnd;
-    private Vector3 tongueDir;
+    private float maxInteractDistance = 4f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,13 +64,13 @@ public class FVHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HookAndPull();
+        Interact();
         HandleInput();
         DetectPresing();
-        ChangeMassPulling();
+        ChangeStatsInPullOrButton();
         ChangeMassHooked();
-        DetectButtonClick();
         ChechPullDistanceY();
+
 
 
     }
@@ -116,8 +108,9 @@ public class FVHook : MonoBehaviour
         drawTonguePullPoint = null; 
     }
 
-    void HookAndPull()
+    void Interact()
     {
+        Debug.DrawRay(transform.position, direction * 4f, Color.red);
         //Miramos donde esta la posicion del raton
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
@@ -134,12 +127,52 @@ public class FVHook : MonoBehaviour
             anim.SetFloat("PullX", -1);
         }
 
-        //Lanzmaos un raycast desde nosotros hacia el raton
-        RaycastHit2D hitHook = Physics2D.Raycast(origin, direction, 3.6f, hookableLayer);
-        RaycastHit2D hitPull = Physics2D.Raycast(origin, direction, 5f, pullableLayer);
+        //Raycasts de cada accion
+        RaycastHit2D hitPull = new RaycastHit2D();
+        RaycastHit2D hitHook = new RaycastHit2D();
+        RaycastHit2D hitButton = new RaycastHit2D();
 
-        //Lo dibujamos en pantalla
-        Debug.DrawRay(origin, direction * 5f, Color.red);
+        //OverlapPoint desde el raton
+        Collider2D mouseCollider = Physics2D.OverlapPoint(mouseWorldPos, interactionLayer);
+        
+        //Si no es null esque hay algo con lo que interactuar en el raton
+        if (mouseCollider != null)
+        {
+            //Origen y target
+            Vector2 origin = transform.position;
+            Vector2 target = mouseCollider.transform.position;
+            
+            float dist = Vector2.Distance(origin, target);
+
+            //Si estamos a la distancia permitida podemos interactuar
+            if(dist <= maxInteractDistance)
+            {
+                Vector2 dir = (target - origin).normalized;
+
+                //Ray cast generico
+                RaycastHit2D hit = Physics2D.Raycast(origin, dir, dist, interactionLayer);
+
+                if (hit && hit.collider == mouseCollider)
+                {
+                    //Depende el tag lo ponemos a una accion o otra
+                    switch (hit.collider.tag)
+                    {
+                        case "Box":
+                            hitPull = hit;
+                            break;
+
+                        case "Hookable":
+                            hitHook = hit;
+                            break;
+
+                        case "Button":
+                            hitButton = hit;
+                            break;
+                    }
+                } 
+            }
+            
+        }
 
         //Detectamos si hay algo que hookear a nuestro alcance
         if (hitHook.collider != null)
@@ -151,6 +184,39 @@ public class FVHook : MonoBehaviour
         if (hitPull.collider != null)
         {
             pullPoint = hitPull.collider.gameObject;
+        }
+
+        if (hitButton.collider != null)
+        {
+            buttonPoint = hitButton.collider.gameObject;
+        }
+        
+        if(buttonPoint!= null)
+        {
+            //Comprobamos la diferencia en Y entre el sapo y el button
+            yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
+        }
+
+        //Si la diferencia es mayor al maximo permitido activamos la variable
+        if (yDifferenceButton > maxYDiferenceButton)
+        {
+            OverMaxYDifferenceButton = true;
+        }
+        else
+        {
+            OverMaxYDifferenceButton = false;
+        }
+        //Si hacmeos click izquierdo y detectamos un boton entramos en el if
+        if (Input.GetMouseButtonDown(0) && hitButton.collider != null && !OverMaxYDifferenceButton && hitButton.collider.tag == "Button")
+        {
+            //si no estamos ya tirando de la lengua inciamos animacion
+            if(!ThrowingTongue)
+            {
+                FVButton buttonSapo = buttonPoint.GetComponent<FVButton>();
+                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
+            }
+            
+
         }
 
         
@@ -196,10 +262,11 @@ public class FVHook : MonoBehaviour
             OverMaxYDifferencePull = false;
         }
 
-        //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire y detectamos donde cogernos entramos en el if
-        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull)
+        //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire , detectamos donde coger y no es un button entramos en el if
+        if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull && hitPull.collider.tag != "Button")
         {
-
+            Debug.Log(hitPull.collider.tag);
+            Debug.Log("Pulleando de: " + hitPull.collider.name);
             //activamos la conexion
             dj.enabled = true;
             dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
@@ -267,19 +334,25 @@ public class FVHook : MonoBehaviour
     }
 
     //Cambiamos la masa y las propiedades del sapo al estar pulleando
-    void ChangeMassPulling()
+    void ChangeStatsInPullOrButton()
     {
-        if (isPulling)
+        if(ThrowingTongue)
+        {
+            ScriptSapo.velocidad = 0f;
+            ScriptSapo.fuerzaSalto = 0f;
+        }else if (isPulling)
         {
             //Si estamos pulleando, no podremos movernos y solo saltar un poco
             ScriptSapo.velocidad = 0f;
             ScriptSapo.fuerzaSalto = 4f;
+            rb.mass = 10;
         }
-        else
+        else 
         { 
             //Si no estamos pulleando, volvemos a la normalidad
             ScriptSapo.velocidad = 3f;
             ScriptSapo.fuerzaSalto = 15f;
+            rb.mass = 5;
 
         }
     }
@@ -386,68 +459,9 @@ public class FVHook : MonoBehaviour
         }
     }
 
-    void DetectButtonClick()
-    {
-        //Miramos donde esta la posicion del raton
-        Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f;
-
-        //Miramos nuestra posicion y calculamos la direccion hacia el raton
-        origin = transform.position;
-        direction = (mouseWorldPos - transform.position).normalized;
-
-        //Detectamos la direccion para la animacion
-        if(direction.x > 0)
-        {
-            anim.SetFloat("PullX", 1);
-        } else if(direction.x < 0)
-        {
-            anim.SetFloat("PullX", -1);
-        }
-
-        //Lanzmaos un raycast desde nosotros hacia el raton
-        RaycastHit2D hitButton = Physics2D.Raycast(origin, direction, 6f, buttonLayer);
-
-        //Lo dibujamos en pantalla
-        // Debug.DrawRay(origin, direction * 6f, Color.blue);
-
-        //Detectamos si hay algo que Buttonear a nuestro alcance
-        if (hitButton.collider != null)
-        {
-            buttonPoint = hitButton.collider.gameObject;
-        }
-        
-        if(buttonPoint!= null)
-        {
-            //Comprobamos la diferencia en Y entre el sapo y el button
-            yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
-        }
-
-        //Si la diferencia es mayor al maximo permitido activamos la variable
-        if (yDifferenceButton > maxYDiferenceButton)
-        {
-            OverMaxYDifferenceButton = true;
-        }
-        else
-        {
-            OverMaxYDifferenceButton = false;
-        }
-        //Si hacmeos click izquierdo y detectamos un boton entramos en el if
-        if (Input.GetMouseButtonDown(0) && hitButton.collider != null && !OverMaxYDifferenceButton)
-        {
-            //si no estamos ya tirando de la lengua inciamos animacion
-            if(!ThrowingTongue)
-            {
-                FVButton buttonSapo = buttonPoint.GetComponent<FVButton>();
-                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
-            }
-            
-
-        }
-    } 
-
     IEnumerator TongueButtonRoutineStart(Vector3 hitPoint,FVButton buttonSapo)
     {
+        ScriptSapo.velocidad = 0f; // Bloqueamos el movimiento del sapo mientras se extiende la lengua
         // Mostramos la animación de lanzar la lengua
         anim.SetBool("TonguePull", true);
         yield return new WaitForSeconds(0.05f);
@@ -545,6 +559,7 @@ public class FVHook : MonoBehaviour
         // Ocultamos lengua
         spawnRope.SetActive(false);
         ThrowingTongue = false;
+        ScriptSapo.velocidad = 3f;
     }
 
 

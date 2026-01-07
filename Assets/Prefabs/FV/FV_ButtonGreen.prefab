@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2015724559240244743}
   - component: {fileID: 7383883318598451282}
   - component: {fileID: 7674348005417853464}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FV_ButtonGreen
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_Offset: {x: 0.009011507, y: 0.35146022}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.7}
     oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
