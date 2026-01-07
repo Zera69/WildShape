@@ -57,13 +57,15 @@ public class Oso : MonoBehaviour
         cajaArrastrada.transform.SetParent(transform);
         
         //caja al lado del oso
-        float direccion = transform.localScale.x;
-        cajaArrastrada.transform.localPosition = new Vector3(0.8f * direccion, 0.2f, 0);
+        //float direccion = transform.localScale.x;
+        //cajaArrastrada.transform.localPosition = new Vector3(0.8f * direccion, 0.2f, 0);
         
         // quitamos fisica de la caja completamente
         Rigidbody2D rbCaja = cajaArrastrada.GetComponent<Rigidbody2D>();
         if (rbCaja != null)
         {
+            // libera solo x cuando el oso toca la caja
+            rbCaja.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;//no he encontrado un unfreeze o algo asi
             rbCaja.simulated = false; // simulated a false hace que ya no se vea afectada por las fisicas
         }
     }
@@ -80,7 +82,8 @@ public class Oso : MonoBehaviour
         if (rbCaja != null)
         {
             rbCaja.simulated = true;
-            rbCaja.velocity = rbOso.velocity * 0.5f; //pequenyo impulsito
+            //rbCaja.velocity = rbOso.velocity * 0.5f; //pequenyo impulsito
+            rbCaja.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         
         cajaArrastrada = null;
