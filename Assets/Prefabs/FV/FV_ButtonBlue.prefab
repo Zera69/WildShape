@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4893856787397020206}
   - component: {fileID: 2616164459974634346}
   - component: {fileID: 2192742760303667016}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FV_ButtonBlue
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
