@@ -20,7 +20,7 @@ public class FVPlate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDown && collision.gameObject.CompareTag("box"))
+        if (!isDown )
         {
             isDown = true;
             spRen.sprite = plateDown;
@@ -34,7 +34,7 @@ public class FVPlate : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDown && collision.gameObject.CompareTag("box"))
+        if (isDown )
         {
             isDown = false;
             spRen.sprite = plateUp;

@@ -30,7 +30,7 @@ public class FVButton : MonoBehaviour
         if (sceneLoadManager != null)
         {
             spRen.sprite = buttonOff;
-            sceneLoadManager.Active();
+            sceneLoadManager.NextScene();
         }
         else
         {

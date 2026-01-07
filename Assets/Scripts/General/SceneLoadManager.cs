@@ -19,12 +19,24 @@ public class SceneLoadManager : MonoBehaviour
     {
         
     }
-    public void Active()
+    public void NextScene()
     {
-        StartCoroutine(LoadWithFade());
+        StartCoroutine(LoadWithFadeNextScene());
     }
 
-    IEnumerator LoadWithFade()
+    public void PreviousScene()
+    {
+        StartCoroutine(LoadWithFadePreviousScene());
+    }
+
+    IEnumerator LoadWithFadePreviousScene()
+    {
+        yield return FadeToBlack();
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex - 1);
+    }
+    
+    IEnumerator LoadWithFadeNextScene()
     {
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
