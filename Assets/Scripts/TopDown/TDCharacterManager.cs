@@ -9,6 +9,9 @@ public class TDCharacterManager : MonoBehaviour
     private GameObject player;
     private int n = 0;
 
+    public Transform movePoint;
+    public LayerMask stopColliders;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +23,57 @@ public class TDCharacterManager : MonoBehaviour
     {
         pos = player.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (n == 1)
         {
-            n = 0;
-            UpdatePlayer();
-        } 
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            n = 1;
-            UpdatePlayer();
+            //Si el oso se transforma, adaprtamos la posición
+            pos.x += 0.5f;
+            pos.y -= 0.5f;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+
+        //Si la ardilla está en un arbusto donde solo entra ella, no se puede transformar
+
+        RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
+        if (n != 2 || (n == 2 && notBush.collider == null))
         {
-            n = 2;
-            UpdatePlayer();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //Druida
+
+                n = 0;
+                UpdatePlayer();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                //Oso
+
+                RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
+                RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
+                RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
+
+                if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
+                {
+                    pos.x -= 0.5f;
+                    pos.y += 0.5f;
+
+                    n = 1;
+                    UpdatePlayer();
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                //Ardilla
+
+                n = 2;
+                UpdatePlayer();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                //Sapo
+
+                n = 3;
+                UpdatePlayer();
+            }
         }
     }
 
@@ -45,6 +85,7 @@ public class TDCharacterManager : MonoBehaviour
             {
                 player = lista[n];
                 player.transform.position = pos;
+                movePoint.position = pos;
                 lista[i].SetActive(true);
             }
             else

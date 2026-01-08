@@ -34,7 +34,7 @@ public class CharacterManager : MonoBehaviour
         //Configurar el personaje actual segun el guardado
         n = data.CurrentCharacterIndex;
 
-        scriptSapo = lista[2].GetComponent<FVHook>();
+        scriptSapo = lista[3].GetComponent<FVHook>();
         StartCoroutine(FixBug());
 
         //Depende si el nivel esta completo, empezar en un punto u otro
@@ -55,7 +55,7 @@ public class CharacterManager : MonoBehaviour
     IEnumerator FixBug()
     {
         yield return new WaitForSeconds(0.03f);
-        n = 2;
+        n = 3;
         UpdatePlayer();
         scriptSapo.DesactiveHookAndPull();
         n = data.CurrentCharacterIndex;
@@ -76,10 +76,15 @@ public class CharacterManager : MonoBehaviour
         } 
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            n = 1;
+            UpdatePlayer();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             //Comprobar si el personaje esta desbloqueado
             if(data.unlockedCharacters.Contains("Squirrel"))
             {
-               n = 1;
+               n = 2;
                UpdatePlayer(); 
             }else
             {
@@ -87,11 +92,11 @@ public class CharacterManager : MonoBehaviour
             }
             
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            n = 2;
+            n = 3;
             UpdatePlayer();
-            //Desactivar el hookSapo
+            //Desactivar el hookSapo NO TOCAR
             scriptSapo.DesactiveHookAndPull();
             
             
