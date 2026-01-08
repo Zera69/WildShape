@@ -301,18 +301,11 @@ MonoBehaviour:
   inputVertical: 0
   isHooked: 0
   dj: {fileID: 4139236325332438259}
-  hookableLayer:
+  interactionLayer:
     serializedVersion: 2
-    m_Bits: 8
-  pullableLayer:
-    serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 328
   spawnRope: {fileID: 6199672076955423045}
   ScriptSapo: {fileID: 8331979732878825427}
-  canDrawTongue: 0
-  buttonLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!232 &4139236325332438259
 DistanceJoint2D:
   m_ObjectHideFlags: 0
