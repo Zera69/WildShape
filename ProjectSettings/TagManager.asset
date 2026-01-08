@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Suelo
-  - box
+  - StartPoint
+  - EndPoint
+  - Button
+  - Hookable
+  - Box
   layers:
   - Default
   - TransparentFX
