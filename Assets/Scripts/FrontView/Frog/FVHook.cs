@@ -51,7 +51,7 @@ public class FVHook : MonoBehaviour
 
     //Tongue button
     private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
-    private float maxInteractDistance = 4f;
+    private float maxInteractDistance = 4.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -110,7 +110,7 @@ public class FVHook : MonoBehaviour
 
     void Interact()
     {
-        Debug.DrawRay(transform.position, direction * 4f, Color.red);
+        Debug.DrawRay(transform.position, direction * 4.5f, Color.red);
         //Miramos donde esta la posicion del raton
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
@@ -266,7 +266,6 @@ public class FVHook : MonoBehaviour
         if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull && hitPull.collider.tag != "Button")
         {
             Debug.Log(hitPull.collider.tag);
-            Debug.Log("Pulleando de: " + hitPull.collider.name);
             //activamos la conexion
             dj.enabled = true;
             dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
@@ -320,7 +319,7 @@ public class FVHook : MonoBehaviour
             //Acercar y alejar el gancho con las teclas W y S
             dj.distance -= inputVertical * 2f * Time.deltaTime;
             //Limitar la distancia minima y maxima del gancho
-            dj.distance = Mathf.Clamp(dj.distance, 1.2f, 3.5f);
+            dj.distance = Mathf.Clamp(dj.distance, 1.2f, 4.1f);
             
             
 
