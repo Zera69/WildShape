@@ -49,3 +49,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  stopColliders:
+    serializedVersion: 2
+    m_Bits: 1152

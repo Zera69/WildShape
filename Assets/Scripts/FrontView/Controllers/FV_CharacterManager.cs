@@ -14,6 +14,8 @@ public class CharacterManager : MonoBehaviour
     private GameObject StartPoint;
     private GameObject EndPoint;
 
+    public LayerMask stopColliders;
+
    
 
     
@@ -54,7 +56,7 @@ public class CharacterManager : MonoBehaviour
 
     IEnumerator FixBug()
     {
-        yield return new WaitForSeconds(0.03f);
+        yield return new WaitForSeconds(0.01f);
         n = 3;
         UpdatePlayer();
         scriptSapo.DesactiveHookAndPull();
@@ -69,37 +71,75 @@ public class CharacterManager : MonoBehaviour
     {
         pos = player.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        Vector2 origin = player.transform.position + Vector3.up * 0.8f;
+
+        RaycastHit2D canTransformBearRight = Physics2D.Raycast(origin, Vector2.right, 1f, stopColliders);
+        RaycastHit2D canTransformBearLeft = Physics2D.Raycast(origin, Vector2.left, 1f, stopColliders);
+
+        RaycastHit2D canTransformBearRight2 = Physics2D.Raycast(player.transform.position, Vector2.right, 1f, stopColliders);
+        RaycastHit2D canTransformBearLeft2 = Physics2D.Raycast(player.transform.position, Vector2.left, 1f, stopColliders);
+
+        RaycastHit2D canTransformBearUp = Physics2D.Raycast(origin, Vector2.up, 1.3f, stopColliders);
+
+        RaycastHit2D canTransform = Physics2D.Raycast(player.transform.position, Vector2.up, 1f, stopColliders);
+
+        Debug.DrawRay(origin, Vector2.right * 1f, Color.red);
+        Debug.DrawRay(origin, Vector2.left * 1f, Color.red);
+
+        Debug.DrawRay(player.transform.position, Vector2.left * 1f, Color.red);
+        Debug.DrawRay(player.transform.position, Vector2.right* 1f, Color.red);
+
+        Debug.DrawRay(player.transform.position, Vector2.up * 1.3f, Color.red);
+
+        if(canTransform.collider == null || (n != 2))
         {
-            n = 0;
-            UpdatePlayer();
-        } 
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            n = 1;
-            UpdatePlayer();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //Comprobar si el personaje esta desbloqueado
-            if(data.unlockedCharacters.Contains("Squirrel"))
+            //Si no es ardilla o si es ardilla y puede transformarse
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-               n = 2;
-               UpdatePlayer(); 
-            }else
-            {
-                Debug.Log("Personaje no desbloqueado");
+                //Druida
+                n = 0;
+                UpdatePlayer();
+            } 
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {   
+                //Si no hay obstaculos para transformarse en oso
+                if(canTransformBearRight.collider == null && canTransformBearLeft.collider == null 
+                    && canTransformBearUp.collider == null && canTransformBearRight2.collider == null 
+                    && canTransformBearLeft2.collider == null)
+                {
+                    //Oso
+                    n = 1;
+                    UpdatePlayer();
+                }
+                
+
             }
-            
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            n = 3;
-            UpdatePlayer();
-            //Desactivar el hookSapo NO TOCAR
-            scriptSapo.DesactiveHookAndPull();
-            
-            
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                //Ardilla
+
+                //Comprobar si el personaje esta desbloqueado
+                if(data.unlockedCharacters.Contains("Squirrel"))
+                {
+                    n = 2;
+                    UpdatePlayer(); 
+                }else
+                {
+                    Debug.Log("Personaje no desbloqueado");
+                }
+                
+            }
+        
+            else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                //Sapo
+                n = 3;
+                UpdatePlayer();
+                //Desactivar el hookSapo NO TOCAR
+                scriptSapo.DesactiveHookAndPull();
+                
+                
+            }
         }
 
         

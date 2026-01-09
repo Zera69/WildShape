@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Hookable
   - Box
+  - box
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Walls
   - Button
   - SmallGap
-  - 
+  - Ground
   - 
   - 
   - 

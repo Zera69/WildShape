@@ -25,12 +25,12 @@ public class TDCharacterManager : MonoBehaviour
 
         if (n == 1)
         {
-            //Si el oso se transforma, adaprtamos la posición
+            //Si el oso se transforma, adaprtamos la posiciï¿½n
             pos.x += 0.5f;
             pos.y -= 0.5f;
         }
 
-        //Si la ardilla está en un arbusto donde solo entra ella, no se puede transformar
+        //Si la ardilla estï¿½ en un arbusto donde solo entra ella, no se puede transformar
 
         RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
         if (n != 2 || (n == 2 && notBush.collider == null))
@@ -49,6 +49,10 @@ public class TDCharacterManager : MonoBehaviour
                 RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
                 RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
                 RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
+
+                Debug.DrawRay(player.transform.position, new Vector3(0f, 1f, 0f) * 1f, Color.red);
+                Debug.DrawRay(player.transform.position, new Vector3(-1f, 0f, 0f) * 1f, Color.red);
+                Debug.DrawRay(player.transform.position, new Vector3(-1f, 1f, 0f) * 1f, Color.red);
 
                 if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
                 {
