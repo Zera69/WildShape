@@ -7,8 +7,15 @@ public class MenuManager : MonoBehaviour
 
     public static MenuManager instance;
     public GameObject pauseMenu;
+    public GameObject mainUI;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
+
+    void Awake()
+    {
+        mainUI.SetActive(true);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +63,13 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
+        //volver a menu principal!!!
         Application.Quit();
         Debug.Log("Quit Game (aunque en editor no se vea)");
+    }
+
+    public void UpdateCharacters()
+    {
+        //chequeo json y ver que imagenes de personaje se activan
     }
 }
