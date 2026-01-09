@@ -173,10 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94890bf2fbc4bbd4992ea681872f6b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 10
+  velocidad: 7
   fuerzaSalto: 15
   gravedadNormal: 4
-  gravedadPlaneo: 0.25
+  gravedadPlaneo: 0.1
+  enSuelo: 0
 --- !u!232 &7868235213702380737
 DistanceJoint2D:
   m_ObjectHideFlags: 0

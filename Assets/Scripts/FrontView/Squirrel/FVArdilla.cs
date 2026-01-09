@@ -9,7 +9,7 @@ public class FVArdilla : MonoBehaviour
     //los numeros muy puestos a ojo puro seguramente toque cambiarlos
     
     private Rigidbody2D rb;
-    private bool enSuelo;
+    public bool enSuelo = false;
 
     private Animator anim;
 
@@ -47,9 +47,8 @@ public class FVArdilla : MonoBehaviour
             //anim.SetBool("IsJumping", true);
         }
         
-        if (!enSuelo && Input.GetKey(KeyCode.Space) && rb.velocity.y < 0) //si no estoy en el suelo, 
-                                                                        //y pulso espacio mientras velocidad de y es negativa (bajo) 
-                                                                        // cambio la gravedad
+        if (!enSuelo /*&& Input.GetKey(KeyCode.Space)*/ && rb.velocity.y < 0) //si no estoy en el suelo, 
+                                                                        //y pulso espacio mientras velocidad de y es negativa (bajo)                                                               // cambio la gravedad
         {
             rb.gravityScale = gravedadPlaneo;
             anim.SetBool("IsFloating", true);
@@ -66,8 +65,9 @@ public class FVArdilla : MonoBehaviour
         if (collision.gameObject.CompareTag("Suelo"))
         {
             enSuelo = true;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = 0;
+            //rb.velocity = Vector3.zero;
+            //rb.angularVelocity = 0;
+            velocidad = 7;
             anim.SetBool("IsJumping", false);
         }
     }
@@ -76,6 +76,7 @@ public class FVArdilla : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Suelo"))
         {
+            velocidad = 4;
             enSuelo = false;
             anim.SetBool("IsJumping", true);
         }
