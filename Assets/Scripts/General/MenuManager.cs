@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,9 +12,18 @@ public class MenuManager : MonoBehaviour
     public bool isPaused = false;
     public bool isInCharactersUI = false;
 
+    public Image druid;
+    public Image bear;
+    public Image squirrel;
+    public Image toad;
+
+    private Color black = new Color(0, 0, 0, 1);
+    private Color white = new Color(1, 1, 1, 1);
+
     void Awake()
     {
         mainUI.SetActive(true);
+        UpdateCharacters();
     }
 
     // Start is called before the first frame update
@@ -71,5 +81,43 @@ public class MenuManager : MonoBehaviour
     public void UpdateCharacters()
     {
         //chequeo json y ver que imagenes de personaje se activan
+        SaveData sd = SaveManager.instance.GetData();
+
+        if (sd.unlockedCharacters.Contains("Druid"))
+        {
+            druid.color = white;
+        }
+        else
+        {
+            druid.color = black;
+        }
+
+        if (sd.unlockedCharacters.Contains("Bear"))
+        {
+            bear.color = white;
+        }
+        else
+        {
+            bear.color = black;
+        }
+
+        if (sd.unlockedCharacters.Contains("Squirrel"))
+        {
+            squirrel.color = white;
+        }
+        else
+        {
+            squirrel.color = black;
+        }
+
+        if (sd.unlockedCharacters.Contains("Toad"))
+        {
+            toad.color = white;
+        }
+        else
+        {
+            toad.color = black;
+        }
+
     }
 }
