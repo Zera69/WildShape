@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 278964898}
   - component: {fileID: 278964897}
   - component: {fileID: 278964896}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plataform
   m_TagString: Suelo
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 496911962}
   - component: {fileID: 496911961}
   - component: {fileID: 496911960}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 1762263927}
   - component: {fileID: 1762263926}
   - component: {fileID: 1762263925}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Suelo
   m_Icon: {fileID: 0}
