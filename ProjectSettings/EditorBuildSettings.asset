@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/FrontView.unity
-    guid: a398b8c604b82ae46b7c98785dd4c07a
   - enabled: 1
-    path: Assets/Scenes/TopDown.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/MainMenu.unity
+    guid: b3f0f07ad04fe61469ec568b1228c22a
   - enabled: 1
     path: Assets/Scenes/Lv1Sapo.unity
     guid: d4ac753619b713a41964e60a21442866
@@ -20,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lv3Sapo.unity
     guid: bba290fa830a8b04c8abcffa20666bc0
+  - enabled: 1
+    path: Assets/Scenes/TopDown.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

@@ -19,6 +19,17 @@ public class SceneLoadManager : MonoBehaviour
     {
         
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ReturnToMainMenu()
+    {
+        StartCoroutine(LoadMainMenu());
+    }
+
     public void NextScene()
     {
         StartCoroutine(LoadWithFadeNextScene());
@@ -41,6 +52,12 @@ public class SceneLoadManager : MonoBehaviour
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    IEnumerator LoadMainMenu()
+    {
+        yield return FadeToBlack();
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator FadeFromBlack()
