@@ -285,6 +285,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   onFloor: 0
   ScriptHook: {fileID: 5880409909873439960}
+  WallsLayer:
+    serializedVersion: 2
+    m_Bits: 1160
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 1280
+  wallRight: 0
+  wallLeft: 0
 --- !u!114 &5880409909873439960
 MonoBehaviour:
   m_ObjectHideFlags: 0
