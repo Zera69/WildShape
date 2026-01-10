@@ -178,6 +178,12 @@ MonoBehaviour:
   gravedadNormal: 4
   gravedadPlaneo: 0.1
   enSuelo: 0
+  WallsLayer:
+    serializedVersion: 2
+    m_Bits: 1160
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!232 &7868235213702380737
 DistanceJoint2D:
   m_ObjectHideFlags: 0
