@@ -13,6 +13,9 @@ public class TDFrog : MonoBehaviour
     private bool ThrowingTongue = false;
     private GameObject buttonPoint;
     public GameObject spawnRope;
+    private float maxYDiferenceButton = 0.5f;
+    private float yDifferenceButton = 0f;
+    private bool OverMaxYDifferenceButton = false;
     
 
     // Start is called before the first frame update
@@ -25,13 +28,7 @@ public class TDFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            anim.SetBool("TongueOut", true);
-        } else if(Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            anim.SetBool("TongueOut", false);
-        }
+        
         DetectButtonClick();
     }
 
@@ -66,12 +63,29 @@ public class TDFrog : MonoBehaviour
             buttonPoint = hitButton.collider.gameObject;
         }
 
+         if(buttonPoint!= null)
+        {
+            //Comprobamos la diferencia en Y entre el sapo y el button
+            yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
+        }
+
+        //Si la diferencia es mayor al maximo permitido activamos la variable
+        if (yDifferenceButton > maxYDiferenceButton)
+        {
+            OverMaxYDifferenceButton = true;
+        }
+        else
+        {
+            OverMaxYDifferenceButton = false;
+        }
+
         //Si hacmeos click izquierdo y detectamos un boton entramos en el if
-        if (Input.GetMouseButtonDown(0) && hitButton.collider != null)
+        if (Input.GetMouseButtonDown(0) && hitButton.collider != null && !OverMaxYDifferenceButton)
         {
             //si no estamos ya tirando de la lengua inciamos animacion
             if(!ThrowingTongue)
             {
+                anim.SetBool("TongueOut", true);
                 TDButton buttonSapo = buttonPoint.GetComponent<TDButton>();
                 StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
             }
@@ -139,6 +153,7 @@ public class TDFrog : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         StartCoroutine(TongueButtonRoutineFinish(targetLength));
         buttonSapo.Activate(); 
+        anim.SetBool("TongueOut", false);
         
         
     }
