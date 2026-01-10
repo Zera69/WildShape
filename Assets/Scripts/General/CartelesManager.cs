@@ -29,7 +29,11 @@ public class CartelesManager : MonoBehaviour
         {
             inSing = false;
             open = false;
-            UI.SetActive(false);
+            if(UI != null)
+            {
+                UI.SetActive(false);
+            }
+            
         }
     }
 
@@ -47,8 +51,8 @@ public class CartelesManager : MonoBehaviour
         {
             open = true;
             UI.SetActive(true);
-            string txt = data.stringsCartelesSapo[index];
-            textoUI.text = txt;
+            //string txt = data.stringsCartelesSapo[index];
+            //textoUI.text = txt;
         }
         else if (Input.GetKeyDown(KeyCode.E) && open)
         {
