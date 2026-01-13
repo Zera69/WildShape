@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -9,22 +10,21 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
     public GameObject pauseMenu;
     public GameObject mainUI;
+    public GameObject mainMenu;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
+    SceneLoadManager sceneLoadManager;
 
     public Image druid;
     public Image bear;
     public Image squirrel;
     public Image toad;
 
+    private float time = 1f;
+
     private Color black = new Color(0, 0, 0, 1);
     private Color white = new Color(1, 1, 1, 1);
 
-    void Awake()
-    {
-        mainUI.SetActive(true);
-        UpdateCharacters();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,8 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        mainUI.SetActive(false);
+        //NewScene();
     }
 
     // Update is called once per frame
@@ -57,6 +59,30 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    IEnumerator showMain()
+    {
+        yield return new WaitForSeconds(time);
+        mainUI.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    IEnumerator hideMain()
+    {
+        mainMenu.SetActive(false);
+
+        yield return new WaitForSeconds(time);
+        
+        mainUI.SetActive(true);
+    }
+
+    public void PlayGame()
+    {
+        sceneLoadManager = FindObjectOfType<SceneLoadManager>();
+        sceneLoadManager.NextScene();
+        StartCoroutine(hideMain());
+        
+    }
+
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
@@ -73,10 +99,18 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        //volver a menu principal!!!
         Application.Quit();
-        Debug.Log("Quit Game (aunque en editor no se vea)");
     }
+
+    public void ReturnToMainMenu()
+    {
+        sceneLoadManager = FindObjectOfType<SceneLoadManager>();
+        ResumeGame();
+        sceneLoadManager.ReturnToMainMenu();
+        
+        StartCoroutine(showMain());
+    }
+
 
     public void UpdateCharacters()
     {

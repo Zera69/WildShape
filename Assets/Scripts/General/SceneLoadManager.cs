@@ -8,6 +8,9 @@ public class SceneLoadManager : MonoBehaviour
 {
     public Image imagenDeFondo;
     public float duracion = 1f;
+
+    public GameObject fade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +21,6 @@ public class SceneLoadManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
     public void ReturnToMainMenu()
@@ -45,15 +43,16 @@ public class SceneLoadManager : MonoBehaviour
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex - 1);
+        
     }
-    
+
     IEnumerator LoadWithFadeNextScene()
     {
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
-
+    
     IEnumerator LoadMainMenu()
     {
         yield return FadeToBlack();
@@ -62,6 +61,7 @@ public class SceneLoadManager : MonoBehaviour
 
     IEnumerator FadeFromBlack()
     {
+        
         float tiempo = 0f;
         Color color = imagenDeFondo.color;
 
@@ -76,10 +76,12 @@ public class SceneLoadManager : MonoBehaviour
 
         color.a = 0f;
         imagenDeFondo.color = color;
+        fade.SetActive(false);
     }
 
     public IEnumerator FadeToBlack()
     {
+        fade.SetActive(true);
         float tiempo = 0f;
         Color color = imagenDeFondo.color;
 

@@ -224,3 +224,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagenDeFondo: {fileID: 4387670453791035924}
   duracion: 1
+  fade: {fileID: 1692136519327927825}
