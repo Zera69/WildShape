@@ -12,6 +12,10 @@ public class FVSapo : MonoBehaviour
     private Animator anim;
     public bool onFloor;
     public FVHook ScriptHook;
+    public LayerMask WallsLayer;
+    public LayerMask FloorLayer;
+    public bool wallRight;
+    public bool wallLeft;
 
 
     void Start()
@@ -22,34 +26,95 @@ public class FVSapo : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && onFloor)
+        {
+            Jump();
+        }
+        ChechFloor();
+        CheckWall();
+        
+    }
+
+    void FixedUpdate()
+    {
         if(!ScriptHook.isHooked)
         {
             Movement();
         }
-        
     }
+    
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void CheckWall()
     {
-        if (collision.gameObject.CompareTag("Suelo"))
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, WallsLayer);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, WallsLayer);
+
+        Debug.DrawRay(transform.position, Vector2.right * 0.6f, Color.red);
+        Debug.DrawRay(transform.position, Vector2.left * 0.6f, Color.red);
+
+        if (hitRight.collider != null )
+        {
+            wallRight = true;
+        }
+        else
+        {
+            wallRight = false;
+        }
+
+        if (hitLeft.collider != null)
+        {
+            wallLeft = true;
+        }
+        else
+        {
+            wallLeft = false;
+        }
+    } 
+
+    private void ChechFloor()
+    {
+        //Raycast Derecha
+        Vector2 originRight = transform.position + Vector3.right * 0.5f;
+        RaycastHit2D hitFloor = Physics2D.Raycast(originRight, Vector2.down, 0.7f, FloorLayer);
+        Debug.DrawRay(originRight, Vector2.down * 0.7f, Color.blue);
+
+        //Raycast Izquierda
+        Vector2 originLeft = transform.position + Vector3.left * 0.5f;
+        RaycastHit2D hitFloorLeft = Physics2D.Raycast(originLeft, Vector2.down, 0.7f, FloorLayer);
+        Debug.DrawRay(originLeft, Vector2.down * 0.7f, Color.blue);
+
+        //Raycast Centro
+        Vector2 originCenter = transform.position;
+        RaycastHit2D hitFloorCenter = Physics2D.Raycast(originCenter, Vector2.down, 0.7f, FloorLayer);
+        Debug.DrawRay(originCenter, Vector2.down * 0.7f, Color.blue);
+        
+        if (hitFloor.collider != null || hitFloorLeft.collider != null || hitFloorCenter.collider != null)
         {
             onFloor = true;
-            anim.SetBool("IsJumping", false);
         }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Suelo"))
+        else
         {
             onFloor = false;
-            anim.SetBool("IsJumping", true);
         }
     }
 
     void Movement()
     {
         float movX = Input.GetAxis("Horizontal");
+        if(wallRight && !onFloor)
+        {
+            if(movX > 0)
+            {
+                movX = 0;
+            }
+        }
+        if(wallLeft && !onFloor)
+        {
+            if(movX < 0)
+            {
+                movX = 0;
+            }
+        }
         rb.velocity = new Vector2(movX * velocidad, rb.velocity.y);
 
         if(movX == 0)
@@ -69,11 +134,11 @@ public class FVSapo : MonoBehaviour
             anim.SetFloat("LastX", 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && onFloor)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
-        }
+    }
 
+    void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
     }
     
 }
