@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7194731434828410050}
   - component: {fileID: 1549758392016168664}
   - component: {fileID: 1428549568359364349}
+  - component: {fileID: 7746947028935879084}
   m_Layer: 0
   m_Name: TD_Druida
   m_TagString: Untagged
@@ -120,9 +121,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2.5
+  checkDistance: 1
   gridSize: 1
   limit: 0.1
   movePoint: {fileID: 0}
   stopColliders:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2688
+  lookDirection: {x: 0, y: 0}
+--- !u!114 &7746947028935879084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009413784456550997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca454bca235e7524bba04e32883b7b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agarrado: 0
+  cajaLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  paredLayer:
+    serializedVersion: 2
+    m_Bits: 640
+  distanciaAgarrar: 1
+  distanciaPared: 0.5
+  paredDelante: 0
+  cajaAgarrada: {fileID: 0}

@@ -7,7 +7,7 @@ public class TDCharacterManager : MonoBehaviour
     public GameObject[] lista;
     private Vector2 pos;
     private GameObject player;
-    private int n = 0;
+    public int n = 0;
 
     public Transform movePoint;
     public LayerMask stopColliders;
@@ -25,12 +25,12 @@ public class TDCharacterManager : MonoBehaviour
 
         if (n == 1)
         {
-            //Si el oso se transforma, adaprtamos la posici�n
+            //Si el oso se transforma, adaprtamos la posici n
             pos.x += 0.5f;
             pos.y -= 0.5f;
         }
 
-        //Si la ardilla est� en un arbusto donde solo entra ella, no se puede transformar
+        //Si la ardilla est  en un arbusto donde solo entra ella, no se puede transformar
 
         RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
         if (n != 2 || (n == 2 && notBush.collider == null))
