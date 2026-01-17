@@ -120,9 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  checkDistance: 1
   gridSize: 1
   limit: 0.1
   movePoint: {fileID: 0}
   stopColliders:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2688
+  lookDirection: {x: 0, y: 0}
