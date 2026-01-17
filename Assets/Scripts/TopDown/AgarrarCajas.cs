@@ -35,14 +35,14 @@ public class AgarrarCaja : MonoBehaviour
         //Al presionar E
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if(agarrado)
+            if(agarrado && characterMovement.movePoint.position == transform.position)
             {
                 agarrado = false;
                 Transform caja = this.transform.GetChild(0);
                 caja.parent = null;
                 Debug.Log("Caja soltada");
             } 
-            else if (hitBox.collider != null)
+            else if (hitBox.collider != null && characterMovement.movePoint.position == transform.position)
             {
                 agarrado = true;
                 GameObject caja = hitBox.collider.gameObject;

@@ -11,72 +11,81 @@ public class TDCharacterManager : MonoBehaviour
 
     public Transform movePoint;
     public LayerMask stopColliders;
+    private TDCharacterMovement characterMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         player = lista[n];
+        characterMovement = FindObjectOfType<TDCharacterMovement>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         pos = player.transform.position;
-
-        if (n == 1)
+        //si el personaje no se esta  moviendo, puede transformarse
+        if (characterMovement.IsMoving == false)
         {
-            //Si el oso se transforma, adaprtamos la posici n
-            pos.x += 0.5f;
-            pos.y -= 0.5f;
-        }
-
-        //Si la ardilla est  en un arbusto donde solo entra ella, no se puede transformar
-
-        RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
-        if (n != 2 || (n == 2 && notBush.collider == null))
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            
+        
+            if (n == 1)
             {
-                //Druida
-
-                n = 0;
-                UpdatePlayer();
+                //Si el oso se transforma, adaprtamos la posici n
+                pos.x += 0.5f;
+                pos.y -= 0.5f;
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+
+            //Si la ardilla est  en un arbusto donde solo entra ella, no se puede transformar
+
+            RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
+            if (n != 2 || (n == 2 && notBush.collider == null))
             {
-                //Oso
-
-                RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
-                RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
-                RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
-
-                Debug.DrawRay(player.transform.position, new Vector3(0f, 1f, 0f) * 1f, Color.red);
-                Debug.DrawRay(player.transform.position, new Vector3(-1f, 0f, 0f) * 1f, Color.red);
-                Debug.DrawRay(player.transform.position, new Vector3(-1f, 1f, 0f) * 1f, Color.red);
-
-                if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
+                if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    pos.x -= 0.5f;
-                    pos.y += 0.5f;
+                    //Druida
 
-                    n = 1;
+                    n = 0;
                     UpdatePlayer();
                 }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    //Oso
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                //Ardilla
+                    RaycastHit2D free1 = Physics2D.Raycast(player.transform.position, new Vector3(0f, 1f, 0f), 1f, stopColliders);
+                    RaycastHit2D free2 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 0f, 0f), 1f, stopColliders);
+                    RaycastHit2D free3 = Physics2D.Raycast(player.transform.position, new Vector3(-1f, 1f, 0f), 1f, stopColliders);
 
-                n = 2;
-                UpdatePlayer();
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                //Sapo
+                    Debug.DrawRay(player.transform.position, new Vector3(0f, 1f, 0f) * 1f, Color.red);
+                    Debug.DrawRay(player.transform.position, new Vector3(-1f, 0f, 0f) * 1f, Color.red);
+                    Debug.DrawRay(player.transform.position, new Vector3(-1f, 1f, 0f) * 1f, Color.red);
 
-                n = 3;
-                UpdatePlayer();
+                    if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
+                    {
+                        pos.x -= 0.5f;
+                        pos.y += 0.5f;
+
+                        n = 1;
+                        UpdatePlayer();
+                    }
+
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    //Ardilla
+
+                    n = 2;
+                    UpdatePlayer();
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    //Sapo
+
+                    n = 3;
+                    UpdatePlayer();
+                }
+                
             }
         }
     }
