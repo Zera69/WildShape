@@ -49,11 +49,13 @@ public class TDFrog : MonoBehaviour
         {
             //Detectamos la direccion para la animacion 
             if(direction.x > 0) 
-            { 
+            {
                 //Mirar hacia la derecha
+                anim.SetFloat("TongueX", 1);
             } else if(direction.x < 0) 
-            { 
+            {
                 //Mirar hacia la izquierda
+                anim.SetFloat("TongueX", -1);
             }
         }
 

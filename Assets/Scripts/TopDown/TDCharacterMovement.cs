@@ -183,18 +183,21 @@ public class TDCharacterMovement : MonoBehaviour
                 movePoint.position += (Vector3)moveDir;
             }
 
-            if( (characterManager.n == 0 || characterManager.n == 1) && agarrarCaja != null && agarrarCaja.agarrado )
+            
+            // Actualizamos animaciones  
+            if(Mathf.Abs(Horizontal) == gridSize || Mathf.Abs(Vertical) == gridSize)
             {
-                //animacion de llevar caja
-            }else
+                anim.SetBool("IsMoving", true);
+            }
+            else
             {
-                // Actualizamos animaciones
-                anim.SetBool("IsMoving", moveDir != Vector2.zero && canMove);
-                if (moveDir != Vector2.zero)
-                {
-                    anim.SetFloat("LastX", lookDirection.x);
-                    anim.SetFloat("LastY", lookDirection.y);
-                }
+                anim.SetBool("IsMoving", false);
+            }
+
+            if (moveDir != Vector2.zero)
+            {
+                anim.SetFloat("LastX", lookDirection.x);
+                anim.SetFloat("LastY", lookDirection.y);
             }
             
         }
