@@ -6,18 +6,44 @@ public class TDBarrier : MonoBehaviour
 {
     private Collider2D collider;
     private Animator anim;
+    public bool isActive = true;
+    public bool startsActive = true;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
+        if(!startsActive)
+        {
+            turnOff();
+            isActive = false;
+        }else
+        {
+            turnOn();
+            isActive = true;
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Active()
+    {
+        if(isActive)
+        {
+            turnOff();
+            isActive = false;
+        }
+        else
+        {
+            turnOn();
+            isActive = true;
+        }
     }
 
     public void turnOn()

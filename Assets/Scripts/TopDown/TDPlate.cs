@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TDPlate : MonoBehaviour
 {
-    public FVDoor[] doors;
+    public TDBarrier[] barriers;
     public Sprite plateUp;
     public Sprite plateDown;
-    public bool isDown = false;
+    public bool isDownBarrier = false;
 
     private SpriteRenderer spRen;
 
@@ -19,28 +19,36 @@ public class TDPlate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDown && collision.gameObject.CompareTag("box"))
+        if (!isDownBarrier && collision.gameObject.CompareTag("Box" ))
         {
-            isDown = true;
+            isDownBarrier = true;
             spRen.sprite = plateDown;
 
-            for (int i = 0; i < doors.Length; i++)
+            if(barriers.Length > 0 )
             {
-                doors[i].turnOff();
+                for (int i = 0; i < barriers.Length; i++)
+                {
+                    barriers[i].Active();
+                    Debug.Log("turn off barrier");
+                }
             }
+            
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDown && collision.gameObject.CompareTag("box"))
+        if (isDownBarrier && collision.gameObject.CompareTag("Box" ))
         {
-            isDown = false;
+            isDownBarrier = false;
             spRen.sprite = plateUp;
 
-            for (int i = 0; i < doors.Length; i++)
+            if(barriers.Length > 0 )
             {
-                doors[i].turnOn();
+                for (int i = 0; i < barriers.Length; i++)
+                {
+                    barriers[i].Active();
+                }
             }
         }
     }
