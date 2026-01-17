@@ -9327,7 +9327,7 @@ PrefabInstance:
     - target: {fileID: 3888588996973788595, guid: 809e331c757f17b44b2852fd6434abcd,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9083451458830859499, guid: 809e331c757f17b44b2852fd6434abcd,
         type: 3}
@@ -9525,10 +9525,25 @@ PrefabInstance:
       propertyPath: stopColliders.m_Bits
       value: 6784
       objectReference: {fileID: 0}
+    - target: {fileID: 1849862097491189581, guid: 32af1d100e7792a41bf08ba60ece87b5,
+        type: 3}
+      propertyPath: stopColliders.m_Bits
+      value: 7040
+      objectReference: {fileID: 0}
     - target: {fileID: 2935788178892032156, guid: 32af1d100e7792a41bf08ba60ece87b5,
         type: 3}
       propertyPath: stopColliders.m_Bits
       value: 6784
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378086740525285661, guid: 32af1d100e7792a41bf08ba60ece87b5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378086740525285661, guid: 32af1d100e7792a41bf08ba60ece87b5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.52
       objectReference: {fileID: 0}
     - target: {fileID: 4133649934226756635, guid: 32af1d100e7792a41bf08ba60ece87b5,
         type: 3}
