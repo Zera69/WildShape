@@ -8110,6 +8110,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrameReference
       objectReference: {fileID: 0}
+    - target: {fileID: 797323399487758621, guid: e8612f3a4da2e56478ac3e6b8ecd4039,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1184883661993683351, guid: e8612f3a4da2e56478ac3e6b8ecd4039,
         type: 3}
       propertyPath: m_LocalPosition.x
