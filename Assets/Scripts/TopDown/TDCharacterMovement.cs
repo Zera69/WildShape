@@ -46,7 +46,7 @@ public class TDCharacterMovement : MonoBehaviour
         {
             IsMoving = false;
         }
-        if (characterManager.n == 0)
+        if (characterManager.n == 0 || characterManager.n == 1)
         {
             agarrarCaja = FindObjectOfType<AgarrarCaja>();
         }
@@ -95,9 +95,10 @@ public class TDCharacterMovement : MonoBehaviour
                 lookDirection = moveDir;
             }
 
-            // Si hay caja agarrada y somos druida, comprobamos si hay pared delante de la caja
-            if (canMove && agarrarCaja!=null && characterManager.n == 0 && agarrarCaja.agarrado && agarrarCaja.cajaAgarrada != null)
+            // Si hay caja agarrada y somos druidao oso, comprobamos si hay pared delante de la caja
+            if (canMove && agarrarCaja!=null && (characterManager.n == 0 || characterManager.n == 1) && agarrarCaja.agarrado && agarrarCaja.cajaAgarrada != null)
             {
+               
                 //Lanzamos raycast desde la caja hacia donde se quiere mover el jugador desde la caja
                  hitWall = Physics2D.Raycast(agarrarCaja.cajaAgarrada.position,moveDir,(float)agarrarCaja.distanciaPared,agarrarCaja.paredLayer);
                  Debug.DrawRay(agarrarCaja.cajaAgarrada.position, moveDir * (float)agarrarCaja.distanciaPared, Color.blue);
@@ -113,7 +114,7 @@ public class TDCharacterMovement : MonoBehaviour
             // Comprobamos si hay colisionadores que bloqueen el movimiento
             if (canMove)
             {
-                if(characterManager.n == 1) // Si es oso, usamos boxcast
+                if(characterManager.n == 1) // Si es oso, hacemos raycasts adicionales para el tamaño
                 {
                     if(moveDir.x != 0)
                     {
@@ -121,8 +122,6 @@ public class TDCharacterMovement : MonoBehaviour
                         Vector2 offsetDown = Vector2.down * 0.5f;
                         RaycastHit2D hitBear = Physics2D.Raycast((Vector2)movePoint.position + offsetUp, moveDir, checkDistance, stopColliders);
                         RaycastHit2D hitBear2 = Physics2D.Raycast((Vector2)movePoint.position + offsetDown, moveDir, checkDistance, stopColliders);
-                        Debug.DrawRay((Vector2)movePoint.position + offsetUp, moveDir * checkDistance, Color.red);
-                        Debug.DrawRay((Vector2)movePoint.position + offsetDown, moveDir * checkDistance, Color.red);
                         if (hitBear.collider != null || hitBear2.collider != null)
                         {
                             canMove = false;
@@ -133,8 +132,6 @@ public class TDCharacterMovement : MonoBehaviour
                         Vector2 offsetLeft = Vector2.left * 0.5f;
                         RaycastHit2D hitBear = Physics2D.Raycast((Vector2)movePoint.position + offsetRight, moveDir, checkDistance, stopColliders);
                         RaycastHit2D hitBear2 = Physics2D.Raycast((Vector2)movePoint.position + offsetLeft, moveDir, checkDistance, stopColliders);
-                        Debug.DrawRay((Vector2)movePoint.position + offsetRight, moveDir * checkDistance, Color.red);
-                        Debug.DrawRay((Vector2)movePoint.position + offsetLeft, moveDir * checkDistance, Color.red);
                         if (hitBear.collider != null || hitBear2.collider != null)
                         {
                             canMove = false;
@@ -144,8 +141,8 @@ public class TDCharacterMovement : MonoBehaviour
                 }
                 else
                 {
+                    // Raycast normal para otros personajes
                     RaycastHit2D hitPlayer = Physics2D.Raycast(movePoint.position, moveDir, checkDistance, stopColliders);
-                    Debug.DrawRay(movePoint.position, moveDir * checkDistance, Color.red);
                     if (hitPlayer.collider != null)
                     {
                         canMove = false;
@@ -185,8 +182,8 @@ public class TDCharacterMovement : MonoBehaviour
             {
                 movePoint.position += (Vector3)moveDir;
             }
-                
-            if(characterManager.n == 0 && agarrarCaja != null && agarrarCaja.agarrado )
+
+            if( (characterManager.n == 0 || characterManager.n == 1) && agarrarCaja != null && agarrarCaja.agarrado )
             {
                 //animacion de llevar caja
             }else

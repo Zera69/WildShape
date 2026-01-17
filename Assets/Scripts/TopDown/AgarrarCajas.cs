@@ -10,13 +10,15 @@ public class AgarrarCaja : MonoBehaviour
     public double distanciaAgarrar = 1;
     public double distanciaPared = 0.5;
     private TDCharacterMovement characterMovement;
+    private TDCharacterManager characterManager;
     private Vector2 lookDirection;
     public bool paredDelante = false;
     public Transform cajaAgarrada;
     // Start is called before the first frame update
     void Start()
     {
-        characterMovement = GetComponent<TDCharacterMovement>();
+        characterMovement = FindAnyObjectByType<TDCharacterMovement>();
+        characterManager = FindObjectOfType<TDCharacterManager>();
     }
 
     // Update is called once per frame
@@ -30,7 +32,17 @@ public class AgarrarCaja : MonoBehaviour
         //Miramos hacia donde mira el personaje
         lookDirection = characterMovement.lookDirection;
         //Raycast para detectar si hay una caja que coger hacia donde miramos
+        if(characterManager.n == 0)
+        {
+            distanciaAgarrar = 1;
+            distanciaPared = 1;
+        }else if(characterManager.n == 1)
+        {
+            distanciaAgarrar = 1.5;
+            distanciaPared = 1.5;
+        }
         RaycastHit2D hitBox = Physics2D.Raycast(transform.position, lookDirection, (float)distanciaAgarrar, cajaLayer);
+        Debug.DrawRay(transform.position, lookDirection * (float)distanciaAgarrar, Color.green);
 
         //Al presionar E
         if(Input.GetKeyDown(KeyCode.E))
@@ -40,7 +52,7 @@ public class AgarrarCaja : MonoBehaviour
                 agarrado = false;
                 Transform caja = this.transform.GetChild(0);
                 caja.parent = null;
-                Debug.Log("Caja soltada");
+               
             } 
             else if (hitBox.collider != null && characterMovement.movePoint.position == transform.position)
             {
@@ -48,7 +60,7 @@ public class AgarrarCaja : MonoBehaviour
                 GameObject caja = hitBox.collider.gameObject;
                 caja.transform.parent = this.transform;
                 cajaAgarrada = caja.transform;
-                Debug.Log("Caja agarrada");
+               
             
             }
         }
