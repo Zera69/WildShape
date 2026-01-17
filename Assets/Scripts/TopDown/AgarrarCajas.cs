@@ -14,11 +14,14 @@ public class AgarrarCaja : MonoBehaviour
     private Vector2 lookDirection;
     public bool paredDelante = false;
     public Transform cajaAgarrada;
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
         characterMovement = FindAnyObjectByType<TDCharacterMovement>();
         characterManager = FindObjectOfType<TDCharacterManager>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,7 +55,9 @@ public class AgarrarCaja : MonoBehaviour
                 agarrado = false;
                 Transform caja = this.transform.GetChild(0);
                 caja.parent = null;
-               
+
+                anim.SetBool("BoxGrab", false);
+
             } 
             else if (hitBox.collider != null && characterMovement.movePoint.position == transform.position)
             {
@@ -60,8 +65,11 @@ public class AgarrarCaja : MonoBehaviour
                 GameObject caja = hitBox.collider.gameObject;
                 caja.transform.parent = this.transform;
                 cajaAgarrada = caja.transform;
-               
-            
+
+                anim.SetBool("BoxGrab", true);
+                anim.SetFloat("MoveX", anim.GetFloat("LastX"));
+                anim.SetFloat("MoveY", anim.GetFloat("LastY"));
+
             }
         }
     }
