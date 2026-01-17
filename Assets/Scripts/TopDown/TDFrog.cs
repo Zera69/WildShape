@@ -36,9 +36,11 @@ public class TDFrog : MonoBehaviour
 
     void DetectButtonClick()
     {
+        // Obtener posición del ratón en el mundo
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
 
+        // Dirección desde el sapo hasta el ratón
         origin = transform.position;
         direction = (mouseWorldPos - transform.position).normalized;
 
@@ -57,35 +59,45 @@ public class TDFrog : MonoBehaviour
 
         // Detectamos botón con OverlapPoint + Raycast
         Collider2D mouseCollider = Physics2D.OverlapPoint(mouseWorldPos, buttonLayer);
+        // Si hay un collider bajo el ratón
         if(mouseCollider != null)
         {
+            // Verificamos distancia
             float dist = Vector2.Distance(origin, mouseCollider.transform.position);
             if(dist <= maxInteractDistance)
             {
+                // Hacemos un raycast para asegurarnos de que no hay obstáculos
                 RaycastHit2D hitButton = Physics2D.Raycast(origin, ((Vector2)mouseCollider.transform.position - origin).normalized, dist, buttonLayer);
 
+                // Si el raycast golpea el mismo collider que el del ratón, lo guardamos
                 if(hitButton.collider != null && hitButton.collider == mouseCollider)
                 {
                     buttonPoint = hitButton.collider.gameObject;
                 }
             }
+        //Si no hay collider bajo el ratón, limpiamos la variable
         }else
         {
             buttonPoint = null;
         }
 
+        // Comprobamos la diferencia en Y 
         if(buttonPoint != null)
         {
             yDifferenceButton = Mathf.Abs(buttonPoint.transform.position.y - transform.position.y);
             OverMaxYDifferenceButton = yDifferenceButton > maxYDiferenceButton;
         }
 
+        // Si se hace click izquierdo y no estamos moviéndonos
         if(Input.GetMouseButtonDown(0) && !characterMovement.IsMoving)
         {
+            // Si hay un botón seleccionado y no se supera la diferencia máxima en Y
             if(buttonPoint != null && !OverMaxYDifferenceButton)
             {
+                //Si no estamos lanzando la lengua ya
                 if(!ThrowingTongue)
                 {
+                    // Iniciamos la rutina de la lengua
                     anim.SetBool("TongueOut", true);
                     TDButton buttonSapo = buttonPoint.GetComponent<TDButton>();
                     if(buttonSapo != null)
