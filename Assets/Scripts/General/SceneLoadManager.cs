@@ -38,21 +38,44 @@ public class SceneLoadManager : MonoBehaviour
         StartCoroutine(LoadWithFadePreviousScene());
     }
 
+    public void LoadScene(int s)
+    {
+        StartCoroutine(LoadWithFadeScene(s));
+    }
+
+    private void saveCurrentScene(int s)
+    {
+        if (s != 0)
+        {
+            SaveData sd = SaveManager.instance.GetData();
+            sd.currentLevel = s;
+            SaveManager.instance.SaveGame();
+        }
+    }
+
     IEnumerator LoadWithFadePreviousScene()
     {
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        saveCurrentScene(currentSceneIndex - 1);
         SceneManager.LoadScene(currentSceneIndex - 1);
-        
     }
 
     IEnumerator LoadWithFadeNextScene()
     {
         yield return FadeToBlack();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        saveCurrentScene(currentSceneIndex + 1);
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
-    
+
+    IEnumerator LoadWithFadeScene(int s)
+    {
+        yield return FadeToBlack();
+        saveCurrentScene(s);
+        SceneManager.LoadScene(s);
+    }
+
     IEnumerator LoadMainMenu()
     {
         yield return FadeToBlack();
