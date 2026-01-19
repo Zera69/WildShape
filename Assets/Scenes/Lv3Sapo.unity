@@ -2966,6 +2966,16 @@ PrefabInstance:
       propertyPath: WallsLayer.m_Bits
       value: 1160
       objectReference: {fileID: 0}
+    - target: {fileID: 2848131908887863724, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
+        type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 2848131908887863724, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
+        type: 3}
+      propertyPath: WallsLayer.m_Bits
+      value: 1160
+      objectReference: {fileID: 0}
     - target: {fileID: 4040800781853301066, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
       propertyPath: FloorLayer.m_Bits
