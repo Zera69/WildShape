@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 114215472}
   - component: {fileID: 114215471}
   - component: {fileID: 114215470}
+  - component: {fileID: 114215473}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -191,6 +192,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114215473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114215469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd874c19d774732469efd2c6a7f09026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &236694812 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8877058220341398554, guid: ad62a66103efbd94da8a50d8a39670d5,
@@ -2197,7 +2210,7 @@ PrefabInstance:
     - target: {fileID: 3635583610329685744, guid: ad62a66103efbd94da8a50d8a39670d5,
         type: 3}
       propertyPath: m_Name
-      value: UIButton
+      value: BackButton
       objectReference: {fileID: 0}
     - target: {fileID: 7450063375577631661, guid: ad62a66103efbd94da8a50d8a39670d5,
         type: 3}
