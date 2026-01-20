@@ -9526,7 +9526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1873313791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9903,6 +9903,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grid_Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 169748238717598321, guid: 32af1d100e7792a41bf08ba60ece87b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1676977435545607230, guid: 32af1d100e7792a41bf08ba60ece87b5,
         type: 3}
