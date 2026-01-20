@@ -9,6 +9,7 @@ public class FVPlate : MonoBehaviour
     public Sprite plateUp;
     public Sprite plateDown;
     public bool isDown = false;
+    private int count = 0;
 
     private SpriteRenderer spRen;
 
@@ -20,7 +21,7 @@ public class FVPlate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDown )
+        if (!isDown && count==0)
         {
             isDown = true;
             spRen.sprite = plateDown;
@@ -30,11 +31,15 @@ public class FVPlate : MonoBehaviour
                 doors[i].turnOff();
             }
         }
+
+        count++;
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDown )
+        count--;
+
+        if (isDown && count==0)
         {
             isDown = false;
             spRen.sprite = plateUp;
