@@ -40,16 +40,16 @@ public class CharacterManager : MonoBehaviour
         StartCoroutine(FixBug());
 
         //Depende si el nivel esta completo, empezar en un punto u otro
-        string currentLevelName = SceneManager.GetActiveScene().name;
-        if(data.completedLevels.Contains(currentLevelName))
-        {
+        //string currentLevelName = SceneManager.GetActiveScene().name;
+        //if(data.completedLevels.Contains(currentLevelName))
+        //{
             //Si el nivel está completado, empezar desde el EndPoint
-            player.transform.position = EndPoint.transform.position;
-        }else
-        {
+            //player.transform.position = EndPoint.transform.position;
+        //}else
+        //{
             //Si no, empezar desde el StartPoint
             player.transform.position = StartPoint.transform.position;
-        }
+        //}
 
 
     }

@@ -5,9 +5,7 @@ using TMPro;
 public class CartelesManager : MonoBehaviour
 {
   
-    public int index;
     private SaveData data;
-    public TextMeshProUGUI textoUI;
     public GameObject UI;
     private bool open = false;
     private bool inSing;
