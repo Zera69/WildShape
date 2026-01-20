@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainUI;
     public GameObject mainMenu;
+    public GameObject continueBttn;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
     SceneLoadManager sceneLoadManager;
@@ -40,6 +42,7 @@ public class MenuManager : MonoBehaviour
             Destroy(gameObject);
         }
         mainUI.SetActive(false);
+        checkDataExists();
         //NewScene();
     }
 
@@ -64,6 +67,7 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         mainUI.SetActive(false);
         mainMenu.SetActive(true);
+        checkDataExists();
     }
 
     IEnumerator hideMain()
@@ -75,12 +79,38 @@ public class MenuManager : MonoBehaviour
         mainUI.SetActive(true);
     }
 
+    public void checkDataExists()
+    {
+        SaveData sd = SaveManager.instance.GetData();
+
+        if (sd.saveDataExists)
+        {
+            continueBttn.SetActive(true);
+        }
+        else
+        {
+            continueBttn.SetActive(false);
+        }
+    }
+
     public void PlayGame()
     {
+        SaveManager.instance.ResetGame();
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
         sceneLoadManager.NextScene();
         StartCoroutine(hideMain());
-        
+        SaveData sd = SaveManager.instance.GetData();
+        sd.saveDataExists = true;
+        SaveManager.instance.SaveGame();
+    }
+
+    public void ContinueGame()
+    {
+        SaveData sd = SaveManager.instance.GetData();
+        int scene = sd.currentLevel;
+        sceneLoadManager = FindObjectOfType<SceneLoadManager>();
+        sceneLoadManager.LoadScene(scene);
+        StartCoroutine(hideMain());
     }
 
     public void PauseGame()
