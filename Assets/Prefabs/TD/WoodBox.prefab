@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3464392290718772074}
   m_Layer: 11
   m_Name: WoodBox
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
