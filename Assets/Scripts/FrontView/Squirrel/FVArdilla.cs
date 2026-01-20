@@ -128,13 +128,21 @@ public class FVArdilla : MonoBehaviour
 
     private void CheckWall()
     {
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, WallsLayer);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, WallsLayer);
+        Vector2 offsetDown = Vector2.down * 0.45f;
+        Vector2 offsetUp = Vector2.up * 0.45f;
+        RaycastHit2D hitRightDown = Physics2D.Raycast((Vector2)transform.position + offsetDown, Vector2.right, 0.6f, WallsLayer);
+        RaycastHit2D hitLeftDown = Physics2D.Raycast((Vector2)transform.position + offsetDown, Vector2.left, 0.6f, WallsLayer);
 
-        Debug.DrawRay(transform.position, Vector2.right * 0.6f, Color.red);
-        Debug.DrawRay(transform.position, Vector2.left * 0.6f, Color.red);
+        Debug.DrawRay((Vector2)transform.position + offsetDown, Vector2.right * 0.6f, Color.green);
+        Debug.DrawRay((Vector2)transform.position + offsetDown, Vector2.left * 0.6f, Color.green);
 
-        if (hitRight.collider != null )
+        RaycastHit2D hitRightUp = Physics2D.Raycast((Vector2)transform.position + offsetUp, Vector2.right, 0.6f, WallsLayer);
+        RaycastHit2D hitLeftUp = Physics2D.Raycast((Vector2)transform.position + offsetUp, Vector2.left, 0.6f, WallsLayer);
+
+        Debug.DrawRay((Vector2)transform.position + offsetUp, Vector2.right * 0.6f, Color.green);
+        Debug.DrawRay((Vector2)transform.position + offsetUp, Vector2.left * 0.6f, Color.green);
+
+        if (hitRightUp.collider != null || hitRightDown.collider != null)
         {
             wallRight = true;
         }
@@ -143,7 +151,7 @@ public class FVArdilla : MonoBehaviour
             wallRight = false;
         }
 
-        if (hitLeft.collider != null)
+        if (hitLeftUp.collider != null || hitLeftDown.collider != null)
         {
             wallLeft = true;
         }
