@@ -27,6 +27,11 @@ public class TDCharacterManager : MonoBehaviour
         characterMovementSapo = lista[3].GetComponent<TDCharacterMovement>();
     }
 
+    public int GetCurrentCharacterIndex()
+    {
+        return n;
+    }
+
     // Update is called once per frame
     void Update()
     {
