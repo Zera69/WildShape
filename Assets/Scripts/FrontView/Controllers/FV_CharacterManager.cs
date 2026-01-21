@@ -8,13 +8,15 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] lista;
     private Vector2 pos;
     private GameObject player;
-    private int n = 0;
+    public int n = 0;
     private FVHook scriptSapo;
     private SaveData data;
     private GameObject StartPoint;
     private GameObject EndPoint;
 
     public LayerMask stopColliders;
+    private Agarrar agarrarScriptDruida;
+    private Agarrar agarrarScriptBear;
 
    
 
@@ -38,6 +40,8 @@ public class CharacterManager : MonoBehaviour
 
         scriptSapo = lista[3].GetComponent<FVHook>();
         StartCoroutine(FixBug());
+        agarrarScriptBear = lista[1].GetComponent<Agarrar>();
+        agarrarScriptDruida = lista[0].GetComponent<Agarrar>();
 
         //Depende si el nivel esta completo, empezar en un punto u otro
         //string currentLevelName = SceneManager.GetActiveScene().name;
@@ -52,6 +56,27 @@ public class CharacterManager : MonoBehaviour
         //}
 
 
+    }
+
+    private void soltarCaja()
+    {
+        if(n == 0)
+        {
+            agarrarScriptDruida.agarrado = false;
+            if(agarrarScriptDruida.cajaAgarrada != null)
+            {
+                agarrarScriptDruida.cajaAgarrada.parent = null;
+                agarrarScriptDruida.cajaAgarrada = null;
+            }
+        }else if(n == 1)
+        {
+            agarrarScriptBear.agarrado = false;
+            if(agarrarScriptBear.cajaAgarrada != null)
+            {
+                agarrarScriptBear.cajaAgarrada.parent = null;
+                agarrarScriptBear.cajaAgarrada = null;
+            }
+        }
     }
 
     IEnumerator FixBug()
@@ -96,6 +121,7 @@ public class CharacterManager : MonoBehaviour
             //Si no es ardilla o si es ardilla y puede transformarse
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                soltarCaja();
                 //Druida
                 n = 0;
                 UpdatePlayer();
@@ -107,6 +133,7 @@ public class CharacterManager : MonoBehaviour
                     && canTransformBearUp.collider == null && canTransformBearRight2.collider == null 
                     && canTransformBearLeft2.collider == null)
                 {
+                    soltarCaja();
                     //Oso
                     n = 1;
                     UpdatePlayer();
@@ -121,6 +148,7 @@ public class CharacterManager : MonoBehaviour
                 //Comprobar si el personaje esta desbloqueado
                 if(data.unlockedCharacters.Contains("Squirrel"))
                 {
+                    soltarCaja();
                     n = 2;
                     UpdatePlayer(); 
                 }else
@@ -132,6 +160,7 @@ public class CharacterManager : MonoBehaviour
         
             else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
+                soltarCaja();
                 //Sapo
                 n = 3;
                 UpdatePlayer();

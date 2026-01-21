@@ -3051,7 +3051,7 @@ PrefabInstance:
     - target: {fileID: 1299383770660133338, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
       propertyPath: FloorLayer.m_Bits
-      value: 1280
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 1299383770660133338, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
@@ -3061,12 +3061,17 @@ PrefabInstance:
     - target: {fileID: 2848131908887863724, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
       propertyPath: FloorLayer.m_Bits
-      value: 1280
+      value: 1344
       objectReference: {fileID: 0}
     - target: {fileID: 2848131908887863724, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
       propertyPath: WallsLayer.m_Bits
       value: 1160
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408422441766369797, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4040800781853301066, guid: 1aea38c7565e9294fbebae9c32ebfa2f,
         type: 3}
@@ -6549,7 +6554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2033838513
 MonoBehaviour:
   m_ObjectHideFlags: 0

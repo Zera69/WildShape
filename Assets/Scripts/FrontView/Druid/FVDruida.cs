@@ -7,19 +7,22 @@ public class FVDruida : MonoBehaviour
     public float velocidad = 15f;
     private float fuerzaSalto = 11f;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Animator anim;
     public bool onFloor;
     public LayerMask WallsLayer;
     public LayerMask FloorLayer;
     public bool wallRight;
     public bool wallLeft;
+    public Vector2 lookDirection = new Vector2(1, 0);
+    private Agarrar agarrarScript;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        agarrarScript = GetComponent<Agarrar>();
         anim.SetFloat("LastX", 1);
     }
 
@@ -34,6 +37,19 @@ public class FVDruida : MonoBehaviour
         CheckWall();
 
         float movX = Input.GetAxis("Horizontal");
+        if(movX != 0)
+        {
+            lookDirection = new Vector2(movX, 0);
+        }
+
+        if (agarrarScript.agarrado && agarrarScript.paredDelante)
+        {
+            if (Mathf.Sign(movX) == Mathf.Sign(lookDirection.x))
+            {
+                movX = 0;
+            }
+        }
+
         if (wallRight && !onFloor)
         {
             if (movX > 0)
@@ -41,6 +57,7 @@ public class FVDruida : MonoBehaviour
                 movX = 0;
             }
         }
+
         if (wallLeft && !onFloor)
         {
             if (movX < 0)
@@ -48,6 +65,7 @@ public class FVDruida : MonoBehaviour
                 movX = 0;
             }
         }
+
         rb.velocity = new Vector2(movX * velocidad, rb.velocity.y);
 
         if (movX > 0)
