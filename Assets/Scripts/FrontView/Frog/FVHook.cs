@@ -52,6 +52,7 @@ public class FVHook : MonoBehaviour
     //Tongue button
     private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
     private float maxInteractDistance = 4.5f;
+    private Rigidbody2D rbPull;
 
     // Start is called before the first frame update
     void Start()
@@ -265,10 +266,13 @@ public class FVHook : MonoBehaviour
         //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire , detectamos donde coger y no es un button entramos en el if
         if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull && hitPull.collider.tag != "Button")
         {
+            rbPull = pullPoint.GetComponent<Rigidbody2D>();
+            rbPull.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+            rbPull.bodyType = RigidbodyType2D.Dynamic;
             Debug.Log(hitPull.collider.tag);
             //activamos la conexion
             dj.enabled = true;
-            dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
+            dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>   ();
             isPulling = true;
             anim.SetBool("TonguePull", true);
 
@@ -278,6 +282,8 @@ public class FVHook : MonoBehaviour
         //Si dejamos de presioanr click y estamos pulleando, soltamos el objeto
         else if (!PresingClick && isPulling)
         {
+            rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
+            rbPull.bodyType = RigidbodyType2D.Kinematic;
             dj.enabled = false;
             dj.connectedBody = null;
             isPulling = false;

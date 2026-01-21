@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1925011916155083858}
   - component: {fileID: 3825889984481729155}
-  - component: {fileID: 69388963088268132}
   - component: {fileID: 508689996088819387}
   - component: {fileID: 130126440308664392}
+  - component: {fileID: 6799887672192732861}
   - component: {fileID: 2620189253051512040}
+  - component: {fileID: 6144992058644890408}
   m_Layer: 0
   m_Name: FV_Oso
   m_TagString: Player
@@ -88,19 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &69388963088268132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1223852909827296000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06325fae4d5b4f24fafe42e850a2a7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 3
 --- !u!61 &508689996088819387
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,7 +160,22 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &6799887672192732861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223852909827296000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e976e991636ce8e4481768d12758443a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 2
+  rb: {fileID: 0}
+  lookDirection: {x: 1, y: 0}
 --- !u!95 &2620189253051512040
 Animator:
   serializedVersion: 5
@@ -194,3 +197,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6144992058644890408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223852909827296000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1080af5ae108faa4495476bbc3c255e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agarrado: 0
+  cajaLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  paredLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  distanciaAgarrar: 1
+  paredDelante: 0
+  cajaAgarrada: {fileID: 0}
+  anim: {fileID: 0}
