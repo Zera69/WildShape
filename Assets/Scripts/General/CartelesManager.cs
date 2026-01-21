@@ -25,6 +25,7 @@ public class CartelesManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log("Salir del cartel");
             inSing = false;
             open = false;
             if(UI != null)
