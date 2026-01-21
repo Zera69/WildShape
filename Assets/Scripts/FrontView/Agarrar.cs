@@ -18,6 +18,7 @@ public class Agarrar : MonoBehaviour
     public Animator anim;
     private Collider2D boxCollider;
     private Collider2D playerCollider;
+    private GameObject caja;
 
 
     // Start is called before the first frame update
@@ -66,7 +67,7 @@ public class Agarrar : MonoBehaviour
                     if(druidaMovement.onFloor)
                     {
                         Debug.DrawRay(transform.position, lookDirection * (float)distanciaPared, Color.red);
-
+                        caja.GetComponent<Rigidbody2D>().isKinematic = false;
                         Debug.Log("Soltando caja");
                         agarrado = false;
                         if (cajaAgarrada != null)
@@ -81,6 +82,7 @@ public class Agarrar : MonoBehaviour
                 {
                     Debug.Log("Soltando caja");
                     agarrado = false;
+                    caja.GetComponent<Rigidbody2D>().isKinematic = false;
                     if (cajaAgarrada != null)
                     {
                         cajaAgarrada.parent = null;
@@ -96,7 +98,8 @@ public class Agarrar : MonoBehaviour
             {
                 Debug.Log("Agarrando caja");
                 agarrado = true;
-                GameObject caja = hitBox.collider.gameObject;
+                caja = hitBox.collider.gameObject;
+                caja.GetComponent<Rigidbody2D>().isKinematic = true;
                 caja.transform.parent = this.transform;
                 cajaAgarrada = caja.transform;
                 boxCollider = cajaAgarrada.GetComponent<Collider2D>();

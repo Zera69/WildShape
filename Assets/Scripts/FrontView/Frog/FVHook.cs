@@ -54,6 +54,7 @@ public class FVHook : MonoBehaviour
     private float maxInteractDistance = 4.5f;
     private Rigidbody2D rbPull;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -268,7 +269,6 @@ public class FVHook : MonoBehaviour
         {
             rbPull = pullPoint.GetComponent<Rigidbody2D>();
             rbPull.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-            rbPull.bodyType = RigidbodyType2D.Dynamic;
             Debug.Log(hitPull.collider.tag);
             //activamos la conexion
             dj.enabled = true;
@@ -283,7 +283,6 @@ public class FVHook : MonoBehaviour
         else if (!PresingClick && isPulling)
         {
             rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
-            rbPull.bodyType = RigidbodyType2D.Kinematic;
             dj.enabled = false;
             dj.connectedBody = null;
             isPulling = false;
