@@ -8,7 +8,7 @@ public class Agarrar : MonoBehaviour
     public LayerMask cajaLayer;
     public  LayerMask paredLayer;
     public double distanciaAgarrar = 1;
-    private double distanciaPared;
+    private float distanciaPared;
     private FVDruida druidaMovement;
     private BearMovement bearMovement;
     private CharacterManager characterManager;
@@ -47,12 +47,12 @@ public class Agarrar : MonoBehaviour
         {
             lookDirection = druidaMovement.lookDirection;
             distanciaAgarrar = 0.8;
-            distanciaPared = 1;
+            distanciaPared = 0.1f;
         }else if(characterManager.n == 1)
         {
             lookDirection = bearMovement.lookDirection;
             distanciaAgarrar = 1.1;
-            distanciaPared = 2;
+            distanciaPared = 0.3f;
         }
         RaycastHit2D hitBox = Physics2D.Raycast(transform.position, lookDirection, (float)distanciaAgarrar, cajaLayer);
         Debug.DrawRay(transform.position, lookDirection * (float)distanciaAgarrar, Color.green);
@@ -118,7 +118,19 @@ public class Agarrar : MonoBehaviour
     {
         if(cajaAgarrada !=null)
         {
-            RaycastHit2D hitWall = Physics2D.Raycast(cajaAgarrada.position, lookDirection, (float)distanciaPared / 2, paredLayer);
+            Collider2D boxCol = cajaAgarrada.GetComponent<Collider2D>();
+            Vector2 dir;
+            if(lookDirection.x>=0)
+            {
+                dir = Vector2.right;
+            }
+            else
+            {
+                dir = Vector2.left;
+            }
+            Vector2 origin = (Vector2)boxCol.bounds.center + dir * (boxCol.bounds.extents.x + 0.05f);
+            RaycastHit2D hitWall = Physics2D.Raycast(origin,dir,(float)distanciaPared/5,paredLayer);
+            Debug.DrawRay(origin, dir * (float)distanciaPared/5, Color.red);
             if(hitWall.collider != null)
             {
                 paredDelante = true;
