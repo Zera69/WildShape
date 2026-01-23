@@ -24,6 +24,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        PlayMusic("main");
     }
 
     public void PlayMusic(string name)
@@ -47,13 +49,32 @@ public class AudioManager : MonoBehaviour
 
         if (s != null)
         {
-            sfxSource.clip = s.clip;
-            sfxSource.Play();
+            sfxSource.PlayOneShot(s.clip);
         }
         else
         {
             Debug.Log("sonido no encontrado");
         }
+    }
+
+    public void ToggleMusic()
+    {
+        musicSource.mute = !musicSource.mute;
+    }
+
+    public void ToggleSFX()
+    {
+        sfxSource.mute = !sfxSource.mute;
+    }
+
+    public void MusicVolume(float volume)
+    {
+        musicSource.volume = volume;
+    }
+
+    public void SFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
     }
 
 }

@@ -12,6 +12,12 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainUI;
     public GameObject mainMenu;
+
+    public GameObject pauseMenuGeneral;
+    public GameObject pauseMenuAudio;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
     public GameObject continueBttn;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
@@ -104,6 +110,18 @@ public class MenuManager : MonoBehaviour
         SaveManager.instance.SaveGame();
     }
 
+    public void MenuAudio()
+    {
+        pauseMenuGeneral.SetActive(false);
+        pauseMenuAudio.SetActive(true);
+    }
+
+    public void MenuAudioBack()
+    {
+        pauseMenuAudio.SetActive(false);
+        pauseMenuGeneral.SetActive(true);
+    }
+
     public void ContinueGame()
     {
         SaveData sd = SaveManager.instance.GetData();
@@ -115,6 +133,8 @@ public class MenuManager : MonoBehaviour
 
     public void PauseGame()
     {
+        pauseMenuAudio.SetActive(false);
+        pauseMenuGeneral.SetActive(true);
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -141,7 +161,28 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(showMain());
     }
 
+    //-- AUDIO UI --//
+    public void ToggleMusic()
+    {
+        AudioManager.Instance.ToggleMusic();
+    }
 
+    public void ToggleSFX()
+    {
+        AudioManager.Instance.ToggleSFX();
+    }
+
+    public void MusicVolume()
+    {
+        AudioManager.Instance.MusicVolume(musicSlider.value);
+    }
+
+    public void SFXVolume()
+    {
+        AudioManager.Instance.SFXVolume(sfxSlider.value);
+    }
+
+    //-- CHARACTER UI --//
     public void UpdateCharacters()
     {
         //chequeo json y ver que imagenes de personaje se activan
