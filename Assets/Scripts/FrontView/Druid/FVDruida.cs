@@ -29,7 +29,7 @@ public class FVDruida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && onFloor)
+        if (Input.GetKeyDown(KeyCode.Space) && onFloor && !agarrarScript.agarrado)
         {
             Jump();
         }
