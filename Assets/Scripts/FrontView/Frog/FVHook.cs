@@ -215,7 +215,9 @@ public class FVHook : MonoBehaviour
             if(!ThrowingTongue)
             {
                 FVButton buttonSapo = buttonPoint.GetComponent<FVButton>();
-                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
+                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo));
+
+                AudioManager.Instance.PlaySFX("tongue");
             }
             
 
@@ -234,6 +236,8 @@ public class FVHook : MonoBehaviour
 
             drawTongueHookPoint = hookPoint;
 
+            AudioManager.Instance.PlaySFX("tongue");
+
         }
         //Si no esta presionando el click y estamos cogidos, soltamos el gancho
         else if (!PresingClick && isHooked)
@@ -245,6 +249,8 @@ public class FVHook : MonoBehaviour
             ImpulseOnExitHook();
             isHooked = false;
             anim.SetBool("TongueOut", false);
+
+            AudioManager.Instance.PlaySFX("tongue");
 
         }
 
@@ -278,6 +284,8 @@ public class FVHook : MonoBehaviour
 
             drawTonguePullPoint = pullPoint;
 
+            AudioManager.Instance.PlaySFX("tongue");
+
         }
         //Si dejamos de presioanr click y estamos pulleando, soltamos el objeto
         else if (!PresingClick && isPulling)
@@ -289,6 +297,8 @@ public class FVHook : MonoBehaviour
             anim.SetBool("TonguePull", false);
 
             drawTonguePullPoint = null;
+
+            AudioManager.Instance.PlaySFX("tongue");
         }
 
         //Si estamso pulleando y presionamos la E, acercamos el objeto

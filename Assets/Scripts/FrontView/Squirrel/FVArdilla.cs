@@ -53,6 +53,7 @@ public class FVArdilla : MonoBehaviour
 
     void Jump()
     {
+        AudioManager.Instance.PlaySFX("jump");
         rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
         anim.SetBool("IsJumping", true);
     }

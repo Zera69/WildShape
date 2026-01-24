@@ -21,6 +21,7 @@ public class TDPlate : MonoBehaviour
     {
         if (!isDownBarrier && collision.gameObject.CompareTag("Box" ))
         {
+            AudioManager.Instance.PlaySFX("pressure");
             isDownBarrier = true;
             spRen.sprite = plateDown;
 
@@ -40,6 +41,7 @@ public class TDPlate : MonoBehaviour
     {
         if (isDownBarrier && collision.gameObject.CompareTag("Box" ))
         {
+            AudioManager.Instance.PlaySFX("pressure");
             isDownBarrier = false;
             spRen.sprite = plateUp;
 

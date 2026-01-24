@@ -327,7 +327,19 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3667e07cc61d04147b318134599a34a7, type: 3}
   - name: game
     clip: {fileID: 8300000, guid: 28a0d52495ed0404f93bf90c7f272486, type: 3}
-  sfx: []
+  sfx:
+  - name: barrier
+    clip: {fileID: 8300000, guid: 9a527eaab5e89cf4d827804c71a5c133, type: 3}
+  - name: pressure
+    clip: {fileID: 8300000, guid: 57eed2c186a1b524db80ae0dc0a9c0c9, type: 3}
+  - name: click
+    clip: {fileID: 8300000, guid: 76881b531e7c4e941a498c9a8409ce08, type: 3}
+  - name: button
+    clip: {fileID: 8300000, guid: e04343e2af6bc77409acaf84031debbc, type: 3}
+  - name: tongue
+    clip: {fileID: 8300000, guid: d246f8b9b51640041a6861a056cc2d45, type: 3}
+  - name: jump
+    clip: {fileID: 8300000, guid: e55a9362b8ab9074f9ca7bd7cf50a8be, type: 3}
   musicSource: {fileID: 74343273}
   sfxSource: {fileID: 480073270}
 --- !u!1 &74343271
