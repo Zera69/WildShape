@@ -102,44 +102,12 @@ public class TDCharacterMovement : MonoBehaviour
                 //Lanzamos raycast desde la caja hacia donde se quiere mover el jugador desde la caja
                 if(characterManager.n == 0)
                 {
-                    hitWall = Physics2D.Raycast(agarrarCaja.cajaAgarrada.position, moveDir, (float)agarrarCaja.distanciaPared, agarrarCaja.paredLayer);
-                    //Si hay una pared delante, no se puede mover
-                    if (hitWall.collider != null)
-                    {
-                        canMove = false;
-                    }
+                    canMove = !agarrarCaja.DetectWallDruida();
                 }
                 else if (characterManager.n == 1)
                 {
-                    if (moveDir.x != 0)
-                    {
-                        Vector2 offsetUp = Vector2.up * 0.5f;
-                        Vector2 offsetDown = Vector2.down * 0.5f;
-                        RaycastHit2D hitWallBear = Physics2D.Raycast((Vector2)agarrarCaja.cajaAgarrada.position + offsetUp, moveDir, (float)agarrarCaja.distanciaPared, agarrarCaja.paredLayer);
-                        RaycastHit2D hitWallBear2 = Physics2D.Raycast((Vector2)agarrarCaja.cajaAgarrada.position + offsetDown, moveDir, (float)agarrarCaja.distanciaPared, agarrarCaja.paredLayer);
-                        Debug.DrawRay((Vector2)agarrarCaja.cajaAgarrada.position + offsetUp, moveDir * (float)agarrarCaja.distanciaPared, Color.green);
-                        Debug.DrawRay((Vector2)agarrarCaja.cajaAgarrada.position + offsetDown, moveDir * (float)agarrarCaja.distanciaPared, Color.green);
-                        if (hitWallBear.collider != null || hitWallBear2.collider != null)
-                        {
-                            canMove = false;
-                        }
-                    }
-                    else if (moveDir.y != 0)
-                    {
-                        Vector2 offsetRight = Vector2.right * 0.5f;
-                        Vector2 offsetLeft = Vector2.left * 0.5f;
-                        RaycastHit2D hitWallBear = Physics2D.Raycast((Vector2)agarrarCaja.cajaAgarrada.position + offsetRight, moveDir, (float)agarrarCaja.distanciaPared, agarrarCaja.paredLayer);
-                        RaycastHit2D hitWallBear2 = Physics2D.Raycast((Vector2)agarrarCaja.cajaAgarrada.position + offsetLeft, moveDir, (float)agarrarCaja.distanciaPared, agarrarCaja.paredLayer);
-                        Debug.DrawRay((Vector2)agarrarCaja.cajaAgarrada.position + offsetRight, moveDir * (float)agarrarCaja.distanciaPared, Color.green);
-                        Debug.DrawRay((Vector2)agarrarCaja.cajaAgarrada.position + offsetLeft, moveDir * (float)agarrarCaja.distanciaPared, Color.green);
-                        if (hitWallBear.collider != null || hitWallBear2.collider != null)
-                        {
-                            canMove = false;
-                        }
-                    }
-                }
-
-                
+                    canMove = !agarrarCaja.DetectWallBear();
+                }       
 
             }
             
@@ -190,12 +158,12 @@ public class TDCharacterMovement : MonoBehaviour
                     {
                         RaycastHit2D hitPlayer = Physics2D.Raycast(movePoint.position, moveDir, checkDistance, stopColliders);
                         // Si el collider no es la caja, bloqueamos movimiento
-                        if (hitPlayer.collider.gameObject != agarrarCaja.cajaAgarrada.gameObject)
+                        if (hitPlayer.collider != null && hitPlayer.collider.gameObject != agarrarCaja.cajaAgarrada.gameObject)
                         {
                             canMove = false;
                         }
                         // Si el collider es la caja, pasamos
-                        else
+                        else if (hitPlayer.collider != null && hitPlayer.collider.gameObject == agarrarCaja.cajaAgarrada.gameObject)
                         {
                             movePoint.position += (Vector3)moveDir; // Collider es la caja -> dejamos pasar
                             canMove = false; // Ya movimos, no repetir
