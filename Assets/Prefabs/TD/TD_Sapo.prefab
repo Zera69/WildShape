@@ -127,7 +127,7 @@ MonoBehaviour:
   movePoint: {fileID: 0}
   stopColliders:
     serializedVersion: 2
-    m_Bits: 2688
+    m_Bits: 6784
   lookDirection: {x: 0, y: 0}
   moveDir: {x: 0, y: 0}
   IsMoving: 0

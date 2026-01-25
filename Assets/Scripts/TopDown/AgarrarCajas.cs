@@ -73,4 +73,66 @@ public class AgarrarCaja : MonoBehaviour
             }
         }
     }
+
+    public bool DetectWallDruida()
+    {
+        Vector2 dir = characterMovement.moveDir;
+        Vector2 origin = cajaAgarrada.position;
+
+        RaycastHit2D[] hitWall = Physics2D.RaycastAll(origin, dir, (float)distanciaPared, paredLayer);
+        if(hitWall.Length > 1)
+        {
+            paredDelante = true;
+        }
+        else
+        {
+            paredDelante = false;
+        }
+
+        return paredDelante;
+    }
+
+    public bool DetectWallBear()
+    {
+        Vector2 dir = characterMovement.moveDir;
+        Vector2 origin = cajaAgarrada.position;
+
+        Vector2 offsetA;
+        Vector2 offsetB;
+
+        //Si nos movemos en X, hacemos los raycast un poco arriba y abajo
+        //Si nos movemos en Y, hacemos los raycast un poco a la izquierda y derecha
+        if (Mathf.Abs(dir.x) > 0)
+        {
+            offsetA = Vector2.up * 0.5f;
+            offsetB = Vector2.down * 0.5f;
+            RaycastHit2D[] hitWallA = Physics2D.RaycastAll((Vector2)origin + offsetA, dir, (float)distanciaPared, paredLayer);
+            RaycastHit2D[] hitWallB = Physics2D.RaycastAll((Vector2)origin + offsetB, dir, (float)distanciaPared, paredLayer);
+            if (hitWallA.Length > 1 || hitWallB.Length > 1)
+            {
+                paredDelante = true;
+            }
+            else
+            {
+                paredDelante = false;
+            }
+        }
+        else
+        {
+            offsetA = Vector2.right * 0.5f;
+            offsetB = Vector2.left * 0.5f;
+            RaycastHit2D[] hitWallA = Physics2D.RaycastAll((Vector2)origin + offsetA, dir, (float)distanciaPared, paredLayer);
+            RaycastHit2D[] hitWallB = Physics2D.RaycastAll((Vector2)origin + offsetB, dir, (float)distanciaPared, paredLayer);
+            if (hitWallA.Length > 1 || hitWallB.Length > 1)
+            {
+                paredDelante = true;
+            }
+            else
+            {
+                paredDelante = false;
+            }
+        }
+        return paredDelante;
+
+    }
 }
