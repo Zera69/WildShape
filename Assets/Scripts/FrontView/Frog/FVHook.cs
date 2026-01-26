@@ -50,7 +50,7 @@ public class FVHook : MonoBehaviour
     float yDifferenceButton;
 
     //Tongue button
-    private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
+    private float tongueSpeed = 15f;
     private float maxInteractDistance = 4.5f;
     private Rigidbody2D rbPull;
 
@@ -94,6 +94,7 @@ public class FVHook : MonoBehaviour
             //Si la diferencia es mayor al maximo permitido soltamos el pull
             if(yDifferencePull > maxYDifferencePull)
             {
+                rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
                 ReleasePull();
             }
            
@@ -507,9 +508,7 @@ public class FVHook : MonoBehaviour
         while (currentLength < targetLength)
         {
             // Incrementamos la longitud actual
-            currentLength += tongueSpeed;
-            // Esperamos un frame
-            yield return new WaitForSeconds(0.003f);
+             currentLength += tongueSpeed * Time.deltaTime;
             // Aseguramos que no sobrepasa la longitud objetivo
             currentLength = Mathf.Min(currentLength, targetLength);
 
@@ -517,6 +516,7 @@ public class FVHook : MonoBehaviour
             medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
             medio.localScale = new Vector3(1, currentLength, 1);
             final.localPosition = new Vector3(currentLength, 0, 0);
+            yield return null;
         }
 
         // Pequeña pausa tocando el botón
@@ -546,9 +546,8 @@ public class FVHook : MonoBehaviour
         while (currentLength > 0f)
         {
             // Deincrementamos la longitud actual
-            currentLength -= tongueSpeed;
-            // Esperamos un frame
-            yield return new WaitForSeconds(0.003f);
+            currentLength -= tongueSpeed * Time.deltaTime;
+
             // Aseguramos que no sobrepasa la longitud objetivo
             currentLength = Mathf.Max(currentLength, 0f);
 
@@ -556,6 +555,7 @@ public class FVHook : MonoBehaviour
             medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
             medio.localScale = new Vector3(1, currentLength, 1);
             final.localPosition = new Vector3(currentLength, 0, 0);
+            yield return null;
         }
 
         anim.SetBool("TonguePull", false);

@@ -4782,7 +4782,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1762263923}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4d99bc51e433f084486d3ff8b10b6cb4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -7399,16 +7399,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FV_SmallBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 2761636175893439568, guid: 9e91f2c21e8bd0b4caf6a14eccb8ed27,
-        type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2761636175893439568, guid: 9e91f2c21e8bd0b4caf6a14eccb8ed27,
-        type: 3}
-      propertyPath: m_TagString
-      value: Box
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

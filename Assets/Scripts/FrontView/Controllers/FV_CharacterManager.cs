@@ -146,6 +146,20 @@ public class CharacterManager : MonoBehaviour
                     }
                 }
             }
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                TransformDruida();
+            }else if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                TransformBear();
+            }else if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                TransformSquirrel();
+            }else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                TransformToad();
+            }
             
         }
 
