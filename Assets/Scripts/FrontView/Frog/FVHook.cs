@@ -50,7 +50,7 @@ public class FVHook : MonoBehaviour
     float yDifferenceButton;
 
     //Tongue button
-    private float tongueSpeed = 15f;         // Velocidad de extensión de la lengua
+    private float tongueSpeed = 15f;
     private float maxInteractDistance = 4.5f;
     private Rigidbody2D rbPull;
 
@@ -94,6 +94,7 @@ public class FVHook : MonoBehaviour
             //Si la diferencia es mayor al maximo permitido soltamos el pull
             if(yDifferencePull > maxYDifferencePull)
             {
+                rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
                 ReleasePull();
             }
            
