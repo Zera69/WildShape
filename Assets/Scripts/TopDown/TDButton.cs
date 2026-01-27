@@ -26,7 +26,8 @@ public class TDButton : MonoBehaviour
     public void Activate()
     {
         //Debug.Log("Button Activated");
-        if(isOn)
+        AudioManager.Instance.PlaySFX("button");
+        if (isOn)
         {
             isOn = false;
             spRen.sprite = buttonOff;

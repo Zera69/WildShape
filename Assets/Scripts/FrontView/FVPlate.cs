@@ -23,6 +23,7 @@ public class FVPlate : MonoBehaviour
     {
         if (!isDown && count==0)
         {
+            AudioManager.Instance.PlaySFX("pressure");
             isDown = true;
             spRen.sprite = plateDown;
 
@@ -41,6 +42,7 @@ public class FVPlate : MonoBehaviour
 
         if (isDown && count==0)
         {
+            AudioManager.Instance.PlaySFX("pressure");
             isDown = false;
             spRen.sprite = plateUp;
 

@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class DoNotDestroyEventSystem : MonoBehaviour
 {
-    public static DoNotDestroyEventSystem instance { get; private set; }
+    public static DoNotDestroyEventSystem Instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (instance != null && instance != this)
+        if (Instance == null)
         {
-            Destroy(this.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

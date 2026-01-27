@@ -12,6 +12,13 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainUI;
     public GameObject mainMenu;
+
+    public GameObject audioMain;
+    public GameObject pauseMenuGeneral;
+    public GameObject pauseMenuAudio;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
     public GameObject continueBttn;
     public bool isPaused = false;
     public bool isInCharactersUI = false;
@@ -95,6 +102,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        AudioManager.Instance.PlaySFX("click");
         SaveManager.instance.ResetGame();
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
         sceneLoadManager.NextScene();
@@ -102,33 +110,69 @@ public class MenuManager : MonoBehaviour
         SaveData sd = SaveManager.instance.GetData();
         sd.saveDataExists = true;
         SaveManager.instance.SaveGame();
+        AudioManager.Instance.PlayMusic("game");
+    }
+
+    public void MainMenuAudio()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        audioMain.SetActive(true);
+    }
+
+    public void MainMenuAudioBack()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        audioMain.SetActive(false);
+    }
+
+    public void MenuAudio()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        pauseMenuGeneral.SetActive(false);
+        pauseMenuAudio.SetActive(true);
+    }
+
+    public void MenuAudioBack()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        pauseMenuAudio.SetActive(false);
+        pauseMenuGeneral.SetActive(true);
     }
 
     public void ContinueGame()
     {
+        AudioManager.Instance.PlaySFX("click");
         SaveData sd = SaveManager.instance.GetData();
         int scene = sd.currentLevel;
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
         sceneLoadManager.LoadScene(scene);
         StartCoroutine(hideMain());
+        AudioManager.Instance.PlayMusic("game");
     }
 
     public void PauseGame()
     {
+        AudioManager.Instance.PlaySFX("click");
+        pauseMenuAudio.SetActive(false);
+        pauseMenuGeneral.SetActive(true);
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        AudioManager.Instance.PlayMusic("pause");
     }
 
     public void ResumeGame()
     {
+        AudioManager.Instance.PlaySFX("click");
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        AudioManager.Instance.PlayMusic("game");
     }
 
     public void QuitGame()
     {
+        AudioManager.Instance.PlaySFX("click");
         Application.Quit();
     }
 
@@ -139,9 +183,34 @@ public class MenuManager : MonoBehaviour
         sceneLoadManager.ReturnToMainMenu();
         
         StartCoroutine(showMain());
+
+        AudioManager.Instance.PlayMusic("main");
     }
 
+    //-- AUDIO UI --//
+    public void ToggleMusic()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        AudioManager.Instance.ToggleMusic();
+    }
 
+    public void ToggleSFX()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        AudioManager.Instance.ToggleSFX();
+    }
+
+    public void MusicVolume()
+    {
+        AudioManager.Instance.MusicVolume(musicSlider.value);
+    }
+
+    public void SFXVolume()
+    {
+        AudioManager.Instance.SFXVolume(sfxSlider.value);
+    }
+
+    //-- CHARACTER UI --//
     public void UpdateCharacters()
     {
         //chequeo json y ver que imagenes de personaje se activan
