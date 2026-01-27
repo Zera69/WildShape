@@ -183,10 +183,11 @@ MonoBehaviour:
   - {fileID: 5832550360820556549}
   - {fileID: 976368079749673711}
   - {fileID: 1838622647624476260}
+  n: 0
   movePoint: {fileID: 7451694722610926736}
   stopColliders:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 7040
 --- !u!1 &4216044219437924163
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +538,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8590062225091465237, guid: 9f1607d301f3ec74c823194bb31904c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2898899883172001796}
   m_SourcePrefab: {fileID: 100100000, guid: 9f1607d301f3ec74c823194bb31904c4, type: 3}
 --- !u!4 &3023517363779727496 stripped
 Transform:
@@ -551,6 +556,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2866375902183109392}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2898899883172001796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832550360820556549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca454bca235e7524bba04e32883b7b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agarrado: 0
+  cajaLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  paredLayer:
+    serializedVersion: 2
+    m_Bits: 6784
+  distanciaAgarrar: 1
+  distanciaPared: 0.5
+  paredDelante: 0
+  cajaAgarrada: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1001 &3526185149063526907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -712,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 8530750625635552855, guid: e28e7cf567c357e4daa9908d0709c9dc,
         type: 3}
       propertyPath: stopColliders.m_Bits
-      value: 640
+      value: 6784
       objectReference: {fileID: 0}
     - target: {fileID: 8839561323241988230, guid: e28e7cf567c357e4daa9908d0709c9dc,
         type: 3}
@@ -776,17 +805,17 @@ PrefabInstance:
     - target: {fileID: 1428549568359364349, guid: 92e19d2611d65524b9a97622a25efa2c,
         type: 3}
       propertyPath: stopColliders.m_Bits
-      value: 640
+      value: 6784
       objectReference: {fileID: 0}
     - target: {fileID: 1552728629363474300, guid: 92e19d2611d65524b9a97622a25efa2c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.5
+      value: -7.486
       objectReference: {fileID: 0}
     - target: {fileID: 1552728629363474300, guid: 92e19d2611d65524b9a97622a25efa2c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -0.49
       objectReference: {fileID: 0}
     - target: {fileID: 1552728629363474300, guid: 92e19d2611d65524b9a97622a25efa2c,
         type: 3}
@@ -837,6 +866,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746947028935879084, guid: 92e19d2611d65524b9a97622a25efa2c,
+        type: 3}
+      propertyPath: distanciaPared
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746947028935879084, guid: 92e19d2611d65524b9a97622a25efa2c,
+        type: 3}
+      propertyPath: paredLayer.m_Bits
+      value: 6784
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
