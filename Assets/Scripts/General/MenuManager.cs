@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     public GameObject mainUI;
     public GameObject mainMenu;
 
+    public GameObject audioMain;
     public GameObject pauseMenuGeneral;
     public GameObject pauseMenuAudio;
     public Slider musicSlider;
@@ -110,6 +111,18 @@ public class MenuManager : MonoBehaviour
         sd.saveDataExists = true;
         SaveManager.instance.SaveGame();
         AudioManager.Instance.PlayMusic("game");
+    }
+
+    public void MainMenuAudio()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        audioMain.SetActive(true);
+    }
+
+    public void MainMenuAudioBack()
+    {
+        AudioManager.Instance.PlaySFX("click");
+        audioMain.SetActive(false);
     }
 
     public void MenuAudio()
