@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6548482677526786674}
   - component: {fileID: 8916733383660009001}
   - component: {fileID: 6684616019331196114}
+  - component: {fileID: 5027812399133804122}
   m_Layer: 0
   m_Name: FV_Druida
   m_TagString: Player
@@ -194,3 +195,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 5
+  rb: {fileID: 0}
+  onFloor: 0
+  WallsLayer:
+    serializedVersion: 2
+    m_Bits: 1152
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 1344
+  wallRight: 0
+  wallLeft: 0
+  lookDirection: {x: 1, y: 0}
+--- !u!114 &5027812399133804122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180221049043115683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1080af5ae108faa4495476bbc3c255e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agarrado: 0
+  cajaLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  paredLayer:
+    serializedVersion: 2
+    m_Bits: 5504
+  distanciaAgarrar: 1
+  paredDelante: 0
+  cajaAgarrada: {fileID: 0}
+  anim: {fileID: 0}

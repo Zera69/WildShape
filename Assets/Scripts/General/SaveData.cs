@@ -10,6 +10,8 @@ public class SaveData
     public List<string> unlockedCharacters = new List<string>{"Druid","Squirrel"};
     public List<string> completedLevels = new List<string>();
     public int CurrentCharacterIndex = 0;
+    public int currentLevel;
+    public bool saveDataExists = false;
     public List<string> stringsCartelesSapo = new List<string> { 
         "Puedes enagncharte en los bloques verdes clickando sobre ellos a cierta distancia, " +
         "mientras mantengas click seguiras enganchado y podras balancearte usando A Y D ," +

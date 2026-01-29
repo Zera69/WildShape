@@ -100,14 +100,14 @@ public class TDCharacterMovement : MonoBehaviour
             {
                
                 //Lanzamos raycast desde la caja hacia donde se quiere mover el jugador desde la caja
-                 hitWall = Physics2D.Raycast(agarrarCaja.cajaAgarrada.position,moveDir,(float)agarrarCaja.distanciaPared,agarrarCaja.paredLayer);
-                 Debug.DrawRay(agarrarCaja.cajaAgarrada.position, moveDir * (float)agarrarCaja.distanciaPared, Color.blue);
-
-                //Si hay una pared delante, no se puede mover
-                if (hitWall.collider != null)
+                if(characterManager.n == 0)
                 {
-                    canMove = false;
+                    canMove = !agarrarCaja.DetectWallDruida();
                 }
+                else if (characterManager.n == 1)
+                {
+                    canMove = !agarrarCaja.DetectWallBear();
+                }       
 
             }
             
@@ -158,12 +158,12 @@ public class TDCharacterMovement : MonoBehaviour
                     {
                         RaycastHit2D hitPlayer = Physics2D.Raycast(movePoint.position, moveDir, checkDistance, stopColliders);
                         // Si el collider no es la caja, bloqueamos movimiento
-                        if (hitPlayer.collider.gameObject != agarrarCaja.cajaAgarrada.gameObject)
+                        if (hitPlayer.collider != null && hitPlayer.collider.gameObject != agarrarCaja.cajaAgarrada.gameObject)
                         {
                             canMove = false;
                         }
                         // Si el collider es la caja, pasamos
-                        else
+                        else if (hitPlayer.collider != null && hitPlayer.collider.gameObject == agarrarCaja.cajaAgarrada.gameObject)
                         {
                             movePoint.position += (Vector3)moveDir; // Collider es la caja -> dejamos pasar
                             canMove = false; // Ya movimos, no repetir

@@ -10,7 +10,6 @@ TagManager:
   - Button
   - Hookable
   - Box
-  - box
   layers:
   - Default
   - TransparentFX

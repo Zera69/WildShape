@@ -5,9 +5,7 @@ using TMPro;
 public class CartelesManager : MonoBehaviour
 {
   
-    public int index;
     private SaveData data;
-    public TextMeshProUGUI textoUI;
     public GameObject UI;
     private bool open = false;
     private bool inSing;
@@ -27,6 +25,7 @@ public class CartelesManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log("Salir del cartel");
             inSing = false;
             open = false;
             if(UI != null)

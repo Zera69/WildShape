@@ -11,14 +11,25 @@ public class TDCharacterManager : MonoBehaviour
 
     public Transform movePoint;
     public LayerMask stopColliders;
-    private TDCharacterMovement characterMovement;
+    private TDCharacterMovement characterMovementDruida;
+    private TDCharacterMovement characterMovementOso;
+    private TDCharacterMovement characterMovementArdilla;
+    private TDCharacterMovement characterMovementSapo;
 
     // Start is called before the first frame update
     void Start()
     {
         player = lista[n];
-        characterMovement = FindObjectOfType<TDCharacterMovement>();
-        
+
+        characterMovementDruida = lista[0].GetComponent<TDCharacterMovement>();
+        characterMovementOso = lista[1].GetComponent<TDCharacterMovement>();
+        characterMovementArdilla = lista[2].GetComponent<TDCharacterMovement>();
+        characterMovementSapo = lista[3].GetComponent<TDCharacterMovement>();
+    }
+
+    public int GetCurrentCharacterIndex()
+    {
+        return n;
     }
 
     // Update is called once per frame
@@ -26,7 +37,7 @@ public class TDCharacterManager : MonoBehaviour
     {
         pos = player.transform.position;
         //si el personaje no se esta  moviendo, puede transformarse
-        if (characterMovement.IsMoving == false)
+        if (!characterMovementDruida.IsMoving && !characterMovementOso.IsMoving && !characterMovementArdilla.IsMoving && !characterMovementSapo.IsMoving)
         {
             
         

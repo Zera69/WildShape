@@ -30,7 +30,7 @@ public class FVSapo : MonoBehaviour
         {
             Jump();
         }
-        ChechFloor();
+        CheckFloor();
         CheckWall();
         
     }
@@ -42,17 +42,25 @@ public class FVSapo : MonoBehaviour
             Movement();
         }
     }
-    
+
 
     private void CheckWall()
     {
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, WallsLayer);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, WallsLayer);
+        Vector2 offsetDown = Vector2.down * 0.45f;
+        Vector2 offsetUp = Vector2.up * 0.45f;
+        RaycastHit2D hitRightDown = Physics2D.Raycast((Vector2)transform.position + offsetDown, Vector2.right, 0.6f, WallsLayer);
+        RaycastHit2D hitLeftDown = Physics2D.Raycast((Vector2)transform.position + offsetDown, Vector2.left, 0.6f, WallsLayer);
 
-        Debug.DrawRay(transform.position, Vector2.right * 0.6f, Color.red);
-        Debug.DrawRay(transform.position, Vector2.left * 0.6f, Color.red);
+        Debug.DrawRay((Vector2)transform.position + offsetDown, Vector2.right * 0.6f, Color.green);
+        Debug.DrawRay((Vector2)transform.position + offsetDown, Vector2.left * 0.6f, Color.green);
 
-        if (hitRight.collider != null )
+        RaycastHit2D hitRightUp = Physics2D.Raycast((Vector2)transform.position + offsetUp, Vector2.right, 0.6f, WallsLayer);
+        RaycastHit2D hitLeftUp = Physics2D.Raycast((Vector2)transform.position + offsetUp, Vector2.left, 0.6f, WallsLayer);
+
+        Debug.DrawRay((Vector2)transform.position + offsetUp, Vector2.right * 0.6f, Color.green);
+        Debug.DrawRay((Vector2)transform.position + offsetUp, Vector2.left * 0.6f, Color.green);
+
+        if (hitRightUp.collider != null || hitRightDown.collider != null)
         {
             wallRight = true;
         }
@@ -61,7 +69,7 @@ public class FVSapo : MonoBehaviour
             wallRight = false;
         }
 
-        if (hitLeft.collider != null)
+        if (hitLeftUp.collider != null || hitLeftDown.collider != null)
         {
             wallLeft = true;
         }
@@ -69,9 +77,9 @@ public class FVSapo : MonoBehaviour
         {
             wallLeft = false;
         }
-    } 
+    }
 
-    private void ChechFloor()
+        private void CheckFloor()
     {
         //Raycast Derecha
         Vector2 originRight = transform.position + Vector3.right * 0.5f;
@@ -138,6 +146,7 @@ public class FVSapo : MonoBehaviour
 
     void Jump()
     {
+        AudioManager.Instance.PlaySFX("jump");
         rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
     }
     

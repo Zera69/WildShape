@@ -50,8 +50,10 @@ public class FVHook : MonoBehaviour
     float yDifferenceButton;
 
     //Tongue button
-    private float tongueSpeed = 0.1f;         // Velocidad de extensión de la lengua
+    private float tongueSpeed = 15f;
     private float maxInteractDistance = 4.5f;
+    private Rigidbody2D rbPull;
+
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +94,7 @@ public class FVHook : MonoBehaviour
             //Si la diferencia es mayor al maximo permitido soltamos el pull
             if(yDifferencePull > maxYDifferencePull)
             {
+                rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
                 ReleasePull();
             }
            
@@ -213,7 +216,9 @@ public class FVHook : MonoBehaviour
             if(!ThrowingTongue)
             {
                 FVButton buttonSapo = buttonPoint.GetComponent<FVButton>();
-                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo)); 
+                StartCoroutine(TongueButtonRoutineStart(buttonPoint.transform.position,buttonSapo));
+
+                AudioManager.Instance.PlaySFX("tongue");
             }
             
 
@@ -232,6 +237,8 @@ public class FVHook : MonoBehaviour
 
             drawTongueHookPoint = hookPoint;
 
+            AudioManager.Instance.PlaySFX("tongue");
+
         }
         //Si no esta presionando el click y estamos cogidos, soltamos el gancho
         else if (!PresingClick && isHooked)
@@ -243,6 +250,8 @@ public class FVHook : MonoBehaviour
             ImpulseOnExitHook();
             isHooked = false;
             anim.SetBool("TongueOut", false);
+
+            AudioManager.Instance.PlaySFX("tongue");
 
         }
 
@@ -265,25 +274,32 @@ public class FVHook : MonoBehaviour
         //Si hacemos click izquierda, no estamos pulleando, no estamos en el aire , detectamos donde coger y no es un button entramos en el if
         if (PresingClick && hitPull.collider != null && !isPulling && ScriptSapo.onFloor == true && !OverMaxYDifferencePull && hitPull.collider.tag != "Button")
         {
+            rbPull = pullPoint.GetComponent<Rigidbody2D>();
+            rbPull.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
             Debug.Log(hitPull.collider.tag);
             //activamos la conexion
             dj.enabled = true;
-            dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>();
+            dj.connectedBody = hitPull.collider.GetComponent<Rigidbody2D>   ();
             isPulling = true;
             anim.SetBool("TonguePull", true);
 
             drawTonguePullPoint = pullPoint;
 
+            AudioManager.Instance.PlaySFX("tongue");
+
         }
         //Si dejamos de presioanr click y estamos pulleando, soltamos el objeto
         else if (!PresingClick && isPulling)
         {
+            rbPull.constraints |= RigidbodyConstraints2D.FreezePositionX;
             dj.enabled = false;
             dj.connectedBody = null;
             isPulling = false;
             anim.SetBool("TonguePull", false);
 
             drawTonguePullPoint = null;
+
+            AudioManager.Instance.PlaySFX("tongue");
         }
 
         //Si estamso pulleando y presionamos la E, acercamos el objeto
@@ -502,9 +518,7 @@ public class FVHook : MonoBehaviour
         while (currentLength < targetLength)
         {
             // Incrementamos la longitud actual
-            currentLength += tongueSpeed;
-            // Esperamos un frame
-            yield return new WaitForSeconds(0.003f);
+             currentLength += tongueSpeed * Time.deltaTime;
             // Aseguramos que no sobrepasa la longitud objetivo
             currentLength = Mathf.Min(currentLength, targetLength);
 
@@ -512,6 +526,7 @@ public class FVHook : MonoBehaviour
             medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
             medio.localScale = new Vector3(1, currentLength, 1);
             final.localPosition = new Vector3(currentLength, 0, 0);
+            yield return null;
         }
 
         // Pequeña pausa tocando el botón
@@ -541,9 +556,8 @@ public class FVHook : MonoBehaviour
         while (currentLength > 0f)
         {
             // Deincrementamos la longitud actual
-            currentLength -= tongueSpeed;
-            // Esperamos un frame
-            yield return new WaitForSeconds(0.003f);
+            currentLength -= tongueSpeed * Time.deltaTime;
+
             // Aseguramos que no sobrepasa la longitud objetivo
             currentLength = Mathf.Max(currentLength, 0f);
 
@@ -551,6 +565,7 @@ public class FVHook : MonoBehaviour
             medio.localPosition = new Vector3(currentLength / 2f, 0, 0);
             medio.localScale = new Vector3(1, currentLength, 1);
             final.localPosition = new Vector3(currentLength, 0, 0);
+            yield return null;
         }
 
         anim.SetBool("TonguePull", false);

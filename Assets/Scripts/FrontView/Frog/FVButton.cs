@@ -27,6 +27,7 @@ public class FVButton : MonoBehaviour
     public void Activate()
     {
         //Debug.Log("Button Activated");
+        AudioManager.Instance.PlaySFX("button");
         if (sceneLoadManager != null)
         {
             spRen.sprite = buttonOff;

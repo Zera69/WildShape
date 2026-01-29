@@ -8,13 +8,27 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] lista;
     private Vector2 pos;
     private GameObject player;
-    private int n = 0;
+    public int n = 0;
     private FVHook scriptSapo;
     private SaveData data;
     private GameObject StartPoint;
     private GameObject EndPoint;
 
     public LayerMask stopColliders;
+    private Agarrar agarrarScriptDruida;
+    private Agarrar agarrarScriptBear;
+    private  Vector2 origin;
+
+    private  RaycastHit2D canTransformBearRight;
+    private  RaycastHit2D canTransformBearLeft ;
+
+    private  RaycastHit2D canTransformBearRight2 ;
+    private  RaycastHit2D canTransformBearLeft2;
+
+    private  RaycastHit2D canTransformBearUp;
+
+    private RaycastHit2D canTransform;
+    private TransformWheel transformWheel;
 
    
 
@@ -22,6 +36,7 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TransformWheel transformWheel = FindObjectOfType<TransformWheel>();
         
         //puntos de spawn
         StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
@@ -38,20 +53,34 @@ public class CharacterManager : MonoBehaviour
 
         scriptSapo = lista[3].GetComponent<FVHook>();
         StartCoroutine(FixBug());
+        agarrarScriptBear = lista[1].GetComponent<Agarrar>();
+        agarrarScriptDruida = lista[0].GetComponent<Agarrar>();
 
-        //Depende si el nivel esta completo, empezar en un punto u otro
-        string currentLevelName = SceneManager.GetActiveScene().name;
-        if(data.completedLevels.Contains(currentLevelName))
+        player.transform.position = StartPoint.transform.position;
+        
+
+
+    }
+
+    private void soltarCaja()
+    {
+        if(n == 0)
         {
-            //Si el nivel está completado, empezar desde el EndPoint
-            player.transform.position = EndPoint.transform.position;
-        }else
+            agarrarScriptDruida.agarrado = false;
+            if(agarrarScriptDruida.cajaAgarrada != null)
+            {
+                agarrarScriptDruida.cajaAgarrada.parent = null;
+                agarrarScriptDruida.cajaAgarrada = null;
+            }
+        }else if(n == 1)
         {
-            //Si no, empezar desde el StartPoint
-            player.transform.position = StartPoint.transform.position;
+            agarrarScriptBear.agarrado = false;
+            if(agarrarScriptBear.cajaAgarrada != null)
+            {
+                agarrarScriptBear.cajaAgarrada.parent = null;
+                agarrarScriptBear.cajaAgarrada = null;
+            }
         }
-
-
     }
 
     IEnumerator FixBug()
@@ -71,17 +100,17 @@ public class CharacterManager : MonoBehaviour
     {
         pos = player.transform.position;
 
-        Vector2 origin = player.transform.position + Vector3.up * 0.8f;
+        origin = player.transform.position + Vector3.up * 0.8f;
 
-        RaycastHit2D canTransformBearRight = Physics2D.Raycast(origin, Vector2.right, 1f, stopColliders);
-        RaycastHit2D canTransformBearLeft = Physics2D.Raycast(origin, Vector2.left, 1f, stopColliders);
+        canTransformBearRight = Physics2D.Raycast(origin, Vector2.right, 1f, stopColliders);
+        canTransformBearLeft = Physics2D.Raycast(origin, Vector2.left, 1f, stopColliders);
 
-        RaycastHit2D canTransformBearRight2 = Physics2D.Raycast(player.transform.position, Vector2.right, 1f, stopColliders);
-        RaycastHit2D canTransformBearLeft2 = Physics2D.Raycast(player.transform.position, Vector2.left, 1f, stopColliders);
+        canTransformBearRight2 = Physics2D.Raycast(player.transform.position, Vector2.right, 1f, stopColliders);
+        canTransformBearLeft2 = Physics2D.Raycast(player.transform.position, Vector2.left, 1f, stopColliders);
 
-        RaycastHit2D canTransformBearUp = Physics2D.Raycast(origin, Vector2.up, 1.3f, stopColliders);
+        canTransformBearUp = Physics2D.Raycast(origin, Vector2.up, 1.3f, stopColliders);
 
-        RaycastHit2D canTransform = Physics2D.Raycast(player.transform.position, Vector2.up, 1f, stopColliders);
+        canTransform = Physics2D.Raycast(player.transform.position, Vector2.up, 1f, stopColliders);
 
         Debug.DrawRay(origin, Vector2.right * 1f, Color.red);
         Debug.DrawRay(origin, Vector2.left * 1f, Color.red);
@@ -93,56 +122,94 @@ public class CharacterManager : MonoBehaviour
 
         if(canTransform.collider == null || (n != 2))
         {
-            //Si no es ardilla o si es ardilla y puede transformarse
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if(Input.GetKeyUp(KeyCode.Tab))
             {
-                //Druida
-                n = 0;
-                UpdatePlayer();
-            } 
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {   
-                //Si no hay obstaculos para transformarse en oso
-                if(canTransformBearRight.collider == null && canTransformBearLeft.collider == null 
-                    && canTransformBearUp.collider == null && canTransformBearRight2.collider == null 
-                    && canTransformBearLeft2.collider == null)
+                if(transformWheel == null)
                 {
-                    //Oso
-                    n = 1;
-                    UpdatePlayer();
+                    transformWheel = FindObjectOfType<TransformWheel>();
                 }
-                
 
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                //Ardilla
-
-                //Comprobar si el personaje esta desbloqueado
-                if(data.unlockedCharacters.Contains("Squirrel"))
+                if(transformWheel != null)
                 {
-                    n = 2;
-                    UpdatePlayer(); 
-                }else
-                {
-                    Debug.Log("Personaje no desbloqueado");
+                    if(transformWheel.currentDirection == TransformWheel.WheelDirection.Up)
+                    {
+                        TransformDruida();
+                    }else if(transformWheel.currentDirection == TransformWheel.WheelDirection.Down)
+                    {
+                        TransformBear();
+                    }else if(transformWheel.currentDirection == TransformWheel.WheelDirection.Left)
+                    {
+                        TransformSquirrel();
+                    }else if(transformWheel.currentDirection == TransformWheel.WheelDirection.Right)
+                    {
+                        TransformToad();
+                    }
                 }
-                
             }
-        
-            else if(Input.GetKeyDown(KeyCode.Alpha4))
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                //Sapo
-                n = 3;
-                UpdatePlayer();
-                //Desactivar el hookSapo NO TOCAR
-                scriptSapo.DesactiveHookAndPull();
-                
-                
+                TransformDruida();
+            }else if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                TransformBear();
+            }else if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                TransformSquirrel();
+            }else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                TransformToad();
             }
+            
         }
 
         
+    }
+
+    public void TransformDruida()
+    {
+        soltarCaja();
+        //Druida
+        n = 0;
+        UpdatePlayer();
+    }
+
+    public void TransformBear()
+    {
+        //Si no hay obstaculos para transformarse en oso
+        if(canTransformBearRight.collider == null && canTransformBearLeft.collider == null 
+            && canTransformBearUp.collider == null && canTransformBearRight2.collider == null 
+            && canTransformBearLeft2.collider == null)
+            {
+                soltarCaja();
+                //Oso
+                n = 1;
+                UpdatePlayer();
+            }
+    }
+
+    public void TransformSquirrel()
+    {
+        //Comprobar si el personaje esta desbloqueado
+        if(data.unlockedCharacters.Contains("Squirrel"))
+        {
+            soltarCaja();
+            n = 2;
+            UpdatePlayer(); 
+        }else
+        {
+            Debug.Log("Personaje no desbloqueado");
+        }
+    }
+
+    public void TransformToad()
+    {
+        soltarCaja();
+        //Sapo
+        n = 3;
+        UpdatePlayer();
+        //Desactivar el hookSapo NO TOCAR
+        scriptSapo.DesactiveHookAndPull();
     }
 
     public int GetCurrentCharacterIndex()
