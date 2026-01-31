@@ -53,8 +53,8 @@ public class AgarrarCaja : MonoBehaviour
             if(agarrado && characterMovement.movePoint.position == transform.position)
             {
                 agarrado = false;
-                Transform caja = this.transform.GetChild(0);
-                caja.parent = null;
+                cajaAgarrada.parent = null;
+                cajaAgarrada = null;
 
                 anim.SetBool("BoxGrab", false);
 
