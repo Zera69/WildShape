@@ -92,10 +92,7 @@ public class TDCharacterManager : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    if(n!=1)
-                    {
-                       soltarCaja(); 
-                    }
+                    
                     
                     //Oso
 
@@ -109,6 +106,7 @@ public class TDCharacterManager : MonoBehaviour
 
                     if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
                     {
+                        soltarCaja();
                         pos.x -= 0.5f;
                         pos.y += 0.5f;
 
