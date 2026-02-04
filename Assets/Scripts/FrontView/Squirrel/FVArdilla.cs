@@ -99,12 +99,12 @@ public class FVArdilla : MonoBehaviour
     private void CheckFloor()
     {
         //Raycast Derecha
-        Vector2 originRight = transform.position + Vector3.right * 0.5f;
+        Vector2 originRight = transform.position + Vector3.right * 0.3f;
         RaycastHit2D hitFloor = Physics2D.Raycast(originRight, Vector2.down, 0.3f, FloorLayer);
         Debug.DrawRay(originRight, Vector2.down * 0.3f, Color.blue);
 
         //Raycast Izquierda
-        Vector2 originLeft = transform.position + Vector3.left * 0.5f;
+        Vector2 originLeft = transform.position + Vector3.left * 0.3f;
         RaycastHit2D hitFloorLeft = Physics2D.Raycast(originLeft, Vector2.down, 0.3f, FloorLayer);
         Debug.DrawRay(originLeft, Vector2.down * 0.3f, Color.blue);
 

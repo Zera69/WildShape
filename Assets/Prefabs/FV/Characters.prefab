@@ -98,10 +98,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6144992058644890408, guid: 89fde0521c6c4b748978bc0775168d41,
+        type: 3}
+      propertyPath: cajaLayer.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144992058644890408, guid: 89fde0521c6c4b748978bc0775168d41,
+        type: 3}
+      propertyPath: paredLayer.m_Bits
+      value: 5568
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6799887672192732861, guid: 89fde0521c6c4b748978bc0775168d41, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1223852909827296000, guid: 89fde0521c6c4b748978bc0775168d41,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2948021002151073975}
+    - targetCorrespondingSourceObject: {fileID: 1223852909827296000, guid: 89fde0521c6c4b748978bc0775168d41,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6059189391431193309}
   m_SourcePrefab: {fileID: 100100000, guid: 89fde0521c6c4b748978bc0775168d41, type: 3}
 --- !u!4 &3761753958106697247 stripped
 Transform:
@@ -109,6 +128,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3351640642912506445}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4501511468295543117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1223852909827296000, guid: 89fde0521c6c4b748978bc0775168d41,
+    type: 3}
+  m_PrefabInstance: {fileID: 3351640642912506445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2948021002151073975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501511468295543117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1080af5ae108faa4495476bbc3c255e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agarrado: 0
+  cajaLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  paredLayer:
+    serializedVersion: 2
+    m_Bits: 3520
+  distanciaAgarrar: 1
+  paredDelante: 0
+  cajaAgarrada: {fileID: 0}
+  anim: {fileID: 0}
+--- !u!114 &6059189391431193309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501511468295543117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e976e991636ce8e4481768d12758443a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 2
+  rb: {fileID: 0}
+  lookDirection: {x: 1, y: 0}
 --- !u!1001 &4924583121170766848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +240,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8954401424678585674, guid: 84b5cf89289dfe74c87ef1dde2122da2,
+        type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 5440
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954401424678585674, guid: 84b5cf89289dfe74c87ef1dde2122da2,
+        type: 3}
+      propertyPath: WallsLayer.m_Bits
+      value: 7368
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -200,6 +273,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FV_Sapo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880409909873439960, guid: 8c03059924b89554882522f0c6724de9,
+        type: 3}
+      propertyPath: interactionLayer.m_Bits
+      value: 4424
+      objectReference: {fileID: 0}
+    - target: {fileID: 8331979732878825427, guid: 8c03059924b89554882522f0c6724de9,
+        type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 5440
+      objectReference: {fileID: 0}
+    - target: {fileID: 8331979732878825427, guid: 8c03059924b89554882522f0c6724de9,
+        type: 3}
+      propertyPath: WallsLayer.m_Bits
+      value: 7368
       objectReference: {fileID: 0}
     - target: {fileID: 8568614931161338630, guid: 8c03059924b89554882522f0c6724de9,
         type: 3}
@@ -270,10 +358,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4659046438238699050}
     m_Modifications:
+    - target: {fileID: 1253449248575717188, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.91657025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253449248575717188, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0032362044
+      objectReference: {fileID: 0}
     - target: {fileID: 4296717846501725367, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.39
+      value: 15.66
       objectReference: {fileID: 0}
     - target: {fileID: 4296717846501725367, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
@@ -320,10 +418,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5027812399133804122, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: paredLayer.m_Bits
+      value: 7616
+      objectReference: {fileID: 0}
     - target: {fileID: 6180221049043115683, guid: c13340ccee671d7448bc33f2d47e3270,
         type: 3}
       propertyPath: m_Name
       value: FV_Druida
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684616019331196114, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 5440
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684616019331196114, guid: c13340ccee671d7448bc33f2d47e3270,
+        type: 3}
+      propertyPath: WallsLayer.m_Bits
+      value: 7368
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
