@@ -47,12 +47,12 @@ public class Agarrar : MonoBehaviour
         {
             lookDirection = druidaMovement.lookDirection;
             distanciaAgarrar = 0.8;
-            distanciaPared = 0.1f;
+            distanciaPared = 0.2f;
         }else if(characterManager.n == 1)
         {
             lookDirection = bearMovement.lookDirection;
             distanciaAgarrar = 1.1;
-            distanciaPared = 0.3f;
+            distanciaPared = 0.2f;
         }
         RaycastHit2D hitBox = Physics2D.Raycast(transform.position, lookDirection, (float)distanciaAgarrar, cajaLayer);
         Debug.DrawRay(transform.position, lookDirection * (float)distanciaAgarrar, Color.green);
@@ -129,8 +129,8 @@ public class Agarrar : MonoBehaviour
                 dir = Vector2.left;
             }
             Vector2 origin = (Vector2)boxCol.bounds.center + dir * (boxCol.bounds.extents.x + 0.05f);
-            RaycastHit2D hitWall = Physics2D.Raycast(origin,dir,(float)distanciaPared/5,paredLayer);
-            Debug.DrawRay(origin, dir * (float)distanciaPared/5, Color.red);
+            RaycastHit2D hitWall = Physics2D.Raycast(origin,dir,(float)distanciaPared,paredLayer);
+            Debug.DrawRay(origin, dir * (float)distanciaPared, Color.red);
             if(hitWall.collider != null)
             {
                 paredDelante = true;
