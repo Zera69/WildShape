@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 155860581482061042}
   - component: {fileID: 2876590413496672414}
   - component: {fileID: 5726267121003020875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FV_DoorRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
