@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject endScreen;
 
-    public Image endBG;
+    public EndFade endBG;
     public GameObject endTxt;
     private float duracion = 2f;
 
@@ -196,15 +196,17 @@ public class MenuManager : MonoBehaviour
     public void triggerEnd()
     {
         //pausar juego, pantalla fin, espera, main menú (borrar datos?)
-        Time.timeScale = 0f;
-        isPaused = true;
+        
         StartCoroutine(FadeToEnd());
     }
 
     public IEnumerator FadeToEnd()
     {
+        endTxt.SetActive(false);
+        endBG.FadeEnd();
         endScreen.SetActive(true);
-        float tiempo = 0f;
+        endBG.FadeStart();
+        /*float tiempo = 0f;
         Color color = endBG.color;
 
         while (tiempo < duracion)
@@ -218,13 +220,15 @@ public class MenuManager : MonoBehaviour
         }
         Debug.Log("3");
         color.a = 1f;
-        endBG.color = color;
+        endBG.color = color;*/
+        yield return new WaitForSeconds(duracion);
         endTxt.SetActive(true);
 
         yield return new WaitForSeconds(duracion);
         
         ReturnToMainMenu();
         SaveManager.instance.ResetGame();
+        
     }
 
 
