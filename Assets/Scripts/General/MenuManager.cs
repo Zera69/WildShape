@@ -12,6 +12,11 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainUI;
     public GameObject mainMenu;
+    public GameObject endScreen;
+
+    public Image endBG;
+    public GameObject endTxt;
+    private float duracion = 2f;
 
     public GameObject audioMain;
     public GameObject pauseMenuGeneral;
@@ -73,6 +78,7 @@ public class MenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         mainUI.SetActive(false);
+        endScreen.SetActive(false);
         mainMenu.SetActive(true);
         checkDataExists();
     }
@@ -186,6 +192,41 @@ public class MenuManager : MonoBehaviour
 
         AudioManager.Instance.PlayMusic("main");
     }
+
+    public void triggerEnd()
+    {
+        //pausar juego, pantalla fin, espera, main menú (borrar datos?)
+        Time.timeScale = 0f;
+        isPaused = true;
+        StartCoroutine(FadeToEnd());
+    }
+
+    public IEnumerator FadeToEnd()
+    {
+        endScreen.SetActive(true);
+        float tiempo = 0f;
+        Color color = endBG.color;
+
+        while (tiempo < duracion)
+        {
+            Debug.Log(tiempo);
+            tiempo += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, tiempo / duracion);
+            color.a = alpha;
+            endBG.color = color;
+            yield return null;
+        }
+        Debug.Log("3");
+        color.a = 1f;
+        endBG.color = color;
+        endTxt.SetActive(true);
+
+        yield return new WaitForSeconds(duracion);
+        
+        ReturnToMainMenu();
+        SaveManager.instance.ResetGame();
+    }
+
 
     //-- AUDIO UI --//
     public void ToggleMusic()
