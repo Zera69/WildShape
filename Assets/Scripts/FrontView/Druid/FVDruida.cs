@@ -42,6 +42,15 @@ public class FVDruida : MonoBehaviour
             lookDirection = new Vector2(movX, 0);
         }
 
+        if(agarrarScript.agarrado)
+        {
+            velocidad = 3;
+        }
+        else
+        {
+            velocidad = 5;
+        }
+
         if (agarrarScript.agarrado && agarrarScript.paredDelante)
         {
             if (Mathf.Sign(movX) == Mathf.Sign(lookDirection.x))
