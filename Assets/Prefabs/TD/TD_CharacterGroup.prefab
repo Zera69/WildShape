@@ -181,8 +181,8 @@ MonoBehaviour:
   lista:
   - {fileID: 6497367406220682292}
   - {fileID: 5832550360820556549}
-  - {fileID: 976368079749673711}
   - {fileID: 1838622647624476260}
+  - {fileID: 976368079749673711}
   n: 0
   movePoint: {fileID: 7451694722610926736}
   stopColliders:

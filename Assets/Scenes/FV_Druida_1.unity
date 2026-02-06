@@ -2682,12 +2682,12 @@ PrefabInstance:
         type: 3}
       propertyPath: lista.Array.data[2]
       value: 
-      objectReference: {fileID: 808786687}
+      objectReference: {fileID: 421498182}
     - target: {fileID: 4806711281316796112, guid: 6be764b0d2b2b154793cb721a84f4828,
         type: 3}
       propertyPath: lista.Array.data[3]
       value: 
-      objectReference: {fileID: 421498182}
+      objectReference: {fileID: 808786687}
     - target: {fileID: 4888888131175936749, guid: 6be764b0d2b2b154793cb721a84f4828,
         type: 3}
       propertyPath: m_Name
