@@ -12,13 +12,16 @@ EditorBuildSettings:
     path: Assets/Scenes/TD_Druida_1.unity
     guid: 257bc1bb836c2954080f089f79cf502e
   - enabled: 1
+    path: Assets/Scenes/FV_Druida_1.unity
+    guid: fce0f8515de4023499e53a2fea4bfc79
+  - enabled: 1
     path: Assets/Scenes/TopDown.unity
     guid: 4741b401b17a9ba4388d80c3ba45e3e6
   - enabled: 1
     path: Assets/Scenes/TD_Druida_Oso.unity
     guid: 6a4622c97323ab94490873ee247cc4c1
   - enabled: 1
-    path: Assets/Scenes/Lv1Druida.unity
+    path: Assets/Scenes/FV_Oso_1.unity
     guid: 6557860585722a64f9ab3fa804e99182
   - enabled: 1
     path: Assets/Scenes/Lv1Oso.unity
