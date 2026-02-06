@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainUI;
     public GameObject mainMenu;
+    public GameObject endScreen;
+
+    public EndFade endBG;
+    public GameObject endTxt;
+    private float duracion = 2f;
+
+    private const string TXTEND = "Has conseguido el poder del árbol sagrado.\nEl bosque está a salvo.";
+    private const string TXTSTART = "Las fábricas amenazan tu morada.\nCruza el bosque para proteger tu hogar.";
 
     public GameObject audioMain;
     public GameObject pauseMenuGeneral;
@@ -48,7 +58,10 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        mainMenu.SetActive(true);
         mainUI.SetActive(false);
+        endScreen.SetActive(false);
+        pauseMenu.SetActive(false);
         checkDataExists();
         //NewScene();
     }
@@ -73,6 +86,7 @@ public class MenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         mainUI.SetActive(false);
+        endScreen.SetActive(false);
         mainMenu.SetActive(true);
         checkDataExists();
     }
@@ -84,6 +98,7 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         
         mainUI.SetActive(true);
+        endScreen.SetActive(false);
     }
 
     public void checkDataExists()
@@ -105,12 +120,34 @@ public class MenuManager : MonoBehaviour
         AudioManager.Instance.PlaySFX("click");
         SaveManager.instance.ResetGame();
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
+
+        // pantalla verde
+        StartCoroutine(FadeToBegin());
+
+    }
+
+    public IEnumerator FadeToBegin()
+    {
+        endTxt.SetActive(false);
+        endBG.FadeEnd();
+        endScreen.SetActive(true);
+        endBG.FadeStart();
+
+        yield return new WaitForSeconds(duracion);
+        setText(TXTSTART);
+        endTxt.SetActive(true);
+
+        yield return new WaitForSeconds(duracion);
+
+        SaveManager.instance.ResetGame();
+
         sceneLoadManager.NextScene();
-        StartCoroutine(hideMain());
+        yield return hideMain();
         SaveData sd = SaveManager.instance.GetData();
         sd.saveDataExists = true;
         SaveManager.instance.SaveGame();
         AudioManager.Instance.PlayMusic("game");
+
     }
 
     public void MainMenuAudio()
@@ -186,6 +223,39 @@ public class MenuManager : MonoBehaviour
 
         AudioManager.Instance.PlayMusic("main");
     }
+
+    public void triggerEnd()
+    {
+        //pausar juego, pantalla fin, espera, main menú (borrar datos?)
+        
+        StartCoroutine(FadeToEnd());
+    }
+
+    public IEnumerator FadeToEnd()
+    {
+        endTxt.SetActive(false);
+        endBG.FadeEnd();
+        endScreen.SetActive(true);
+        endBG.FadeStart();
+        
+        yield return new WaitForSeconds(duracion);
+        setText(TXTEND);
+        endTxt.SetActive(true);
+
+        yield return new WaitForSeconds(duracion);
+        
+        ReturnToMainMenu();
+        SaveManager.instance.ResetGame();
+        
+    }
+
+    public void setText(string txt)
+    {
+        foreach (TMP_Text child in endTxt.GetComponentsInChildren<TMP_Text>()){
+            child.text = txt;
+        }
+    }
+
 
     //-- AUDIO UI --//
     public void ToggleMusic()

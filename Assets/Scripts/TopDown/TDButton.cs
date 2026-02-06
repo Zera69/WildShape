@@ -31,18 +31,18 @@ public class TDButton : MonoBehaviour
         {
             isOn = false;
             spRen.sprite = buttonOff;
-            for(int i = 0; i < barriers.Length; i++)
-            {
-                barriers[i].turnOff();
-            }
+            
         } else
         {
             isOn = true;
             spRen.sprite = buttonOn;
-            for (int i = 0; i < barriers.Length; i++)
-            {
-                barriers[i].turnOn();
-            }
+            
         }
+
+        for (int i = 0; i < barriers.Length; i++)
+        {
+            barriers[i].Active();
+        }
+
     }
 }

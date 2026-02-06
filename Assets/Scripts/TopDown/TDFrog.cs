@@ -61,12 +61,13 @@ public class TDFrog : MonoBehaviour
 
         // Detectamos botón con OverlapPoint + Raycast
         Collider2D mouseCollider = Physics2D.OverlapPoint(mouseWorldPos, buttonLayer);
+
         // Si hay un collider bajo el ratón
-        if(mouseCollider != null)
+        if (mouseCollider != null)
         {
             // Verificamos distancia
             float dist = Vector2.Distance(origin, mouseCollider.transform.position);
-            if(dist <= maxInteractDistance)
+            if (dist <= maxInteractDistance)
             {
                 // Hacemos un raycast para asegurarnos de que no hay obstáculos
                 RaycastHit2D hitButton = Physics2D.Raycast(origin, ((Vector2)mouseCollider.transform.position - origin).normalized, dist, buttonLayer);
@@ -75,7 +76,12 @@ public class TDFrog : MonoBehaviour
                 if(hitButton.collider != null && hitButton.collider == mouseCollider)
                 {
                     buttonPoint = hitButton.collider.gameObject;
+                    
                 }
+            }
+            else
+            {
+                buttonPoint = null;
             }
         //Si no hay collider bajo el ratón, limpiamos la variable
         }else

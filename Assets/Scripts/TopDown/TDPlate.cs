@@ -19,7 +19,7 @@ public class TDPlate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isDownBarrier && collision.gameObject.CompareTag("Box" ))
+        if (!isDownBarrier && (collision.gameObject.CompareTag("Box") || collision.gameObject.CompareTag("Player")))
         {
             AudioManager.Instance.PlaySFX("pressure");
             isDownBarrier = true;
@@ -39,7 +39,7 @@ public class TDPlate : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isDownBarrier && collision.gameObject.CompareTag("Box" ))
+        if (isDownBarrier && (collision.gameObject.CompareTag("Box") || collision.gameObject.CompareTag("Player")))
         {
             AudioManager.Instance.PlaySFX("pressure");
             isDownBarrier = false;
