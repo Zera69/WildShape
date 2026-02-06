@@ -48,7 +48,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TD_Sapo_2.unity
     guid: ec4b7d7b17b3bec4a80f41bc20a16974
   - enabled: 1
-    path: Assets/Scenes/TopDown2.unity
+    path: Assets/Scenes/Lvl1Ardilla.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/TD_Ardilla_2.unity
