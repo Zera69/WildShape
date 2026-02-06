@@ -76,7 +76,7 @@ public class TDCharacterManager : MonoBehaviour
             //Si la ardilla est  en un arbusto donde solo entra ella, no se puede transformar
 
             RaycastHit2D notBush = Physics2D.Raycast(player.transform.position, new Vector3(0f, 0f, 0f), 1f, stopColliders);
-            if (n != 2 || (n == 2 && notBush.collider == null))
+            if (n != 3 || (n == 3 && notBush.collider == null))
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
@@ -118,7 +118,7 @@ public class TDCharacterManager : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
                     soltarCaja();
-                    //Ardilla
+                    //Sapo
 
                     n = 2;
                     UpdatePlayer();
@@ -126,7 +126,7 @@ public class TDCharacterManager : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     soltarCaja();
-                    //Sapo
+                    //Ardilla
 
                     n = 3;
                     UpdatePlayer();

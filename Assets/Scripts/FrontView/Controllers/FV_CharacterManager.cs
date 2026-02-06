@@ -51,7 +51,7 @@ public class CharacterManager : MonoBehaviour
         //Configurar el personaje actual segun el guardado
         n = data.CurrentCharacterIndex;
 
-        scriptSapo = lista[3].GetComponent<FVHook>();
+        scriptSapo = lista[2].GetComponent<FVHook>();
         StartCoroutine(FixBug());
         agarrarScriptBear = lista[1].GetComponent<Agarrar>();
         agarrarScriptDruida = lista[0].GetComponent<Agarrar>();
@@ -86,7 +86,7 @@ public class CharacterManager : MonoBehaviour
     IEnumerator FixBug()
     {
         yield return new WaitForSeconds(0.01f);
-        n = 3;
+        n = 2;
         UpdatePlayer();
         scriptSapo.DesactiveHookAndPull();
         n = data.CurrentCharacterIndex;
@@ -155,10 +155,10 @@ public class CharacterManager : MonoBehaviour
                 TransformBear();
             }else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
-                TransformSquirrel();
+                TransformToad();
             }else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
-                TransformToad();
+                TransformSquirrel();
             }
             
         }
@@ -188,28 +188,28 @@ public class CharacterManager : MonoBehaviour
             }
     }
 
+    public void TransformToad()
+    {
+        soltarCaja();
+        //Sapo
+        n = 2;
+        UpdatePlayer();
+        //Desactivar el hookSapo NO TOCAR
+        scriptSapo.DesactiveHookAndPull();
+    }
+
     public void TransformSquirrel()
     {
         //Comprobar si el personaje esta desbloqueado
         if(data.unlockedCharacters.Contains("Squirrel"))
         {
             soltarCaja();
-            n = 2;
+            n = 3;
             UpdatePlayer(); 
         }else
         {
             Debug.Log("Personaje no desbloqueado");
         }
-    }
-
-    public void TransformToad()
-    {
-        soltarCaja();
-        //Sapo
-        n = 3;
-        UpdatePlayer();
-        //Desactivar el hookSapo NO TOCAR
-        scriptSapo.DesactiveHookAndPull();
     }
 
     public int GetCurrentCharacterIndex()
