@@ -17,6 +17,7 @@ public class GameEnd : MonoBehaviour
     {
         if(dentro && Input.GetKeyDown(KeyCode.E))
         {
+            menuManager = FindObjectOfType<MenuManager>();
             menuManager.triggerEnd();
         }
     }

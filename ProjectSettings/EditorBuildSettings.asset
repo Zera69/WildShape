@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv1Oso.unity
     guid: 5c746625daa603a499332887efcdde00
   - enabled: 1
+    path: Assets/Scenes/TD_Oso_Sapo.unity
+    guid: cdbdf02bcf52f0a46b9b46195a45c591
+  - enabled: 1
     path: Assets/Scenes/Lv1Sapo.unity
     guid: d4ac753619b713a41964e60a21442866
   - enabled: 1
@@ -39,6 +42,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv4Sapo.unity
     guid: bba290fa830a8b04c8abcffa20666bc0
   - enabled: 1
+    path: Assets/Scenes/TD_Sapo_1.unity
+    guid: bf956db2aa22e114fb4f27d9922c33da
+  - enabled: 1
+    path: Assets/Scenes/TD_Sapo_2.unity
+    guid: ec4b7d7b17b3bec4a80f41bc20a16974
+  - enabled: 1
     path: Assets/Scenes/TopDown2.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TD_Ardilla_2.unity
+    guid: c0d992a3e08db5c41a2eb276492c5208
+  - enabled: 1
+    path: Assets/Scenes/TD_Ardilla_3.unity
+    guid: 8fd6f7907eb450746a0ca2e12c8eb5fe
   m_configObjects: {}
