@@ -98,6 +98,7 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         
         mainUI.SetActive(true);
+        endScreen.SetActive(false);
     }
 
     public void checkDataExists()
@@ -138,7 +139,6 @@ public class MenuManager : MonoBehaviour
 
         yield return new WaitForSeconds(duracion);
 
-        ReturnToMainMenu();
         SaveManager.instance.ResetGame();
 
         sceneLoadManager.NextScene();

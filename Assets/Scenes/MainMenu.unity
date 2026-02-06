@@ -431,6 +431,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoadManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7613657821252685585, guid: 7f3d9ac8e4685ab458d3f206405f6b72,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
