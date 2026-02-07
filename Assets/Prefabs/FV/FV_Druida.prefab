@@ -202,7 +202,7 @@ MonoBehaviour:
     m_Bits: 1152
   FloorLayer:
     serializedVersion: 2
-    m_Bits: 1344
+    m_Bits: 5440
   wallRight: 0
   wallLeft: 0
   lookDirection: {x: 1, y: 0}

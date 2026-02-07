@@ -23,8 +23,12 @@ public class FVDoor : MonoBehaviour
     public void turnOn()
     {
         AudioManager.Instance.PlaySFX("barrier");
-        anim.SetBool("Active", true);
-        collider.enabled = true;
+        if(anim!=null)
+        {
+            anim.SetBool("Active", true);
+            collider.enabled = true; 
+        }
+        
     }
 
     public void turnOff()
