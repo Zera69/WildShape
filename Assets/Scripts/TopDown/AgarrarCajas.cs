@@ -16,6 +16,16 @@ public class AgarrarCaja : MonoBehaviour
     public Transform cajaAgarrada;
     public Animator anim;
 
+    //Druida
+    private RaycastHit2D hitBox;
+    //oso
+    private Vector2 offsetUp;
+    private Vector2 offsetDown;
+    private RaycastHit2D hitBear;
+    private RaycastHit2D hitBear2;
+    private Vector2 offsetRight;
+    private Vector2 offsetLeft;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,33 +54,85 @@ public class AgarrarCaja : MonoBehaviour
             distanciaAgarrar = 1.5;
             distanciaPared = 1.5;
         }
-        RaycastHit2D hitBox = Physics2D.Raycast(transform.position, lookDirection, (float)distanciaAgarrar, cajaLayer);
-        Debug.DrawRay(transform.position, lookDirection * (float)distanciaAgarrar, Color.green);
+
+        if(characterManager.n == 1) // Si es oso, hacemos raycasts adicionales para el tamaño
+        {
+                if(characterMovement.moveDir.x != 0 && !agarrado)
+                {
+                    offsetUp = Vector2.up * 0.5f;
+                    offsetDown = Vector2.down * 0.5f;
+                    hitBear = Physics2D.Raycast((Vector2)transform.position + offsetUp, lookDirection, (float)distanciaAgarrar, cajaLayer);
+                    hitBear2 = Physics2D.Raycast((Vector2)transform.position + offsetDown, lookDirection, (float)distanciaAgarrar, cajaLayer);  
+                }
+                else if(characterMovement.moveDir.y != 0 && !agarrado)
+                {
+                    offsetRight = Vector2.right * 0.5f;
+                    offsetLeft = Vector2.left * 0.5f;
+                    hitBear = Physics2D.Raycast((Vector2)transform.position + offsetRight, lookDirection, (float)distanciaAgarrar, cajaLayer);
+                    hitBear2 = Physics2D.Raycast((Vector2)transform.position + offsetLeft, lookDirection, (float)distanciaAgarrar, cajaLayer);
+                }
+                Debug.DrawRay((Vector2)transform.position + offsetRight, lookDirection * (float)distanciaAgarrar, Color.green);
+                Debug.DrawRay((Vector2)transform.position + offsetLeft, lookDirection * (float)distanciaAgarrar, Color.green);
+                Debug.DrawRay((Vector2)transform.position + offsetUp, lookDirection * (float)distanciaAgarrar, Color.green);
+                Debug.DrawRay((Vector2)transform.position + offsetDown, lookDirection * (float)distanciaAgarrar, Color.green);
+                
+        }else if (characterManager.n == 0 )
+        {
+            hitBox = Physics2D.Raycast(transform.position, lookDirection, (float)distanciaAgarrar, cajaLayer);
+            Debug.DrawRay(transform.position, lookDirection * (float)distanciaAgarrar, Color.green); 
+        }
 
         //Al presionar E
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if(agarrado && characterMovement.movePoint.position == transform.position)
+            if(characterManager.n == 0 )
             {
-                agarrado = false;
-                cajaAgarrada.parent = null;
-                cajaAgarrada = null;
+                if(agarrado && characterMovement.movePoint.position == transform.position)
+                {
+                    agarrado = false;
+                    cajaAgarrada.parent = null;
+                    cajaAgarrada = null;
 
-                anim.SetBool("BoxGrab", false);
+                    anim.SetBool("BoxGrab", false);
 
-            } 
-            else if (hitBox.collider != null && characterMovement.movePoint.position == transform.position)
+                } 
+                else if (hitBox.collider != null && characterMovement.movePoint.position == transform.position)
+                {
+                    agarrado = true;
+                    GameObject caja = hitBox.collider.gameObject;
+                    caja.transform.parent = this.transform;
+                    cajaAgarrada = caja.transform;
+
+                    anim.SetBool("BoxGrab", true);
+                    anim.SetFloat("MoveX", anim.GetFloat("LastX"));
+                    anim.SetFloat("MoveY", anim.GetFloat("LastY"));
+
+                }
+            }else if(characterManager.n == 1)
             {
-                agarrado = true;
-                GameObject caja = hitBox.collider.gameObject;
-                caja.transform.parent = this.transform;
-                cajaAgarrada = caja.transform;
+                if(agarrado && characterMovement.movePoint.position == transform.position)
+                {
+                    agarrado = false;
+                    cajaAgarrada.parent = null;
+                    cajaAgarrada = null;
 
-                anim.SetBool("BoxGrab", true);
-                anim.SetFloat("MoveX", anim.GetFloat("LastX"));
-                anim.SetFloat("MoveY", anim.GetFloat("LastY"));
+                    anim.SetBool("BoxGrab", false);
 
+                } 
+                else if (hitBear.collider!=null && hitBear2.collider!=null && characterMovement.movePoint.position == transform.position)
+                {
+                    agarrado = true;
+                    GameObject caja = hitBear.collider.gameObject;
+                    caja.transform.parent = this.transform;
+                    cajaAgarrada = caja.transform;
+
+                    anim.SetBool("BoxGrab", true);
+                    anim.SetFloat("MoveX", anim.GetFloat("LastX"));
+                    anim.SetFloat("MoveY", anim.GetFloat("LastY"));
+
+                }
             }
+            
         }
     }
 
