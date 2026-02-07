@@ -290,7 +290,7 @@ MonoBehaviour:
     m_Bits: 1160
   FloorLayer:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 5440
   wallRight: 0
   wallLeft: 0
 --- !u!114 &5880409909873439960

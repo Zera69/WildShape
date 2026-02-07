@@ -128,7 +128,12 @@ public class Agarrar : MonoBehaviour
             {
                 dir = Vector2.left;
             }
-            Vector2 origin = (Vector2)boxCol.bounds.center + dir * (boxCol.bounds.extents.x + 0.05f);
+            float yOffset = boxCol.bounds.extents.y * 0.3f; // 30% hacia abajo
+
+Vector2 origin = new Vector2(
+    boxCol.bounds.center.x,
+    boxCol.bounds.center.y - yOffset
+) + dir * (boxCol.bounds.extents.x + 0.05f);
             RaycastHit2D hitWall = Physics2D.Raycast(origin,dir,(float)distanciaPared,paredLayer);
             Debug.DrawRay(origin, dir * (float)distanciaPared, Color.red);
             if(hitWall.collider != null)

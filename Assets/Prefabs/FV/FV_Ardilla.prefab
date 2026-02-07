@@ -183,7 +183,7 @@ MonoBehaviour:
     m_Bits: 1160
   FloorLayer:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 5440
 --- !u!232 &7868235213702380737
 DistanceJoint2D:
   m_ObjectHideFlags: 0

@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv4Sapo.unity
     guid: bba290fa830a8b04c8abcffa20666bc0
   - enabled: 1
+    path: Assets/Scenes/Lv5Sapo.unity
+    guid: aa9ee623e83102d4c99dbe0de19a39c6
+  - enabled: 1
     path: Assets/Scenes/TD_Sapo_1.unity
     guid: bf956db2aa22e114fb4f27d9922c33da
   - enabled: 1
