@@ -168,17 +168,26 @@ public class CharacterManager : MonoBehaviour
 
     public void TransformDruida()
     {
-        soltarCaja();
-        //Druida
-        n = 0;
-        UpdatePlayer();
+        if (data.unlockedCharacters.Contains("Druid"))
+        {
+            soltarCaja();
+            //Druida
+            n = 0;
+            UpdatePlayer();
+        }
+        else
+        {
+            Debug.Log("Personaje no desbloqueado");
+        }
+        
     }
 
     public void TransformBear()
     {
-        //Si no hay obstaculos para transformarse en oso
-        if(canTransformBearRight.collider == null && canTransformBearLeft.collider == null 
-            && canTransformBearUp.collider == null && canTransformBearRight2.collider == null 
+        if (data.unlockedCharacters.Contains("Bear"))
+        {
+            if (canTransformBearRight.collider == null && canTransformBearLeft.collider == null
+            && canTransformBearUp.collider == null && canTransformBearRight2.collider == null
             && canTransformBearLeft2.collider == null)
             {
                 soltarCaja();
@@ -186,16 +195,31 @@ public class CharacterManager : MonoBehaviour
                 n = 1;
                 UpdatePlayer();
             }
+        }
+        else
+        {
+            Debug.Log("Personaje no desbloqueado");
+        }
+        //Si no hay obstaculos para transformarse en oso
+        
     }
 
     public void TransformToad()
     {
-        soltarCaja();
-        //Sapo
-        n = 2;
-        UpdatePlayer();
-        //Desactivar el hookSapo NO TOCAR
-        scriptSapo.DesactiveHookAndPull();
+        if (data.unlockedCharacters.Contains("Toad"))
+        {
+            soltarCaja();
+            //Sapo
+            n = 2;
+            UpdatePlayer();
+            //Desactivar el hookSapo NO TOCAR
+            scriptSapo.DesactiveHookAndPull();
+        }
+        else
+        {
+            Debug.Log("Personaje no desbloqueado");
+        }
+        
     }
 
     public void TransformSquirrel()
@@ -232,6 +256,7 @@ public class CharacterManager : MonoBehaviour
                 lista[i].SetActive(false);
             }
         }
+        AudioManager.Instance.PlaySFX("transform");
     }
 
 }

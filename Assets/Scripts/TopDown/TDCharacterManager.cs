@@ -9,6 +9,8 @@ public class TDCharacterManager : MonoBehaviour
     private GameObject player;
     public int n = 0;
 
+    private SaveData data;
+
     public Transform movePoint;
     public LayerMask stopColliders;
     private TDCharacterMovement characterMovementDruida;
@@ -29,6 +31,8 @@ public class TDCharacterManager : MonoBehaviour
         characterMovementSapo = lista[3].GetComponent<TDCharacterMovement>();
         agarrarCajaDruida = lista[0].GetComponent<AgarrarCaja>();
         agarrarCajaBear = lista[1].GetComponent<AgarrarCaja>();
+
+        data = SaveManager.instance.GetData();
     }
 
     private void soltarCaja()
@@ -80,15 +84,23 @@ public class TDCharacterManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    if(n!=0)
+                    if (data.unlockedCharacters.Contains("Druid"))
                     {
-                        soltarCaja();
+                        if (n != 0)
+                        {
+                            soltarCaja();
+                        }
+
+                        //Druida
+
+                        n = 0;
+                        UpdatePlayer();
+                    }
+                    else
+                    {
+                        Debug.Log("Personaje no desbloqueado");
                     }
                     
-                    //Druida
-
-                    n = 0;
-                    UpdatePlayer();
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
@@ -106,30 +118,54 @@ public class TDCharacterManager : MonoBehaviour
 
                     if (n != 1 && free1.collider == null && free2.collider == null && free3.collider == null)
                     {
-                        soltarCaja();
-                        pos.x -= 0.5f;
-                        pos.y += 0.5f;
+                        if (data.unlockedCharacters.Contains("Bear"))
+                        {
+                            soltarCaja();
+                            pos.x -= 0.5f;
+                            pos.y += 0.5f;
 
-                        n = 1;
-                        UpdatePlayer();
+                            n = 1;
+                            UpdatePlayer();
+                        }
+                        else
+                        {
+                            Debug.Log("Personaje no desbloqueado");
+                        }
+                        
                     }
 
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
-                    soltarCaja();
-                    //Sapo
+                    if (data.unlockedCharacters.Contains("Toad"))
+                    {
+                        soltarCaja();
+                        //Sapo
 
-                    n = 2;
-                    UpdatePlayer();
+                        n = 2;
+                        UpdatePlayer();
+                    }
+                    else
+                    {
+                        Debug.Log("Personaje no desbloqueado");
+                    }
+                    
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
-                    soltarCaja();
-                    //Ardilla
+                    if (data.unlockedCharacters.Contains("Squirrel"))
+                    {
+                        soltarCaja();
+                        //Ardilla
 
-                    n = 3;
-                    UpdatePlayer();
+                        n = 3;
+                        UpdatePlayer();
+                    }
+                    else
+                    {
+                        Debug.Log("Personaje no desbloqueado");
+                    }
+                    
                 }
                 
             }
@@ -152,6 +188,7 @@ public class TDCharacterManager : MonoBehaviour
                 lista[i].SetActive(false);
             }
         }
+        AudioManager.Instance.PlaySFX("transform");
     }
 
 }
