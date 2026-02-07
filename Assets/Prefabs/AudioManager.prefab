@@ -322,5 +322,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d246f8b9b51640041a6861a056cc2d45, type: 3}
   - name: jump
     clip: {fileID: 8300000, guid: e55a9362b8ab9074f9ca7bd7cf50a8be, type: 3}
+  - name: transform
+    clip: {fileID: 8300000, guid: 8465a5ab04e696b4185f7fd6dd8e429f, type: 3}
+  - name: box
+    clip: {fileID: 8300000, guid: cbdeb3e26d2917843b89a8cbc934b2f3, type: 3}
   musicSource: {fileID: 469071570310956970}
   sfxSource: {fileID: 1777772076553024874}

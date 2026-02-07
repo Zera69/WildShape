@@ -93,6 +93,7 @@ public class AgarrarCaja : MonoBehaviour
                     cajaAgarrada.parent = null;
                     cajaAgarrada = null;
 
+                    AudioManager.Instance.PlaySFX("box");
                     anim.SetBool("BoxGrab", false);
 
                 } 
@@ -103,6 +104,7 @@ public class AgarrarCaja : MonoBehaviour
                     caja.transform.parent = this.transform;
                     cajaAgarrada = caja.transform;
 
+                    AudioManager.Instance.PlaySFX("box");
                     anim.SetBool("BoxGrab", true);
                     anim.SetFloat("MoveX", anim.GetFloat("LastX"));
                     anim.SetFloat("MoveY", anim.GetFloat("LastY"));
@@ -116,6 +118,7 @@ public class AgarrarCaja : MonoBehaviour
                     cajaAgarrada.parent = null;
                     cajaAgarrada = null;
 
+                    AudioManager.Instance.PlaySFX("box");
                     anim.SetBool("BoxGrab", false);
 
                 } 
@@ -126,6 +129,7 @@ public class AgarrarCaja : MonoBehaviour
                     caja.transform.parent = this.transform;
                     cajaAgarrada = caja.transform;
 
+                    AudioManager.Instance.PlaySFX("box");
                     anim.SetBool("BoxGrab", true);
                     anim.SetFloat("MoveX", anim.GetFloat("LastX"));
                     anim.SetFloat("MoveY", anim.GetFloat("LastY"));

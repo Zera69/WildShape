@@ -75,22 +75,24 @@ public class Agarrar : MonoBehaviour
                             cajaAgarrada.parent = null;
                             cajaAgarrada = null;
                         }
+                        AudioManager.Instance.PlaySFX("box");
                         anim.SetBool("BoxGrab", false);
                         Physics2D.IgnoreCollision(playerCollider, boxCollider, false);
                     }
-            }else if(characterManager.n == 1)
-                {
-                    Debug.Log("Soltando caja");
-                    agarrado = false;
-                    caja.GetComponent<Rigidbody2D>().isKinematic = false;
-                    if (cajaAgarrada != null)
+                }else if(characterManager.n == 1)
                     {
-                        cajaAgarrada.parent = null;
-                        cajaAgarrada = null;
+                        Debug.Log("Soltando caja");
+                        agarrado = false;
+                        caja.GetComponent<Rigidbody2D>().isKinematic = false;
+                        if (cajaAgarrada != null)
+                        {
+                            cajaAgarrada.parent = null;
+                            cajaAgarrada = null;
+                        }
+                        AudioManager.Instance.PlaySFX("box");
+                        anim.SetBool("BoxGrab", false);
+                        Physics2D.IgnoreCollision(playerCollider, boxCollider, false);
                     }
-                    anim.SetBool("BoxGrab", false);
-                    Physics2D.IgnoreCollision(playerCollider, boxCollider, false);
-                }
                 
 
             } 
@@ -106,9 +108,10 @@ public class Agarrar : MonoBehaviour
 
                 Physics2D.IgnoreCollision(playerCollider, boxCollider, true);
 
+                AudioManager.Instance.PlaySFX("box");
                 anim.SetBool("BoxGrab", true);
                 anim.SetFloat("MoveX", anim.GetFloat("LastX"));
-                anim.SetFloat("MoveY", anim.GetFloat("LastY"));
+                //anim.SetFloat("MoveY", anim.GetFloat("LastY"));
 
             }
         }
