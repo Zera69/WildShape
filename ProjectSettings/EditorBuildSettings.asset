@@ -15,14 +15,17 @@ EditorBuildSettings:
     path: Assets/Scenes/FV_Druida_1.unity
     guid: fce0f8515de4023499e53a2fea4bfc79
   - enabled: 1
-    path: Assets/Scenes/TD_Ardilla1.unity
-    guid: 4741b401b17a9ba4388d80c3ba45e3e6
+    path: Assets/Scenes/TopDown 1.unity
+    guid: cd9ff64942375194589cb901d35e3968
   - enabled: 1
     path: Assets/Scenes/TD_Druida_Oso.unity
     guid: 6a4622c97323ab94490873ee247cc4c1
   - enabled: 1
-    path: Assets/Scenes/FV_TutoArdilla.unity
-    guid: 6557860585722a64f9ab3fa804e99182
+    path: Assets/Scenes/TD_TutoOso.unity
+    guid: 3764c0c50860032479394508a9f0e81b
+  - enabled: 1
+    path: Assets/Scenes/FV_Oso_1.unity
+    guid: 998100572ce00ef44879bd73e575c1de
   - enabled: 1
     path: Assets/Scenes/Lv1Oso.unity
     guid: 5c746625daa603a499332887efcdde00
@@ -42,14 +45,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv4Sapo.unity
     guid: bba290fa830a8b04c8abcffa20666bc0
   - enabled: 1
-    path: Assets/Scenes/Lv5Sapo.unity
-    guid: aa9ee623e83102d4c99dbe0de19a39c6
-  - enabled: 1
     path: Assets/Scenes/TD_Sapo_1.unity
     guid: bf956db2aa22e114fb4f27d9922c33da
   - enabled: 1
     path: Assets/Scenes/TD_Sapo_2.unity
     guid: ec4b7d7b17b3bec4a80f41bc20a16974
+  - enabled: 1
+    path: Assets/Scenes/Lv5Sapo.unity
+    guid: aa9ee623e83102d4c99dbe0de19a39c6
+  - enabled: 1
+    path: Assets/Scenes/TD_Ardilla1.unity
+    guid: 4741b401b17a9ba4388d80c3ba45e3e6
+  - enabled: 1
+    path: Assets/Scenes/FV_TutoArdilla.unity
+    guid: 6557860585722a64f9ab3fa804e99182
   - enabled: 1
     path: Assets/Scenes/Lvl1Ardilla.unity
     guid: 2cda990e2423bbf4892e6590ba056729

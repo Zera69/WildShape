@@ -224,8 +224,8 @@ public class CharacterManager : MonoBehaviour
 
     public void TransformSquirrel()
     {
-        //Comprobar si el personaje esta desbloqueado
-        if(data.unlockedCharacters.Contains("Squirrel"))
+        //Comprobar si el personaje esta desbloqueado 
+        if (data.unlockedCharacters.Contains("Squirrel"))
         {
             soltarCaja();
             n = 3;
