@@ -9,6 +9,8 @@ public class SceneLoadManager : MonoBehaviour
     public Image imagenDeFondo;
     public float duracion = 1f;
 
+    private MenuManager menuManager;
+
     public GameObject fade;
 
     // Start is called before the first frame update
@@ -59,6 +61,9 @@ public class SceneLoadManager : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         saveCurrentScene(currentSceneIndex - 1);
         SceneManager.LoadScene(currentSceneIndex - 1);
+
+        menuManager = FindObjectOfType<MenuManager>();
+        menuManager.UpdateCharacters();
     }
 
     IEnumerator LoadWithFadeNextScene()
@@ -67,6 +72,9 @@ public class SceneLoadManager : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         saveCurrentScene(currentSceneIndex + 1);
         SceneManager.LoadScene(currentSceneIndex + 1);
+
+        menuManager = FindObjectOfType<MenuManager>();
+        menuManager.UpdateCharacters();
     }
 
     IEnumerator LoadWithFadeScene(int s)
@@ -74,12 +82,18 @@ public class SceneLoadManager : MonoBehaviour
         yield return FadeToBlack();
         saveCurrentScene(s);
         SceneManager.LoadScene(s);
+
+        menuManager=FindObjectOfType<MenuManager>();
+        menuManager.UpdateCharacters();
     }
 
     IEnumerator LoadMainMenu()
     {
         yield return FadeToBlack();
         SceneManager.LoadScene(0);
+
+        menuManager = FindObjectOfType<MenuManager>();
+        menuManager.UpdateCharacters();
     }
 
     IEnumerator FadeFromBlack()
