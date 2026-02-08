@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenuAudio;
     public Slider musicSlider;
     public Slider sfxSlider;
+    public Slider musicSliderMain;
+    public Slider sfxSliderMain;
 
     public GameObject continueBttn;
     public bool isPaused = false;
@@ -278,6 +280,16 @@ public class MenuManager : MonoBehaviour
     public void SFXVolume()
     {
         AudioManager.Instance.SFXVolume(sfxSlider.value);
+    }
+
+    public void MusicVolumeMain()
+    {
+        AudioManager.Instance.MusicVolume(musicSliderMain.value);
+    }
+
+    public void SFXVolumeMain()
+    {
+        AudioManager.Instance.SFXVolume(sfxSliderMain.value);
     }
 
     //-- CHARACTER UI --//

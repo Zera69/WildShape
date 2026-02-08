@@ -425,6 +425,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4914484205602110074}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1040997887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1972003229476797962, guid: 68c7166bca761194dae7b26dc008ce9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4914484205602110074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1096181435 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2768271390451427294, guid: 68c7166bca761194dae7b26dc008ce9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4914484205602110074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1248708228
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +606,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3d9ac8e4685ab458d3f206405f6b72, type: 3}
+--- !u!114 &1415813392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4708465637957534836, guid: 68c7166bca761194dae7b26dc008ce9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4914484205602110074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1662885993
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,15 +786,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 160872541689087213, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: sfxSlider
+      value: 
+      objectReference: {fileID: 1096181435}
+    - target: {fileID: 160872541689087213, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: sfxSliderMain
+      value: 
+      objectReference: {fileID: 1415813392}
+    - target: {fileID: 160872541689087213, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: musicSliderMain
+      value: 
+      objectReference: {fileID: 1040997887}
+    - target: {fileID: 1972003229476797962, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MusicVolumeMain
+      objectReference: {fileID: 0}
     - target: {fileID: 3726670223642959845, guid: 68c7166bca761194dae7b26dc008ce9c,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4018510105071389035, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: m_Name
+      value: SFXSlider
+      objectReference: {fileID: 0}
     - target: {fileID: 4705708939395390442, guid: 68c7166bca761194dae7b26dc008ce9c,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708465637957534836, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SFXVolumeMain
       objectReference: {fileID: 0}
     - target: {fileID: 5565362853875247728, guid: 68c7166bca761194dae7b26dc008ce9c,
         type: 3}
@@ -809,6 +875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174852054650346113, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: m_Name
+      value: SFXSlider
       objectReference: {fileID: 0}
     - target: {fileID: 8944750291062820533, guid: 68c7166bca761194dae7b26dc008ce9c,
         type: 3}
