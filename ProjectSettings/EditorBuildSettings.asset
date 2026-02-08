@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TD_Druida_Oso.unity
     guid: 6a4622c97323ab94490873ee247cc4c1
   - enabled: 1
-    path: Assets/Scenes/FV_Oso_1.unity
+    path: Assets/Scenes/FV_TutoArdilla.unity
     guid: 6557860585722a64f9ab3fa804e99182
   - enabled: 1
     path: Assets/Scenes/Lv1Oso.unity
