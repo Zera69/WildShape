@@ -339,10 +339,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1242598660}
-    - targetCorrespondingSourceObject: {fileID: 5832550360820556549, guid: 32af1d100e7792a41bf08ba60ece87b5,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1242598659}
   m_SourcePrefab: {fileID: 100100000, guid: 32af1d100e7792a41bf08ba60ece87b5, type: 3}
 --- !u!114 &100308242 stripped
 MonoBehaviour:
@@ -529,6 +525,11 @@ PrefabInstance:
     - target: {fileID: 5107542965601938465, guid: 68c7166bca761194dae7b26dc008ce9c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944750291062820533, guid: 68c7166bca761194dae7b26dc008ce9c,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5553,30 +5554,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 100308241}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1242598659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242598657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca454bca235e7524bba04e32883b7b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agarrado: 0
-  cajaLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  paredLayer:
-    serializedVersion: 2
-    m_Bits: 2688
-  distanciaAgarrar: 1
-  distanciaPared: 0.5
-  paredDelante: 0
-  cajaAgarrada: {fileID: 0}
-  anim: {fileID: 0}
 --- !u!61 &1242598660
 BoxCollider2D:
   m_ObjectHideFlags: 0
