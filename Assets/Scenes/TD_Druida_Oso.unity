@@ -7234,6 +7234,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TD_PlateGreen
       objectReference: {fileID: 0}
+    - target: {fileID: 3178016990820303668, guid: 6790de99683799748aaa76ad0d580dbd,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4058403661346648123, guid: 6790de99683799748aaa76ad0d580dbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11208,6 +11213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902450621451462689, guid: d5b6696cf33865c449759fc3badc9d6e,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8635466590936770660, guid: d5b6696cf33865c449759fc3badc9d6e,
         type: 3}
